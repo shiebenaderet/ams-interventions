@@ -8,12 +8,23 @@
     --tier2-color: #F5A623;
     --tier3-color: #7ED321;
     --accent-color: #D0021B;
-    --text-dark: #333333;
-    --text-light: #666666;
+    --success-color: #28a745;
+    --text-dark: #2C3E50;
+    --text-medium: #555555;
+    --text-light: #6C757D;
     --bg-light: #F8F9FA;
+    --bg-lighter: #FAFBFC;
     --white: #FFFFFF;
-    --border-color: #E0E0E0;
+    --border-color: #DEE2E6;
+    --border-light: #E9ECEF;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
     --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    --shadow-hover: 0 8px 24px rgba(0,0,0,0.15);
+    --radius-sm: 4px;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Reset and Base Styles */
@@ -25,9 +36,12 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-dark);
     background-color: var(--bg-light);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -528,4 +542,434 @@ button:focus,
 .intervention-card:focus {
     outline: 3px solid var(--tier1-color);
     outline-offset: 2px;
+}
+
+/* ===========================
+   ENHANCED PROFESSIONAL STYLES
+   =========================== */
+
+/* Enhanced Typography */
+h4 {
+    color: var(--text-dark);
+    margin: 1.25rem 0 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+strong {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+em {
+    color: var(--text-medium);
+}
+
+/* Enhanced Lists */
+ul:not(.features):not([class]) {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+ul li, ol li {
+    margin: 0.5rem 0;
+    color: var(--text-medium);
+}
+
+/* Checkboxes in Implementation Guides */
+li:has(input[type="checkbox"]),
+.checklist-item {
+    list-style: none;
+    margin-left: -2rem;
+    padding-left: 2rem;
+}
+
+/* Enhanced Tables with Better Readability */
+table {
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--tier1-color) 0%, #357abd 100%);
+}
+
+thead th {
+    background: transparent;
+    color: var(--white);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+tbody tr {
+    transition: var(--transition);
+}
+
+tbody tr:hover {
+    background: var(--bg-lighter);
+    transform: scale(1.01);
+}
+
+td strong {
+    color: var(--tier1-color);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+/* Enhanced Example Blocks */
+.example-block {
+    background: linear-gradient(to right, #f8f9fa 0%, #ffffff 100%);
+    border-left: 5px solid var(--tier1-color);
+    padding: 1.75rem;
+    margin: 1.5rem 0;
+    border-radius: var(--radius);
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+.example-block::before {
+    content: "Example";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--tier1-color);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Enhanced Warning/Note Boxes */
+.warning, .note, .highlight {
+    position: relative;
+    padding-left: 3rem;
+}
+
+.warning::before {
+    content: "⚠";
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+}
+
+.note::before {
+    content: "ℹ";
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    color: var(--tier1-color);
+}
+
+.highlight::before {
+    content: "💡";
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Implementation Steps Styling */
+.implementation-steps {
+    counter-reset: step-counter;
+}
+
+.implementation-steps > h3 {
+    counter-increment: step-counter;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.implementation-steps > h3::before {
+    content: counter(step-counter);
+    background: var(--tier1-color);
+    color: var(--white);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Protocol Boxes */
+.protocol-box {
+    background: var(--white);
+    border: 2px solid var(--tier1-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.protocol-box h4 {
+    color: var(--tier1-color);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Rubric Tables */
+.rubric-table {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 1.5rem 0;
+}
+
+.rubric-table table {
+    margin: 0;
+}
+
+.rubric-table td:first-child {
+    font-weight: 600;
+    background: var(--bg-lighter);
+    width: 20%;
+}
+
+/* Success Indicators */
+.success-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #d4edda;
+    border-left: 4px solid var(--success-color);
+    border-radius: var(--radius-sm);
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.success-indicator::before {
+    content: "✓";
+    color: var(--success-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Red Flag Indicators */
+.red-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #f8d7da;
+    border-left: 4px solid var(--accent-color);
+    border-radius: var(--radius-sm);
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.red-flag::before {
+    content: "✗";
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Enhanced Card Grid for Pitfalls/Solutions */
+.card-grid .card {
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-grid .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--tier1-color);
+    transition: var(--transition);
+}
+
+.card-grid .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-grid .card:hover::before {
+    width: 8px;
+}
+
+/* Timeline/Process Flow */
+.process-timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 2rem 0;
+}
+
+.process-timeline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--tier1-color), var(--tier2-color));
+}
+
+.process-step {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.process-step::before {
+    content: "";
+    position: absolute;
+    left: -2.5rem;
+    top: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--tier1-color);
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 3px var(--tier1-color);
+}
+
+/* Data Tracker Visual */
+.data-tracker {
+    background: var(--bg-lighter);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 2px dashed var(--border-color);
+    font-family: 'SF Mono', monospace;
+    margin: 1rem 0;
+}
+
+/* Quote/Dialogue Blocks */
+blockquote {
+    border-left: 4px solid var(--tier2-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-lighter);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-style: italic;
+    color: var(--text-medium);
+}
+
+/* Button Enhancements */
+button {
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+}
+
+.btn-primary {
+    background: var(--tier1-color);
+    color: var(--white);
+    border: 2px solid var(--tier1-color);
+}
+
+.btn-primary:hover {
+    background: #357abd;
+    border-color: #357abd;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Loading States */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Enhanced Print Styles */
+@media print {
+    @page {
+        margin: 1.5cm;
+    }
+
+    body {
+        background: white;
+        color: black;
+        font-size: 11pt;
+        line-height: 1.5;
+    }
+
+    h2 {
+        page-break-after: avoid;
+        border-bottom: 2px solid #000;
+    }
+
+    h3, h4 {
+        page-break-after: avoid;
+    }
+
+    .intervention-card,
+    .card,
+    table,
+    .example-block {
+        page-break-inside: avoid;
+    }
+
+    .example-block {
+        border: 1px solid #ccc;
+        background: #f5f5f5 !important;
+    }
+
+    .intervention-header {
+        background: #4A90E2 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    a[href]::after {
+        content: none;
+    }
+
+    .warning, .note {
+        border: 1px solid #000;
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection Highlighting */
+::selection {
+    background: var(--tier1-color);
+    color: var(--white);
+}
+
+::-moz-selection {
+    background: var(--tier1-color);
+    color: var(--white);
 }
