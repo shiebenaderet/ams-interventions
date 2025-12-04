@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tier 1 Interventions - AMS MTSS Toolkit</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 AMS Interventions</h1>
+            <p class="subtitle">Tier 1: Universal Interventions</p>
+            <p class="school-info">High-quality core instruction for ALL students</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tier1.html" class="active">Tier 1</a></li>
+                <li><a href="tier2.html">Tier 2</a></li>
+                <li><a href="tier3.html">Tier 3</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section>
+            <h2>About Tier 1 Interventions</h2>
+            <p>Tier 1 is the foundation of MTSS and includes universal supports provided to all students in the general education classroom. These interventions should be implemented consistently across all classrooms and are designed to meet the needs of approximately 80% of students.</p>
+            
+            <div class="highlight">
+                <strong>Key Principle:</strong> Tier 1 interventions are for EVERYONE, not just struggling students. When implemented with fidelity, they prevent many students from needing more intensive support.
+            </div>
+
+            <h3>Characteristics of Quality Tier 1</h3>
+            <ul class="features">
+                <li>Evidence-based instructional strategies</li>
+                <li>Clear learning objectives and success criteria</li>
+                <li>Differentiation within whole-class instruction</li>
+                <li>Regular formative assessment and feedback</li>
+                <li>Proactive classroom management</li>
+                <li>Positive school climate and relationships</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Search Interventions</h2>
+            <div class="search-container">
+                <input type="text" id="searchBox" class="search-box" placeholder="Search interventions..." onkeyup="filterInterventions()">
+            </div>
+            
+            <div class="filter-tags">
+                <span class="tag active" onclick="filterByTag('all')">All</span>
+                <span class="tag" onclick="filterByTag('instruction')">Instruction</span>
+                <span class="tag" onclick="filterByTag('assessment')">Assessment</span>
+                <span class="tag" onclick="filterByTag('organization')">Organization</span>
+                <span class="tag" onclick="filterByTag('relationship')">Relationships</span>
+                <span class="tag" onclick="filterByTag('technology')">Technology</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tier 1 Intervention Menu</h2>
+            <p>Click on any intervention to view detailed implementation guidance.</p>
+            
+            <div class="intervention-list">
+                <!-- Organizational Systems -->
+                <a href="interventions/tier1/organizational-systems.html" class="intervention-card" data-tags="organization">
+                    <h3>📋 Organizational Systems</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Consistent structures that help all students track assignments, materials, and deadlines.</p>
+                    <p><strong>Best for:</strong> Executive functioning, time management</p>
+                </a>
+
+                <!-- Text-to-Speech -->
+                <a href="interventions/tier1/text-to-speech.html" class="intervention-card" data-tags="technology">
+                    <h3>🔊 Text-to-Speech & Speech-to-Text</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Technology tools that read text aloud or convert spoken words to written text.</p>
+                    <p><strong>Best for:</strong> Reading support, writing support, ELL</p>
+                </a>
+
+                <!-- Vocabulary Support -->
+                <a href="interventions/tier1/vocabulary-support.html" class="intervention-card" data-tags="instruction">
+                    <h3>📝 Vocabulary Support</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Systematic teaching of academic vocabulary through cards, word walls, and games.</p>
+                    <p><strong>Best for:</strong> Academic language, content comprehension</p>
+                </a>
+
+                <!-- Graphic Organizers -->
+                <a href="interventions/tier1/graphic-organizers.html" class="intervention-card" data-tags="instruction">
+                    <h3>🗂️ Graphic Organizers</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Visual frameworks that help students organize information and see relationships.</p>
+                    <p><strong>Best for:</strong> Note-taking, planning, comprehension</p>
+                </a>
+
+                <!-- Turn and Talk -->
+                <a href="interventions/tier1/turn-and-talk.html" class="intervention-card" data-tags="instruction">
+                    <h3>💬 Turn and Talk / Think-Pair-Share</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Structured partner discussion for processing thinking and practicing academic language.</p>
+                    <p><strong>Best for:</strong> Engagement, language development, comprehension</p>
+                </a>
+
+                <!-- Modeling -->
+                <a href="interventions/tier1/modeling.html" class="intervention-card" data-tags="instruction">
+                    <h3>👨‍🏫 Modeling: I Do, We Do, You Do</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Gradual release of responsibility from teacher demonstration to independent practice.</p>
+                    <p><strong>Best for:</strong> Skill development, building independence</p>
+                </a>
+
+                <!-- Progress Monitoring -->
+                <a href="interventions/tier1/progress-monitoring.html" class="intervention-card" data-tags="assessment">
+                    <h3>📊 Progress Monitoring</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Regular, systematic checking of student understanding to guide instruction.</p>
+                    <p><strong>Best for:</strong> Data-driven instruction, tracking growth</p>
+                </a>
+
+                <!-- Greeting Students -->
+                <a href="interventions/tier1/greeting-students.html" class="intervention-card" data-tags="relationship">
+                    <h3>👋 Greeting Students at the Door</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Personal greetings as students enter to build relationships and set positive tone.</p>
+                    <p><strong>Best for:</strong> Relationships, classroom climate, behavior</p>
+                </a>
+
+                <!-- Choice in Learning -->
+                <a href="interventions/tier1/choice-in-learning.html" class="intervention-card" data-tags="instruction">
+                    <h3>🎨 Choice in Demonstration of Learning</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Students show understanding through different formats while meeting the same standard.</p>
+                    <p><strong>Best for:</strong> Student agency, differentiation, engagement</p>
+                </a>
+
+                <!-- Retakes and Corrections -->
+                <a href="interventions/tier1/retakes-corrections.html" class="intervention-card" data-tags="assessment">
+                    <h3>🔄 Retakes and Corrections</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Opportunities to demonstrate improved mastery after initial assessment.</p>
+                    <p><strong>Best for:</strong> Growth mindset, mastery learning, reducing anxiety</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2>Implementation Tips for Tier 1</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Start Small</h3>
+                    <p>Choose 2-3 interventions to implement well rather than trying everything at once. Build automaticity before adding more.</p>
+                </div>
+                <div class="card">
+                    <h3>Collaborate</h3>
+                    <p>Work with your department to implement interventions consistently across classrooms. Students benefit from seeing the same strategies in multiple classes.</p>
+                </div>
+                <div class="card">
+                    <h3>Monitor Impact</h3>
+                    <p>Use progress monitoring data to determine which Tier 1 interventions are working and which students need Tier 2 support.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Need More Support?</h2>
+            <p>If students are not responding to Tier 1 interventions after consistent implementation (6-8 weeks), consider:</p>
+            <ul class="features">
+                <li>Moving to <a href="tier2.html">Tier 2 targeted interventions</a></li>
+                <li>Consulting with your grade-level team or department</li>
+                <li>Reviewing student data to identify specific skill gaps</li>
+                <li>Contacting the counseling team for additional support</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Alderwood Middle School | MTSS Intervention Toolkit</p>
+            <p>Developed collaboratively by AMS educators</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

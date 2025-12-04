@@ -1,0 +1,531 @@
+/* ===========================
+   AMS Interventions Stylesheet
+   =========================== */
+
+/* CSS Variables for Consistent Theming */
+:root {
+    --tier1-color: #4A90E2;
+    --tier2-color: #F5A623;
+    --tier3-color: #7ED321;
+    --accent-color: #D0021B;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --bg-light: #F8F9FA;
+    --white: #FFFFFF;
+    --border-color: #E0E0E0;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--white);
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 0.25rem;
+}
+
+.school-info {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Navigation */
+.main-nav {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.main-nav li {
+    margin: 0;
+}
+
+.main-nav a {
+    display: block;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--tier1-color);
+    border-bottom-color: var(--tier1-color);
+    background: var(--bg-light);
+}
+
+/* Main Content */
+main {
+    padding: 2rem 0;
+}
+
+section {
+    background: var(--white);
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+h2 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    border-bottom: 3px solid var(--tier1-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    color: var(--text-dark);
+    margin: 1.5rem 0 1rem;
+    font-size: 1.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+}
+
+.hero h2 {
+    border: none;
+    color: #667eea;
+}
+
+/* MTSS Pyramid */
+.pyramid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.pyramid-section {
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.pyramid-section:hover {
+    transform: translateY(-5px);
+}
+
+.pyramid-section h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--white);
+}
+
+.pyramid-section p {
+    color: var(--white);
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+.tier3 {
+    background: linear-gradient(135deg, var(--tier3-color) 0%, #6ec71e 100%);
+}
+
+.tier2 {
+    background: linear-gradient(135deg, var(--tier2-color) 0%, #f39c12 100%);
+}
+
+.tier1 {
+    background: linear-gradient(135deg, var(--tier1-color) 0%, #357abd 100%);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--white);
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid var(--white);
+}
+
+.btn:hover {
+    background: transparent;
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.btn-back {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    border-color: var(--border-color);
+    margin-bottom: 1rem;
+}
+
+.btn-back:hover {
+    background: var(--white);
+    color: var(--tier1-color);
+}
+
+/* Card Grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.card {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--tier1-color);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: var(--tier1-color);
+}
+
+.card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card li:last-child {
+    border-bottom: none;
+}
+
+/* Intervention List */
+.intervention-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.intervention-card {
+    background: var(--white);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.intervention-card:hover {
+    border-color: var(--tier1-color);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+}
+
+.intervention-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--tier1-color);
+}
+
+.intervention-card .rating {
+    color: var(--tier2-color);
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.intervention-card .description {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Features List */
+.features {
+    list-style: none;
+    padding: 0;
+}
+
+.features li {
+    padding: 0.75rem 0;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--tier3-color);
+    border-radius: 50%;
+}
+
+/* Highlight Box */
+.highlight {
+    background: #FFF3CD;
+    border-left: 4px solid var(--tier2-color);
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+/* Intervention Detail Pages */
+.intervention-header {
+    background: linear-gradient(135deg, var(--tier1-color) 0%, #357abd 100%);
+    color: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.intervention-header h2 {
+    color: var(--white);
+    border: none;
+    margin: 0 0 0.5rem 0;
+}
+
+.intervention-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    opacity: 0.9;
+}
+
+.intervention-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: var(--bg-light);
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+tr:hover {
+    background: var(--bg-light);
+}
+
+/* Code/Example Blocks */
+.example-block {
+    background: #F5F5F5;
+    border-left: 4px solid var(--tier1-color);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Warning/Note Boxes */
+.warning {
+    background: #FFE5E5;
+    border-left: 4px solid var(--accent-color);
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+.note {
+    background: #E3F2FD;
+    border-left: 4px solid var(--tier1-color);
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+/* Search Bar */
+.search-container {
+    margin: 2rem 0;
+}
+
+.search-box {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: var(--tier1-color);
+}
+
+/* Filter Tags */
+.filter-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+}
+
+.tag {
+    padding: 0.5rem 1rem;
+    background: var(--bg-light);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.tag:hover,
+.tag.active {
+    background: var(--tier1-color);
+    color: var(--white);
+}
+
+/* Footer */
+footer {
+    background: var(--text-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+footer p {
+    margin: 0.5rem 0;
+    color: var(--white);
+    opacity: 0.8;
+}
+
+footer a {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+/* Print Styles */
+@media print {
+    .main-nav,
+    footer,
+    .btn {
+        display: none;
+    }
+    
+    section {
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .main-nav a {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .card-grid,
+    .intervention-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .intervention-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    table {
+        font-size: 0.9rem;
+    }
+    
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus styles for keyboard navigation */
+a:focus,
+button:focus,
+.intervention-card:focus {
+    outline: 3px solid var(--tier1-color);
+    outline-offset: 2px;
+}
