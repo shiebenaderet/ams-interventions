@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tier 3 Interventions - AMS MTSS Toolkit</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 AMS Interventions</h1>
+            <p class="subtitle">Tier 3: Intensive Interventions</p>
+            <p class="school-info">Highly individualized support for FEW students (approximately 5%)</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tier1.html">Tier 1</a></li>
+                <li><a href="tier2.html">Tier 2</a></li>
+                <li><a href="tier3.html" class="active">Tier 3</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section>
+            <h2>About Tier 3 Interventions</h2>
+            <p>Tier 3 interventions are the most intensive supports in the MTSS framework. They are highly individualized, data-driven, and delivered to students whose needs are not being met through Tier 1 and Tier 2 alone. These interventions often involve multiple adults working collaboratively to support the student.</p>
+
+            <div class="highlight">
+                <strong>Critical Principle:</strong> Tier 3 is IN ADDITION TO Tiers 1 and 2. Students at Tier 3 still receive high-quality core instruction (Tier 1) and may receive targeted small group support (Tier 2) PLUS intensive individualized intervention.
+            </div>
+
+            <h3>Characteristics of Quality Tier 3</h3>
+            <ul class="features">
+                <li>Highly individualized to student's specific needs</li>
+                <li>Intensive (daily or multiple times per week, 30+ minutes)</li>
+                <li>Involves team collaboration (teachers, specialists, counselors, family)</li>
+                <li>Progress monitored very frequently (weekly or more often)</li>
+                <li>Long-term support that may last months or years</li>
+                <li>May include specialized instruction or services</li>
+                <li>Often includes formal plans (IEP, 504, BIP)</li>
+            </ul>
+
+            <h3>When to Use Tier 3</h3>
+            <p>Consider Tier 3 interventions when:</p>
+            <ul class="features">
+                <li>Student has not responded to well-implemented Tier 1 and Tier 2 interventions</li>
+                <li>Significant and persistent skill deficits exist</li>
+                <li>Student has a documented disability (IEP or 504)</li>
+                <li>Complex needs require coordination across multiple adults/services</li>
+                <li>Safety concerns require immediate intensive support</li>
+            </ul>
+
+            <div class="note">
+                <strong>Important:</strong> Tier 3 supports should be developed by a team, not an individual teacher working alone. Use the Student Support Team process to coordinate intensive interventions.
+            </div>
+        </section>
+
+        <section>
+            <h2>Search Interventions</h2>
+            <div class="search-container">
+                <input type="text" id="searchBox" class="search-box" placeholder="Search interventions..." onkeyup="filterInterventions()">
+            </div>
+
+            <div class="filter-tags">
+                <span class="tag active" onclick="filterByTag('all')">All</span>
+                <span class="tag" onclick="filterByTag('legal')">Legal/Required</span>
+                <span class="tag" onclick="filterByTag('team')">Team Collaboration</span>
+                <span class="tag" onclick="filterByTag('behavior')">Behavior</span>
+                <span class="tag" onclick="filterByTag('academic')">Academic</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tier 3 Intervention Menu</h2>
+            <p>Click on any intervention to view detailed implementation guidance.</p>
+
+            <div class="intervention-list">
+                <!-- IEP & 504 Accommodations -->
+                <a href="interventions/tier3/iep-504-accommodations.html" class="intervention-card" data-tags="legal academic">
+                    <h3>📋 IEP & 504 Accommodations</h3>
+                    <div class="rating">★★★★★ (Legally Required)</div>
+                    <p class="description">Mandated supports for students with documented disabilities.</p>
+                    <p><strong>Best for:</strong> Students with IEPs or 504 plans</p>
+                </a>
+
+                <!-- Student-Specific Collaboration -->
+                <a href="interventions/tier3/student-collaboration.html" class="intervention-card" data-tags="team">
+                    <h3>🤝 Collaboration About Specific Students</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Structured team meetings to coordinate intensive support.</p>
+                    <p><strong>Best for:</strong> Complex needs, wraparound support, problem-solving</p>
+                </a>
+
+                <!-- Modified Curriculum -->
+                <a href="interventions/tier3/modified-curriculum.html" class="intervention-card" data-tags="academic legal">
+                    <h3>📖 Modified Curriculum/Assessment</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Changes to WHAT student learns, not just HOW (IEP-specified).</p>
+                    <p><strong>Best for:</strong> Significant cognitive disabilities</p>
+                </a>
+
+                <!-- One-on-One Intensive -->
+                <a href="interventions/tier3/one-on-one-intensive.html" class="intervention-card" data-tags="academic">
+                    <h3>👤 One-on-One Intensive Intervention</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Daily individual instruction by specialist (20-40 min).</p>
+                    <p><strong>Best for:</strong> Severe skill deficits (dyslexia, dyscalculia)</p>
+                </a>
+
+                <!-- Paraprofessional Support -->
+                <a href="interventions/tier3/paraprofessional-support.html" class="intervention-card" data-tags="legal">
+                    <h3>🧑‍🏫 Paraprofessional Support</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Dedicated aide for student (IEP-specified).</p>
+                    <p><strong>Best for:</strong> Significant support needs across settings</p>
+                </a>
+
+                <!-- Behavior Intervention Plan -->
+                <a href="interventions/tier3/behavior-intervention-plan.html" class="intervention-card" data-tags="behavior legal">
+                    <h3>📊 Behavior Intervention Plan (BIP)</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Formal plan based on functional assessment (legally required if behavior impedes learning).</p>
+                    <p><strong>Best for:</strong> Persistent, significant behavior challenges</p>
+                </a>
+
+                <!-- Crisis Intervention -->
+                <a href="interventions/tier3/crisis-intervention.html" class="intervention-card" data-tags="behavior">
+                    <h3>🚨 Crisis Intervention</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Safety plan for students with self-harm, aggression, or severe dysregulation.</p>
+                    <p><strong>Best for:</strong> Safety concerns, mental health crises</p>
+                </a>
+
+                <!-- Wraparound Services -->
+                <a href="interventions/tier3/wraparound-services.html" class="intervention-card" data-tags="team">
+                    <h3>🌐 Wraparound Services</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Coordination with outside agencies (mental health, medical, social services).</p>
+                    <p><strong>Best for:</strong> Complex needs requiring multiple service providers</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Student Support Team Process</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Step 1: Refer</h3>
+                    <p>Any teacher or staff member can refer a student to the Student Support Team when Tier 1 and 2 interventions are not sufficient.</p>
+                </div>
+                <div class="card">
+                    <h3>Step 2: Gather Data</h3>
+                    <p>Team collects information from all teachers, specialists, family, and the student. Review academic data, behavior data, attendance, etc.</p>
+                </div>
+                <div class="card">
+                    <h3>Step 3: Meet</h3>
+                    <p>Team meeting (30-60 min) to analyze data, identify root causes, and develop coordinated Tier 3 intervention plan.</p>
+                </div>
+                <div class="card">
+                    <h3>Step 4: Implement</h3>
+                    <p>All team members implement their part of the plan consistently. Assign clear roles and responsibilities.</p>
+                </div>
+                <div class="card">
+                    <h3>Step 5: Monitor</h3>
+                    <p>Progress monitored weekly or more frequently. Team communicates regularly about student progress.</p>
+                </div>
+                <div class="card">
+                    <h3>Step 6: Adjust</h3>
+                    <p>Team meets every 2-4 weeks to review data and adjust plan as needed. Continue until student is successful or additional evaluation needed.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Legal Considerations</h2>
+            <div class="warning">
+                <strong>Important:</strong> Many Tier 3 interventions have legal requirements:
+                <ul>
+                    <li><strong>IEPs and 504 Plans:</strong> Must be followed exactly as written. Accommodations are legally mandated.</li>
+                    <li><strong>Behavior Intervention Plans:</strong> Required by law if behavior impedes student's or others' learning.</li>
+                    <li><strong>Evaluation Timelines:</strong> If considering special education evaluation, specific timelines apply.</li>
+                    <li><strong>Parent Rights:</strong> Parents must be included in Tier 3 planning and have specific legal rights.</li>
+                </ul>
+                <p><strong>When in doubt, consult with your special education team, counselor, or administrator.</strong></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Support Contacts for Tier 3</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Case Managers</h3>
+                    <p>For IEP and 504 questions, accommodation implementation, legal compliance.</p>
+                </div>
+                <div class="card">
+                    <h3>School Psychologist</h3>
+                    <p>For behavior plans, functional assessments, evaluation questions, data analysis.</p>
+                </div>
+                <div class="card">
+                    <h3>Counselors</h3>
+                    <p>For Student Support Team coordination, mental health support, family communication.</p>
+                </div>
+                <div class="card">
+                    <h3>Administration</h3>
+                    <p>For crisis situations, outside agency coordination, legal questions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Remember</h2>
+            <div class="highlight">
+                <p><strong>You are not alone.</strong> Tier 3 supports are designed to be collaborative. No single teacher is expected to provide all supports for a student with intensive needs.</p>
+                <p><strong>Ask for help.</strong> If you have a student who needs Tier 3 support, reach out to your Student Support Team, counselor, or case manager.</p>
+                <p><strong>Document everything.</strong> Keep records of interventions tried, student progress, and team communications. This data is essential for making good decisions.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Alderwood Middle School | MTSS Intervention Toolkit</p>
+            <p>Developed collaboratively by AMS educators</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
