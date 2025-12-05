@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work in Progress - AMS Interventions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .wip-hero {
+            background: linear-gradient(135deg, var(--tier1-color) 0%, var(--tier2-color) 50%, var(--tier3-color) 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .wip-hero h2 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .wip-hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .progress-container {
+            background: var(--bg-lighter);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .progress-bar-container {
+            background: var(--bg-lighter);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            height: 40px;
+            overflow: hidden;
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--tier1-color), var(--tier2-color));
+            transition: width 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        .tier-progress {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tier-card {
+            background: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .tier-card.tier1 {
+            border-top: 4px solid var(--tier1-color);
+        }
+
+        .tier-card.tier2 {
+            border-top: 4px solid var(--tier2-color);
+        }
+
+        .tier-card.tier3 {
+            border-top: 4px solid var(--tier3-color);
+        }
+
+        .mini-progress {
+            height: 8px;
+            background: var(--bg-lighter);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .mini-progress-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .tier1 .mini-progress-fill {
+            background: var(--tier1-color);
+        }
+
+        .tier2 .mini-progress-fill {
+            background: var(--tier2-color);
+        }
+
+        .tier3 .mini-progress-fill {
+            background: var(--tier3-color);
+        }
+
+        .coming-soon-list {
+            background: var(--bg-lighter);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--tier2-color);
+        }
+
+        .coming-soon-list h3 {
+            color: var(--tier2-color);
+            margin-top: 0;
+        }
+
+        .coming-soon-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .coming-soon-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .coming-soon-list li:last-child {
+            border-bottom: none;
+        }
+
+        .coming-soon-list li:before {
+            content: "⏳ ";
+            margin-right: 0.5rem;
+        }
+
+        .check-icon {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .status-complete {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .status-progress {
+            background: var(--tier2-color);
+            color: var(--white);
+        }
+
+        .timeline {
+            background: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .timeline-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .timeline-icon.complete {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .timeline-icon.current {
+            background: var(--tier2-color);
+            color: var(--white);
+        }
+
+        .timeline-icon.future {
+            background: var(--bg-lighter);
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 AMS Interventions</h1>
+            <p class="subtitle">Multi-Tiered System of Supports (MTSS) Toolkit</p>
+            <p class="school-info">Alderwood Middle School | Work in Progress</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tier1.html">Tier 1</a></li>
+                <li><a href="tier2.html">Tier 2</a></li>
+                <li><a href="tier3.html">Tier 3</a></li>
+                <li><a href="wip.html" class="active">Status</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="wip-hero">
+            <h2>🚧 Building Something Great</h2>
+            <p>This toolkit is being developed incrementally by AMS educators</p>
+            <p><strong>13 of 26 interventions complete • Updated December 2025</strong></p>
+        </div>
+
+        <section>
+            <h2>Overall Progress</h2>
+            <div class="progress-container">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 50%;">
+                        50% Complete
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 1rem; color: var(--text-light);">
+                    <strong>13 comprehensive intervention guides</strong> ready to use • <strong>13 more</strong> coming soon
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Progress by Tier</h2>
+            <div class="tier-progress">
+                <div class="tier-card tier1">
+                    <h3>Tier 1: Universal</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0;">9/10</div>
+                    <div class="mini-progress">
+                        <div class="mini-progress-fill" style="width: 90%;"></div>
+                    </div>
+                    <p><strong>90% Complete</strong></p>
+                    <p style="font-size: 0.9rem; color: var(--text-light);">Only 1 intervention remaining</p>
+                </div>
+
+                <div class="tier-card tier2">
+                    <h3>Tier 2: Targeted</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0;">3/8</div>
+                    <div class="mini-progress">
+                        <div class="mini-progress-fill" style="width: 38%;"></div>
+                    </div>
+                    <p><strong>38% Complete</strong></p>
+                    <p style="font-size: 0.9rem; color: var(--text-light);">5 interventions in development</p>
+                </div>
+
+                <div class="tier-card tier3">
+                    <h3>Tier 3: Intensive</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0;">1/8</div>
+                    <div class="mini-progress">
+                        <div class="mini-progress-fill" style="width: 13%;"></div>
+                    </div>
+                    <p><strong>13% Complete</strong></p>
+                    <p style="font-size: 0.9rem; color: var(--text-light);">7 interventions planned</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>✅ What's Ready Now</h2>
+            <p>These interventions have full implementation guides and are ready to use:</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Tier 1 (9 complete)</h3>
+                    <ul style="text-align: left;">
+                        <li><span class="check-icon">✓</span> Organizational Systems</li>
+                        <li><span class="check-icon">✓</span> Text-to-Speech & Speech-to-Text</li>
+                        <li><span class="check-icon">✓</span> Vocabulary Support</li>
+                        <li><span class="check-icon">✓</span> Graphic Organizers</li>
+                        <li><span class="check-icon">✓</span> Modeling (I Do, We Do, You Do)</li>
+                        <li><span class="check-icon">✓</span> Progress Monitoring</li>
+                        <li><span class="check-icon">✓</span> Greeting Students</li>
+                        <li><span class="check-icon">✓</span> Choice in Learning</li>
+                        <li><span class="check-icon">✓</span> Retakes and Corrections</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Tier 2 (3 complete)</h3>
+                    <ul style="text-align: left;">
+                        <li><span class="check-icon">✓</span> Small Group Instruction</li>
+                        <li><span class="check-icon">✓</span> Frequent Check-Ins (CICO)</li>
+                        <li><span class="check-icon">✓</span> Modified Rubrics</li>
+                    </ul>
+                    <br>
+                    <h3>Tier 3 (1 complete)</h3>
+                    <ul style="text-align: left;">
+                        <li><span class="check-icon">✓</span> IEP & 504 Accommodations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-top: 2rem;">
+                <p><strong>These guides are comprehensive!</strong> Each intervention includes:</p>
+                <ul class="features">
+                    <li>Research-based rationale with effect sizes</li>
+                    <li>Quality implementation guidelines</li>
+                    <li>Step-by-step procedures</li>
+                    <li>Common pitfalls and solutions</li>
+                    <li>Subject-specific examples</li>
+                    <li>Data tracking tools</li>
+                    <li>Quick start guides</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>⏳ Coming Soon</h2>
+
+            <div class="card-grid">
+                <div class="coming-soon-list">
+                    <h3>Tier 1 Priority</h3>
+                    <ul>
+                        <li>Turn and Talk / Think-Pair-Share</li>
+                    </ul>
+                </div>
+
+                <div class="coming-soon-list">
+                    <h3>Tier 2 Priorities</h3>
+                    <ul>
+                        <li>Chunking</li>
+                        <li>Differentiated Materials</li>
+                        <li>Behavior Check-Ins</li>
+                        <li>Parent Communication</li>
+                        <li>Preferential Seating</li>
+                    </ul>
+                </div>
+
+                <div class="coming-soon-list">
+                    <h3>Tier 3 Priorities</h3>
+                    <ul>
+                        <li>Student-Specific Collaboration</li>
+                        <li>Behavior Intervention Plan (BIP)</li>
+                        <li>Crisis Intervention</li>
+                        <li>One-on-One Intensive Intervention</li>
+                        <li>Modified Curriculum</li>
+                        <li>Paraprofessional Support</li>
+                        <li>Wraparound Services</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Development Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon complete">✓</div>
+                    <div>
+                        <h3>Phase 1: Foundation <span class="status-badge status-complete">Complete</span></h3>
+                        <p>Core infrastructure, Tier 1 interventions, initial Tier 2 and Tier 3 pages</p>
+                        <p style="font-size: 0.9rem; color: var(--text-light);">Completed: December 2025</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon current">→</div>
+                    <div>
+                        <h3>Phase 2: Expansion <span class="status-badge status-progress">In Progress</span></h3>
+                        <p>Complete remaining Tier 2 interventions, begin Tier 3 expansion</p>
+                        <p style="font-size: 0.9rem; color: var(--text-light);">Target: January 2025</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon future">📅</div>
+                    <div>
+                        <h3>Phase 3: Completion <span class="status-badge" style="background: var(--bg-lighter); color: var(--text-light);">Planned</span></h3>
+                        <p>Finish all Tier 3 interventions, gather educator feedback, refine content</p>
+                        <p style="font-size: 0.9rem; color: var(--text-light);">Target: February 2025</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon future">🎯</div>
+                    <div>
+                        <h3>Phase 4: Enhancement <span class="status-badge" style="background: var(--bg-lighter); color: var(--text-light);">Future</span></h3>
+                        <p>Professional development modules, video examples, customizable templates</p>
+                        <p style="font-size: 0.9rem; color: var(--text-light);">Target: Spring 2025</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Why Incremental Development?</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>✨ Quality Over Speed</h3>
+                    <p>Each intervention guide takes 4-6 hours to research, write, and refine. We're prioritizing comprehensive, research-based content over quick placeholders.</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Use What's Ready</h3>
+                    <p>Rather than waiting for everything to be done, you can start implementing the completed interventions immediately while more are being developed.</p>
+                </div>
+
+                <div class="card">
+                    <h3>👥 Collaborative Process</h3>
+                    <p>This toolkit reflects input from all AMS departments. We're building it based on real educator needs and feedback.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Data-Driven Priorities</h3>
+                    <p>We're focusing on the most requested and highest-impact interventions first, based on your input during MTSS planning sessions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>How You Can Help</h2>
+            <div class="highlight">
+                <p><strong>This toolkit is better with your input!</strong></p>
+                <ul class="features">
+                    <li><strong>Try the interventions</strong> - Use the completed guides and let us know what works</li>
+                    <li><strong>Share feedback</strong> - Contact your department chair with suggestions or clarifications needed</li>
+                    <li><strong>Contribute examples</strong> - Share subject-specific adaptations that work well in your classroom</li>
+                    <li><strong>Request priorities</strong> - Tell us which missing interventions you need most urgently</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Questions?</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>About This Toolkit</h3>
+                    <p>This is a collaborative project developed by AMS educators based on Panorama Education's MTSS framework and our school-wide planning work.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Using Incomplete Sections</h3>
+                    <p>If you click a link and reach a "coming soon" page, that intervention is still in development. Check back soon, or contact your department for interim guidance.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Updates & Notifications</h3>
+                    <p>New interventions are added weekly. Check this status page or your department communications for updates.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Technical Issues</h3>
+                    <p>If you encounter broken links or formatting problems, please report them to the MTSS coordinator.</p>
+                </div>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <a href="index.html" class="btn">← Back to Home</a>
+            <a href="tier1.html" class="btn" style="margin-left: 1rem;">Browse Tier 1 Interventions</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Alderwood Middle School | MTSS Intervention Toolkit</p>
+            <p>Developed collaboratively by AMS educators</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;"><a href="wip.html">View Development Status</a></p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
