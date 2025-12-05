@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tier 2 Interventions - AMS MTSS Toolkit</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 AMS Interventions</h1>
+            <p class="subtitle">Tier 2: Targeted Interventions</p>
+            <p class="school-info">Additional support for SOME students (approximately 15%)</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tier1.html">Tier 1</a></li>
+                <li><a href="tier2.html" class="active">Tier 2</a></li>
+                <li><a href="tier3.html">Tier 3</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section>
+            <h2>About Tier 2 Interventions</h2>
+            <p>Tier 2 interventions are targeted supports provided to students who need additional help beyond universal Tier 1 instruction. These interventions are typically delivered to small groups of students (3-6) who share similar needs, or individually when appropriate.</p>
+
+            <div class="highlight">
+                <strong>Key Principle:</strong> Tier 2 is IN ADDITION TO Tier 1, not instead of. Students receive high-quality core instruction PLUS targeted support.
+            </div>
+
+            <h3>Characteristics of Quality Tier 2</h3>
+            <ul class="features">
+                <li>Targeted to specific skill gaps or needs</li>
+                <li>Delivered in small groups (3-6 students) or individually</li>
+                <li>More frequent and intensive than Tier 1</li>
+                <li>Progress monitored regularly (weekly or bi-weekly)</li>
+                <li>Time-limited with clear goals (6-8 weeks typically)</li>
+                <li>Supplemental to, not replacing, core instruction</li>
+            </ul>
+
+            <h3>When to Use Tier 2</h3>
+            <p>Consider Tier 2 interventions when:</p>
+            <ul class="features">
+                <li>Student is not responding to high-quality Tier 1 instruction</li>
+                <li>Consistent pattern of difficulty shown through data</li>
+                <li>Specific skill gaps identified through assessment</li>
+                <li>Student needs more practice, reteaching, or support than Tier 1 provides</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Search Interventions</h2>
+            <div class="search-container">
+                <input type="text" id="searchBox" class="search-box" placeholder="Search interventions..." onkeyup="filterInterventions()">
+            </div>
+
+            <div class="filter-tags">
+                <span class="tag active" onclick="filterByTag('all')">All</span>
+                <span class="tag" onclick="filterByTag('instruction')">Instruction</span>
+                <span class="tag" onclick="filterByTag('assessment')">Assessment</span>
+                <span class="tag" onclick="filterByTag('relationship')">Relationships</span>
+                <span class="tag" onclick="filterByTag('behavior')">Behavior</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tier 2 Intervention Menu</h2>
+            <p>Click on any intervention to view detailed implementation guidance.</p>
+
+            <div class="intervention-list">
+                <!-- Small Group Instruction -->
+                <a href="interventions/tier2/small-group-instruction.html" class="intervention-card" data-tags="instruction">
+                    <h3>👥 Small Group Instruction</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Targeted teaching for 3-6 students with the same skill need.</p>
+                    <p><strong>Best for:</strong> Specific skill gaps, reading, math, writing</p>
+                </a>
+
+                <!-- Frequent Check-Ins -->
+                <a href="interventions/tier2/frequent-check-ins.html" class="intervention-card" data-tags="assessment relationship">
+                    <h3>✅ Frequent Check-Ins</h3>
+                    <div class="rating">★★★★★</div>
+                    <p class="description">Brief, structured conversations to monitor progress and build relationships.</p>
+                    <p><strong>Best for:</strong> Accountability, goal-setting, academic/behavioral progress</p>
+                </a>
+
+                <!-- Modified Rubrics -->
+                <a href="interventions/tier2/modified-rubrics.html" class="intervention-card" data-tags="assessment">
+                    <h3>📝 Modified Rubrics</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Scaffolded assessments that fade support over time.</p>
+                    <p><strong>Best for:</strong> Students who understand content but struggle with format</p>
+                </a>
+
+                <!-- Chunking -->
+                <a href="interventions/tier2/chunking.html" class="intervention-card" data-tags="instruction">
+                    <h3>🧩 Chunking</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Break complex tasks into smaller, manageable steps.</p>
+                    <p><strong>Best for:</strong> Executive functioning, task completion</p>
+                </a>
+
+                <!-- Differentiated Reading Levels -->
+                <a href="interventions/tier2/differentiated-materials.html" class="intervention-card" data-tags="instruction">
+                    <h3>📚 Differentiated Materials</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Same content at different complexity/reading levels.</p>
+                    <p><strong>Best for:</strong> Reading comprehension, content access</p>
+                </a>
+
+                <!-- Preferential Seating -->
+                <a href="interventions/tier2/preferential-seating.html" class="intervention-card" data-tags="behavior">
+                    <h3>💺 Preferential Seating</h3>
+                    <div class="rating">★★★☆☆</div>
+                    <p class="description">Strategic seat placement based on student needs.</p>
+                    <p><strong>Best for:</strong> Attention, behavior, engagement</p>
+                </a>
+
+                <!-- Parent Communication -->
+                <a href="interventions/tier2/parent-communication.html" class="intervention-card" data-tags="relationship">
+                    <h3>📞 Individualized Parent Communication</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Regular, targeted updates beyond whole-class communication.</p>
+                    <p><strong>Best for:</strong> Building partnerships, monitoring progress</p>
+                </a>
+
+                <!-- Behavior Check-Ins -->
+                <a href="interventions/tier2/behavior-check-ins.html" class="intervention-card" data-tags="behavior">
+                    <h3>📋 Behavior Check-Ins</h3>
+                    <div class="rating">★★★★☆</div>
+                    <p class="description">Structured monitoring with point sheets or daily reports.</p>
+                    <p><strong>Best for:</strong> Behavior goals, self-monitoring</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2>Implementation Tips for Tier 2</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Use Data to Group</h3>
+                    <p>Form groups based on specific skill needs identified through assessment, not just general "low" performance. Students in a group should have similar skill gaps.</p>
+                </div>
+                <div class="card">
+                    <h3>Keep Groups Small</h3>
+                    <p>3-6 students is ideal. Smaller groups allow for more interaction, immediate feedback, and targeted instruction.</p>
+                </div>
+                <div class="card">
+                    <h3>Monitor Progress Weekly</h3>
+                    <p>Tier 2 requires more frequent progress monitoring than Tier 1. Check progress weekly to ensure intervention is working.</p>
+                </div>
+                <div class="card">
+                    <h3>Set Clear Exit Criteria</h3>
+                    <p>Know what mastery looks like. When students meet the goal, they exit Tier 2 and return to Tier 1 only.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Need More Intensive Support?</h2>
+            <p>If students are not responding to Tier 2 interventions after 6-8 weeks of consistent implementation, consider:</p>
+            <ul class="features">
+                <li>Reviewing implementation fidelity (is the intervention being done as designed?)</li>
+                <li>Adjusting the intervention or trying a different approach</li>
+                <li>Increasing intensity (more time, smaller group, more frequent)</li>
+                <li>Moving to <a href="tier3.html">Tier 3 intensive interventions</a></li>
+                <li>Referring for special education evaluation if appropriate</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Alderwood Middle School | MTSS Intervention Toolkit</p>
+            <p>Developed collaboratively by AMS educators</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
