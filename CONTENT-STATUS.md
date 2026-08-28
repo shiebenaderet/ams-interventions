@@ -49,6 +49,33 @@ Intervention · Wraparound Services
 
 ---
 
+## Provenance — which pages are placeholder
+
+Thirteen of the 26 intervention pages were **drafted with AI assistance**, not taken
+from AMS documentation or department planning, and no AMS staff member has reviewed
+them. Each carries a visible notice at the top of the page.
+
+**AI-drafted (placeholder):**
+Turn and Talk · Behavior Check-Ins · Chunking · Differentiated Materials ·
+Individualized Parent Communication · Preferential Seating · Behavior Intervention
+Plan · Crisis Intervention · Modified Curriculum · One-on-One Intensive ·
+Paraprofessional Support · Collaboration About Specific Students · Wraparound Services
+
+Four of those — Crisis Intervention, Behavior Intervention Plan, Modified Curriculum
+and Paraprofessional Support — touch safety or legal obligations and carry an
+additional warning.
+
+The **10-problem triage taxonomy** on `start.html`, including which interventions each
+question routes to, was also AI-drafted. Its safety pathway wording is generic advice,
+**not AMS's crisis protocol**, and is flagged as such on the page.
+
+Not AI-drafted: `departments.html` (the 10/3 session record), the department
+attributions on intervention cards, the MTSS framework content on `framework.html`,
+and the 13 intervention pages written before this work.
+
+To clear a notice: review the page, correct it against AMS practice, and delete its
+`<div class="provenance">` block.
+
 ## The real remaining work: depth, not coverage
 
 Coverage is done. Depth is uneven. Pages range from ~350 to ~2,600 words,

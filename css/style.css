@@ -101,7 +101,7 @@ a:hover { color: var(--warm-d); }
 header {
     background: var(--navy);
     color: var(--white);
-    padding: 2.1rem 0 1.9rem;
+    padding: 2.4rem 0 2.2rem;
 }
 
 header h1 {
@@ -154,9 +154,9 @@ header h1 {
 }
 
 /* ---------- main + sections: ruled, not boxed ---------- */
-main { padding: 2.2rem 0 3rem; }
+main { padding: 3.4rem 0 3.5rem; }
 
-section { padding: 0 0 2rem; margin-bottom: 2rem; border-bottom: 1px solid var(--line); }
+section { padding: 0 0 2.6rem; margin-bottom: 2.6rem; border-bottom: 1px solid var(--line); }
 section:last-of-type { border-bottom: none; }
 
 h2 {
@@ -166,7 +166,7 @@ h2 {
     color: var(--navy);
     letter-spacing: -.012em;
     line-height: 1.18;
-    margin-bottom: .7rem;
+    margin-bottom: .95rem;
 }
 
 h3 {
@@ -407,8 +407,8 @@ blockquote {
 .intervention-header {
     background: var(--navy);
     color: var(--white);
-    padding: 1.7rem 1.6rem 1.8rem;
-    margin-bottom: 1.9rem;
+    padding: 2rem 1.9rem 2.1rem;
+    margin-bottom: 2.4rem;
 }
 
 .intervention-header h2 { font-family: var(--serif); color: var(--white); font-size: 1.85rem; margin: 0 0 .35rem; }
@@ -630,6 +630,28 @@ td strong { color: var(--navy); }
     font-size: .66rem;
     color: var(--muted);
 }
+
+/* ---------- provenance notice ----------
+   Marks pages whose content was AI-drafted rather than supplied by AMS.
+   Deliberately prominent: it sits above the content it qualifies. */
+.provenance {
+    border-left: 3px solid var(--warm);
+    padding: .1rem 0 .1rem 1.1rem;
+    margin: 0 0 2rem;
+}
+
+.provenance-label {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--warm-d);
+    margin-bottom: .3rem;
+}
+
+.provenance p { font-size: .9rem; margin-bottom: .4rem; max-width: 78ch; }
+.provenance p:last-child { margin-bottom: 0; }
+.provenance a { color: var(--warm-d); }
 
 /* ---------- footer ---------- */
 footer {
