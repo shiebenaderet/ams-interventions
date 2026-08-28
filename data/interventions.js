@@ -339,8 +339,8 @@ window.AMS = {
       bestFor: 'Persistent, significant behavior challenges',
       departments: [
         { name: 'Social Studies', status: 'using' },
-        { name: 'PE (ABC tracking)', status: 'using' },
-        { name: 'Counseling & Psych (lead)', status: 'using' }
+        { name: 'PE', status: 'using', note: 'ABC tracking' },
+        { name: 'Counseling & Psych', status: 'using', note: 'lead' }
       ],
       problems: []
     },
@@ -358,7 +358,7 @@ window.AMS = {
         { name: 'ELA', status: 'using' },
         { name: 'Math', status: 'must-have' },
         { name: 'Social Studies', status: 'must-have' },
-        { name: 'Counseling (leads)', status: 'using' }
+        { name: 'Counseling', status: 'using', note: 'leads' }
       ],
       problems: []
     },
@@ -373,8 +373,8 @@ window.AMS = {
       description: 'Safety plan for students with self-harm, aggression, or severe dysregulation.',
       bestFor: 'Safety concerns, mental health crises',
       departments: [
-        { name: 'Counseling (leads)', status: 'using' },
-        { name: 'PE (safety plans)', status: 'using' },
+        { name: 'Counseling', status: 'using', note: 'leads' },
+        { name: 'PE', status: 'using', note: 'safety plans' },
         { name: 'Admin + Psych', status: 'using' }
       ],
       problems: []
@@ -459,7 +459,7 @@ window.AMS = {
       description: 'Coordination with outside agencies (mental health, medical, social services).',
       bestFor: 'Complex needs requiring multiple service providers',
       departments: [
-        { name: 'Counseling (leads)', status: 'using' },
+        { name: 'Counseling', status: 'using', note: 'leads' },
         { name: 'FRA', status: 'using' }
       ],
       problems: []

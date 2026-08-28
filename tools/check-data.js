@@ -52,6 +52,8 @@ interventions.forEach(function (iv, i) {
     check(typeof d.name === 'string' && d.name.length > 0, at + ': department missing name');
     check(DEPT_STATUS.indexOf(d.status) !== -1,
       at + ': department "' + d.name + '" has invalid status "' + d.status + '"');
+    check(d.note === undefined || (typeof d.note === 'string' && d.note.length > 0),
+      at + ': department "' + d.name + '" has invalid note "' + d.note + '"');
   });
 });
 
