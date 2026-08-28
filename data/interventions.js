@@ -5,10 +5,11 @@
  *   2. Create the detail page at the path in `url`.
  *   3. Run: node tools/check-data.js
  *
- * id      must match the detail page filename without ".html"
- * tier    1, 2 or 3
- * rating  integer 1-5 (stars are rendered from this)
- * status  "must-have" | "using" | "exploring"
+ * id          must match the detail page filename without ".html"
+ * tier        1, 2 or 3
+ * rating      integer 1-5 (stars are rendered from this)
+ * ratingNote  optional string shown after the stars, e.g. "(Legally Required)"
+ * status      "must-have" | "using" | "exploring"
  */
 window.AMS = {
   interventions: [
@@ -386,6 +387,7 @@ window.AMS = {
       tier: 3,
       url: 'interventions/tier3/iep-504-accommodations.html',
       rating: 5,
+      ratingNote: 'Legally Required',
       categories: ['legal', 'academic'],
       description: 'Mandated supports for students with documented disabilities.',
       bestFor: 'Students with IEPs or 504 plans',

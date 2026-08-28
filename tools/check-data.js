@@ -35,6 +35,8 @@ interventions.forEach(function (iv, i) {
   check(TIERS.indexOf(iv.tier) !== -1, at + ': tier must be 1, 2 or 3 (got ' + iv.tier + ')');
   check(Number.isInteger(iv.rating) && iv.rating >= 1 && iv.rating <= 5,
     at + ': rating must be an integer 1-5 (got ' + iv.rating + ')');
+  check(iv.ratingNote === undefined || (typeof iv.ratingNote === 'string' && iv.ratingNote.length > 0),
+    at + ': ratingNote has invalid value "' + iv.ratingNote + '"');
   check(Array.isArray(iv.categories) && iv.categories.length > 0, at + ': categories must be a non-empty array');
   check(Array.isArray(iv.problems), at + ': problems must be an array');
 

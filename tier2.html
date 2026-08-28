@@ -7,7 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23667eea%22/%3E%3Ctext x=%2250%22 y=%2266%22 font-family=%22-apple-system,Segoe UI,Roboto,sans-serif%22 font-size=%2244%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22white%22%3EAMS%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="tier-2">
+<body class="tier-2" data-root="">
     <a class="skip-link" href="#main">Skip to main content</a>
     <header>
         <div class="container">
@@ -89,79 +89,7 @@
             <h2>Tier 2 Intervention Menu</h2>
             <p>Click on any intervention to view detailed implementation guidance.</p>
 
-            <div class="intervention-list">
-                <!-- Small Group Instruction -->
-                <a href="interventions/tier2/small-group-instruction.html" class="intervention-card" data-tags="instruction">
-                    <h3>👥 Small Group Instruction</h3>
-                    <div class="rating">★★★★★</div>
-                    <p class="description">Targeted teaching for 3-6 students with the same skill need.</p>
-                    <p><strong>Best for:</strong> Specific skill gaps, reading, math, writing</p>
-                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Social Studies</span><span class="dept-tag">PE</span></div>
-                </a>
-
-                <!-- Frequent Check-Ins -->
-                <a href="interventions/tier2/frequent-check-ins.html" class="intervention-card" data-tags="assessment relationship">
-                    <h3>✅ Frequent Check-Ins</h3>
-                    <div class="rating">★★★★★</div>
-                    <p class="description">Brief, structured conversations to monitor progress and build relationships.</p>
-                    <p><strong>Best for:</strong> Accountability, goal-setting, academic/behavioral progress</p>
-                    <div class="dept-tags"><span class="dept-tag">Math (must-have)</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies</span><span class="dept-tag">PE (must-have)</span><span class="dept-tag">Electives</span></div>
-                </a>
-
-                <!-- Modified Rubrics -->
-                <a href="interventions/tier2/modified-rubrics.html" class="intervention-card" data-tags="assessment">
-                    <h3>📝 Modified Rubrics</h3>
-                    <div class="rating">★★★★☆</div>
-                    <p class="description">Scaffolded assessments that fade support over time.</p>
-                    <p><strong>Best for:</strong> Students who understand content but struggle with format</p>
-                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Social Studies</span></div>
-                </a>
-
-                <!-- Chunking -->
-                <a href="interventions/tier2/chunking.html" class="intervention-card" data-tags="instruction">
-                    <h3>🧩 Chunking</h3>
-                    <div class="rating">★★★★☆</div>
-                    <p class="description">Break complex tasks into smaller, manageable steps.</p>
-                    <p><strong>Best for:</strong> Executive functioning, task completion</p>
-                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies</span></div>
-                </a>
-
-                <!-- Differentiated Reading Levels -->
-                <a href="interventions/tier2/differentiated-materials.html" class="intervention-card" data-tags="instruction">
-                    <h3>📚 Differentiated Materials</h3>
-                    <div class="rating">★★★★☆</div>
-                    <p class="description">Same content at different complexity/reading levels.</p>
-                    <p><strong>Best for:</strong> Reading comprehension, content access</p>
-                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies (must-have)</span></div>
-                </a>
-
-                <!-- Preferential Seating -->
-                <a href="interventions/tier2/preferential-seating.html" class="intervention-card" data-tags="behavior">
-                    <h3>💺 Preferential Seating</h3>
-                    <div class="rating">★★★☆☆</div>
-                    <p class="description">Strategic seat placement based on student needs.</p>
-                    <p><strong>Best for:</strong> Attention, behavior, engagement</p>
-                    <div class="dept-tags"><span class="dept-tag">Science</span><span class="dept-tag">Social Studies (must-have)</span><span class="dept-tag">PE</span></div>
-                </a>
-
-                <!-- Parent Communication -->
-                <a href="interventions/tier2/parent-communication.html" class="intervention-card" data-tags="relationship">
-                    <h3>📞 Individualized Parent Communication</h3>
-                    <div class="rating">★★★★☆</div>
-                    <p class="description">Regular, targeted updates beyond whole-class communication.</p>
-                    <p><strong>Best for:</strong> Building partnerships, monitoring progress</p>
-                    <div class="dept-tags"><span class="dept-tag">Social Studies</span><span class="dept-tag">PE</span><span class="dept-tag">Electives (must-have)</span></div>
-                </a>
-
-                <!-- Behavior Check-Ins -->
-                <a href="interventions/tier2/behavior-check-ins.html" class="intervention-card" data-tags="behavior">
-                    <h3>📋 Behavior Check-Ins</h3>
-                    <div class="rating">★★★★☆</div>
-                    <p class="description">Structured monitoring with point sheets or daily reports.</p>
-                    <p><strong>Best for:</strong> Behavior goals, self-monitoring</p>
-                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Social Studies</span><span class="dept-tag">PE</span><span class="dept-tag">Science (exploring)</span></div>
-                </a>
-            </div>
+            <div class="intervention-list" data-tier="2"></div>
         </section>
 
         <section>
@@ -206,6 +134,9 @@
         </div>
     </footer>
 
+    <script src="data/interventions.js"></script>
+    <script src="js/ams-core.js"></script>
+    <script src="js/ams-cards.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
