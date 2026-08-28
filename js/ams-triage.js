@@ -44,6 +44,8 @@
 
     out.innerHTML = '<h2>' + Core.escapeHtml(problem.label) + '</h2><div class="triage-ladder">' + rungs + '</div>';
     out.hidden = false;
+    var status = document.getElementById('triageStatus');
+    if (status) { status.textContent = 'Showing supports for: ' + problem.label; }
     if (window.location.hash !== '#' + id) {
       window.history.replaceState(null, '', '#' + id);
     }

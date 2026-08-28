@@ -1151,5 +1151,8 @@ html {
     border-radius: var(--radius-sm); text-decoration: none; color: var(--text-dark); font-size: 0.95rem;
 }
 .triage-item:hover { border-color: var(--tier-accent); color: var(--tier-accent); }
-.triage-referral { background: #FFF3CD; border-left: 4px solid var(--tier2-color); padding: 1rem 1.25rem; border-radius: var(--radius-sm); }
+.triage-referral { border-left: 4px solid; padding: 1rem 1.25rem; border-radius: var(--radius-sm); }
 .triage-referral p { margin: 0.25rem 0 0; }
+.triage-rung.t1 .triage-referral { background: rgba(var(--tier1-rgb), 0.12); border-left-color: var(--tier1-color); }
+.triage-rung.t2 .triage-referral { background: rgba(var(--tier2-rgb), 0.15); border-left-color: var(--tier2-color); }
+.triage-rung.t3 .triage-referral { background: rgba(var(--tier3-rgb), 0.15); border-left-color: var(--tier3-color); }
