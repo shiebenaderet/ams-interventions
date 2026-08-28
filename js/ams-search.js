@@ -16,6 +16,7 @@
     '<div class="ams-palette__box">' +
       '<input type="text" class="ams-palette__input" id="amsQ" autocomplete="off" ' +
              'placeholder="Search interventions…" aria-label="Search interventions" ' +
+             'role="combobox" aria-autocomplete="list" ' +
              'aria-controls="amsResults" aria-expanded="false">' +
       '<div class="ams-palette__results" id="amsResults" role="listbox"></div>' +
       '<p class="sr-only" id="amsStatus" role="status" aria-live="polite"></p>' +
@@ -31,21 +32,24 @@
       list.innerHTML = input.value.trim()
         ? '<p class="ams-palette__empty">No matches.</p>'
         : '<p class="ams-palette__empty">Type to search all 26 interventions.</p>';
+      input.removeAttribute('aria-activedescendant');
       return;
     }
     list.innerHTML = results.map(function (r, i) {
       var sel = i === active ? ' is-active' : '';
+      var idAttr = ' id="ams-opt-' + i + '" tabindex="-1"';
       if (r.kind === 'dept') {
-        return '<a class="ams-palette__item' + sel + '" role="option" aria-selected="' +
+        return '<a class="ams-palette__item' + sel + '"' + idAttr + ' role="option" aria-selected="' +
                (i === active) + '" href="' + root + 'departments.html">' +
                '<span class="ams-palette__t">' + Core.escapeHtml(r.name) + '</span>' +
                '<span class="ams-palette__s">Department</span></a>';
       }
-      return '<a class="ams-palette__item' + sel + '" role="option" aria-selected="' +
+      return '<a class="ams-palette__item' + sel + '"' + idAttr + ' role="option" aria-selected="' +
              (i === active) + '" href="' + root + r.iv.url + '">' +
              '<span class="ams-palette__t">' + (r.iv.icon ? Core.escapeHtml(r.iv.icon) + ' ' : '') + Core.escapeHtml(r.iv.name) + '</span>' +
              '<span class="tier-chip t' + r.iv.tier + '">Tier ' + r.iv.tier + '</span></a>';
     }).join('');
+    input.setAttribute('aria-activedescendant', 'ams-opt-' + active);
   }
 
   function update() {
@@ -92,13 +96,9 @@
 
     if (e.key === 'Escape') { e.preventDefault(); hide(); return; }
     if (e.key === 'Tab') {
-      // Trap focus: the palette is modal, so Tab must not reach the page behind it.
-      var focusable = el.querySelectorAll('input, a[href]');
-      if (!focusable.length) { e.preventDefault(); return; }
-      var first = focusable[0], last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      return;
+      // Trap focus: the input is the only focusable element in the palette,
+      // so Tab and Shift+Tab both simply keep focus there.
+      e.preventDefault(); input.focus(); return;
     }
     if (e.key === 'ArrowDown') {
       e.preventDefault(); active = Math.min(active + 1, results.length - 1); render(); return;
