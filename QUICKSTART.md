@@ -59,19 +59,33 @@ For example: `https://mrbsocialstudies.github.io/ams-interventions/`
 
 ## 📝 Adding New Interventions
 
+Tier pages, the Library, search, and Find a Strategy all build themselves
+from one file, `data/interventions.js` — there is no card to add to a tier
+page by hand anymore. A card typed directly into `tier1.html` (or
+tier2/tier3) would be erased the next time that page renders, and the
+intervention still wouldn't show up in the Library, search, or Find a
+Strategy. Go through the data file instead.
+
 ### Quick Steps:
-1. Copy `TEMPLATE.html` to the appropriate tier folder
-2. Rename it (e.g., `graphic-organizers.html`)
+1. Add a record for the new intervention to `data/interventions.js`
+2. Copy `TEMPLATE.html` to the matching tier folder, named to match the
+   record's `id` (e.g., `interventions/tier1/graphic-organizers.html`)
 3. Fill in all the sections (replace all `[BRACKETS]`)
-4. Add a card to the tier page (e.g., `tier1.html`)
+4. Run `node tools/check-data.js` to confirm everything lines up
 5. Test locally
 6. Upload to GitHub
 
 ### Detailed Instructions:
 
-#### 1. Create the Detail Page
+#### 1. Add the Record
+Open `data/interventions.js` and add one entry to the `interventions`
+array, alphabetical within its tier. Give it the tier's next `order`
+number (or renumber so that tier's `order` values stay 1..N with no gaps).
+The file has a comment block at the top explaining every field.
+
+#### 2. Create the Detail Page
 ```bash
-# Copy the template
+# Copy the template — the filename must match the record's id
 cp TEMPLATE.html interventions/tier1/your-intervention-name.html
 ```
 
@@ -81,26 +95,23 @@ Open the new file and replace:
 - `[1/2/3]` - The tier number
 - All other bracketed sections with real content
 
-#### 2. Add to the Tier List Page
-Open `tier1.html` (or tier2/tier3) and add this inside the `<div class="intervention-list">`:
-
-```html
-<a href="interventions/tier1/your-intervention-name.html" class="intervention-card" data-tags="instruction">
-    <h3>🗂️ Your Intervention Name</h3>
-    <div class="rating">★★★★★</div>
-    <p class="description">Brief description of what this intervention does.</p>
-    <p><strong>Best for:</strong> Who this helps</p>
-</a>
+#### 3. Validate
+```bash
+node tools/check-data.js
 ```
+This confirms the record is well-formed and a matching detail page
+exists. If it passes, the intervention will automatically appear on its
+tier page, in the Library, in search, and — if you gave it any
+`problems` — in Find a Strategy. Nothing else needs to change.
 
-#### 3. Test Locally
+#### 4. Test Locally
 Open the tier page in your browser and click your new intervention link. Make sure:
 - All links work
 - Images display (if any)
 - Print button works
 - Back button returns to tier page
 
-#### 4. Upload to GitHub
+#### 5. Upload to GitHub
 ```bash
 git add .
 git commit -m "Add new intervention: [name]"
@@ -167,9 +178,13 @@ Replace with your preferred font.
 - Correct: `css/style.css`
 - Incorrect: `/css/style.css` or `C:/Users/css/style.css`
 
-### Issue: Search Doesn't Work
+### Issue: Search Doesn't Work, or Tier Pages Show No Cards
 **Solution:**
-- Make sure `js/main.js` is uploaded
+- Make sure the whole `js/` folder and `data/interventions.js` were
+  uploaded — tier pages, the Library, and search all read `data/interventions.js`
+  through `js/ams-core.js` and render themselves with `js/ams-cards.js`,
+  `js/ams-library.js`, `js/ams-search.js`, and `js/ams-triage.js`. If any of
+  those are missing, the page loads but stays empty.
 - Check browser console for errors (F12 > Console)
 
 ---
