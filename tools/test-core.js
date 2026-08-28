@@ -179,4 +179,38 @@ test('searchAll returns host-realm arrays that deepStrictEqual plain arrays', fu
   assert.deepStrictEqual(r.departments, []);
 });
 
+test('buildLadder resolves intervention ids to objects', function () {
+  const p = { id: 'p', label: 'L', shortLabel: 'S',
+    steps: [{ tier: 1, framing: 'Start here', interventions: ['modeling'] }] };
+  const r = Core.buildLadder(p, sample);
+  assert.strictEqual(r.length, 1);
+  assert.strictEqual(r[0].kind, 'strategies');
+  assert.strictEqual(r[0].items[0].name, 'Modeling');
+  assert.strictEqual(r[0].framing, 'Start here');
+});
+
+test('buildLadder marks referral steps', function () {
+  const p = { id: 'p', label: 'L', shortLabel: 'S',
+    steps: [{ tier: 3, framing: 'Go now', referral: { who: 'Counselor', detail: 'Wednesdays' } }] };
+  const r = Core.buildLadder(p, sample);
+  assert.strictEqual(r[0].kind, 'referral');
+  assert.strictEqual(r[0].referral.who, 'Counselor');
+  assert.strictEqual(r[0].items.length, 0);
+});
+
+test('buildLadder drops unknown intervention ids', function () {
+  const p = { id: 'p', label: 'L', shortLabel: 'S',
+    steps: [{ tier: 1, framing: 'F', interventions: ['modeling', 'does-not-exist'] }] };
+  assert.strictEqual(Core.buildLadder(p, sample)[0].items.length, 1);
+});
+
+test('buildLadder preserves step order', function () {
+  const p = { id: 'p', label: 'L', shortLabel: 'S', steps: [
+    { tier: 1, framing: 'One', interventions: ['modeling'] },
+    { tier: 2, framing: 'Two', interventions: ['chunking'] }
+  ] };
+  const r = Core.buildLadder(p, sample);
+  assert.deepStrictEqual(r.map(function (s) { return s.framing; }), ['One', 'Two']);
+});
+
 console.log('OK - ' + passed + ' core tests passed.');

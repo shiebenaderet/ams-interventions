@@ -81,12 +81,29 @@
     return { interventions: ivs, departments: depts.sort() };
   }
 
+  function buildLadder(problem, interventions) {
+    var byId = {};
+    (interventions || []).forEach(function (iv) { byId[iv.id] = iv; });
+
+    return (problem.steps || []).map(function (s) {
+      if (s.referral) {
+        return { tier: s.tier, framing: s.framing, kind: 'referral',
+                 items: [], referral: s.referral };
+      }
+      var items = (s.interventions || []).map(function (id) { return byId[id]; })
+        .filter(function (iv) { return !!iv; });
+      return { tier: s.tier, framing: s.framing, kind: 'strategies',
+               items: items, referral: null };
+    });
+  }
+
   window.AMSCore = {
     matchesQuery: matchesQuery,
     filterInterventions: filterInterventions,
     sortInterventions: sortInterventions,
     starString: starString,
     escapeHtml: escapeHtml,
-    searchAll: searchAll
+    searchAll: searchAll,
+    buildLadder: buildLadder
   };
 })();
