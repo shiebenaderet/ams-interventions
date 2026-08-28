@@ -634,8 +634,8 @@ window.AMS = {
       shortLabel: 'Safety concern',
       steps: [
         { tier: 3, framing: 'Go now — do not wait',
-          referral: { who: 'School counselor or SST',
-                      detail: 'Counselors are the point of contact for each student. SST meets Wednesdays at 10:00 AM.' } },
+          referral: { who: 'School counselor',
+                      detail: 'Contact a school counselor now. If no counselor is available, go to an administrator. Do not wait for a scheduled meeting.' } },
         { tier: 3, framing: 'Formal supports',
           interventions: ['crisis-intervention', 'wraparound-services', 'student-collaboration'] }
       ]

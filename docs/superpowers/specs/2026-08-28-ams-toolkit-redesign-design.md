@@ -174,8 +174,8 @@ A step holds **either** `interventions` **or** a `referral`:
   "tier": 3,
   "framing": "Go now — do not wait",
   "referral": {
-    "who": "School counselor or SST",
-    "detail": "SST meets Wednesdays at 10:00 AM. Counselors are the point of contact for each student."
+    "who": "School counselor",
+    "detail": "Contact a school counselor now. If no counselor is available, go to an administrator. Do not wait for a scheduled meeting."
   }
 }
 ```
