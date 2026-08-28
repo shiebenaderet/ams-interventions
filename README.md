@@ -223,7 +223,8 @@ Questions or suggestions? Contact:
 
 ## 🔄 Version History
 
-- **v1.0** (December 2024) - Initial release with Tier 1 interventions
+- **v1.0** (December 2025) - Initial release with Tier 1 interventions
+- **v1.1** (2025–2026 school year) - Added Tier 2 and Tier 3 overviews, detail pages, and counselor-aligned MTSS framework language; incorporated department-level planning from the 10/3 "Building an Intervention Menu" session
 - Future updates will add:
   - Complete Tier 2 and Tier 3 intervention pages
   - Video demonstrations

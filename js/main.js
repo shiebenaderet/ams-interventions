@@ -1,47 +1,40 @@
 // AMS Interventions - Main JavaScript
 
-// Search functionality for interventions
-function filterInterventions() {
+// Current tag filter; 'all' means no tag filter.
+let activeTag = 'all';
+
+function applyFilters() {
     const searchBox = document.getElementById('searchBox');
-    const filter = searchBox.value.toLowerCase();
-    const interventionCards = document.querySelectorAll('.intervention-card');
-    
-    interventionCards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        const description = card.querySelector('.description').textContent.toLowerCase();
-        
-        if (title.includes(filter) || description.includes(filter)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
+    const query = searchBox ? searchBox.value.trim().toLowerCase() : '';
+    document.querySelectorAll('.intervention-card').forEach(card => {
+        const title = card.querySelector('h3')?.textContent.toLowerCase() ?? '';
+        const description = card.querySelector('.description')?.textContent.toLowerCase() ?? '';
+        const cardTags = card.getAttribute('data-tags') ?? '';
+
+        const matchesSearch = !query || title.includes(query) || description.includes(query);
+        const matchesTag = activeTag === 'all' || cardTags.split(/\s+/).includes(activeTag);
+
+        card.style.display = matchesSearch && matchesTag ? '' : 'none';
     });
 }
 
-// Filter by tag functionality
-function filterByTag(tag) {
-    const interventionCards = document.querySelectorAll('.intervention-card');
-    const tags = document.querySelectorAll('.tag');
-    
-    // Update active tag
-    tags.forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    // Filter cards
-    if (tag === 'all') {
-        interventionCards.forEach(card => {
-            card.style.display = 'block';
-        });
-    } else {
-        interventionCards.forEach(card => {
-            const cardTags = card.getAttribute('data-tags');
-            if (cardTags && cardTags.includes(tag)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+// Called from the search input's oninput/onkeyup handler.
+function filterInterventions() {
+    applyFilters();
+}
+
+// Called from filter tag buttons. Updates the active tag and re-applies filters.
+function filterByTag(evt, tag) {
+    activeTag = tag;
+    document.querySelectorAll('.tag').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-pressed', 'false');
+    });
+    if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add('active');
+        evt.currentTarget.setAttribute('aria-pressed', 'true');
     }
+    applyFilters();
 }
 
 // Print functionality
@@ -79,7 +72,7 @@ window.addEventListener('scroll', () => {
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
-                background: #4A90E2;
+                background: var(--tier-accent, #4A90E2);
                 color: white;
                 border: none;
                 font-size: 24px;
@@ -134,12 +127,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Accessibility: Skip to main content
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab' && e.target === document.body) {
-        const mainContent = document.querySelector('main');
-        if (mainContent) {
-            mainContent.focus();
-        }
-    }
-});
