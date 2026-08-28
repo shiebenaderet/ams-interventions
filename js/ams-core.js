@@ -68,7 +68,7 @@
       return matchesQuery(iv, q);
     }).slice(0, MAX_RESULTS);
 
-    var seen = {}, depts = (data.interventions || []).slice(0, 0);
+    var seen = {}, depts = [];
     (data.interventions || []).forEach(function (iv) {
       (iv.departments || []).forEach(function (d) {
         if (d.name.toLowerCase().indexOf(q) !== -1 && !seen[d.name]) {

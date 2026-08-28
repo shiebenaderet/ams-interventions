@@ -173,4 +173,10 @@ test('searchAll does not duplicate department names', function () {
   assert.deepStrictEqual(r.departments, ['Math']);
 });
 
+test('searchAll returns host-realm arrays that deepStrictEqual plain arrays', function () {
+  const r = Core.searchAll({ interventions: [], problems: [] }, 'anything');
+  assert.deepStrictEqual(r.interventions, []);
+  assert.deepStrictEqual(r.departments, []);
+});
+
 console.log('OK - ' + passed + ' core tests passed.');
