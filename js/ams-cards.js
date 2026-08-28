@@ -2,7 +2,11 @@
   'use strict';
   var data = window.AMS, Core = window.AMSCore;
   var host = document.querySelector('.intervention-list[data-tier]');
-  if (!data || !Core || !host) return;
+  if (!host) return;
+  if (!data || !Core) {
+    host.textContent = "Intervention data didn't load. data/interventions.js probably has a typo — run: node tools/check-data.js";
+    return;
+  }
 
   var tier = parseInt(host.getAttribute('data-tier'), 10);
   var root = document.body.getAttribute('data-root') || '';
@@ -15,7 +19,8 @@
       var label = Core.escapeHtml(d.name);
       if (d.note) {
         label += ' (' + Core.escapeHtml(d.note) + ')';
-      } else if (d.status !== 'using') {
+      }
+      if (d.status !== 'using') {
         label += ' (' + Core.escapeHtml(d.status) + ')';
       }
       return '<span class="dept-tag">' + label + '</span>';

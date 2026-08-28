@@ -1,12 +1,17 @@
 (function () {
   'use strict';
   var data = window.AMS, Core = window.AMSCore;
-  if (!data || !Core) return;
 
   var body = document.getElementById('libBody');
   var count = document.getElementById('libCount');
   var search = document.getElementById('libSearch');
   if (!body) return;
+  if (!data || !Core) {
+    body.textContent = "Intervention data didn't load. data/interventions.js probably has a typo — run: node tools/check-data.js";
+    return;
+  }
+
+  var root = document.body.getAttribute('data-root') || '';
 
   var state = { tier: null, category: null, department: null, query: '',
                 sortKey: 'name', sortDir: 'asc' };
@@ -71,7 +76,7 @@
       }).join('');
       var cats = (iv.categories || []).map(function (c) { return Core.escapeHtml(c); }).join(', ');
       return '<tr>' +
-        '<td class="lib-name"><a href="' + iv.url + '">' +
+        '<td class="lib-name"><a href="' + root + iv.url + '">' +
           (iv.icon ? Core.escapeHtml(iv.icon) + ' ' : '') + Core.escapeHtml(iv.name) + '</a></td>' +
         '<td><span class="tier-chip t' + iv.tier + '">Tier ' + iv.tier + '</span></td>' +
         '<td>' + cats + '</td>' +

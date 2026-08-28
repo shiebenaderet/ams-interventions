@@ -120,6 +120,29 @@ interventions.forEach(function (iv) {
   });
 });
 
+// Cross-reference (other direction): each intervention's stored `problems`
+// list must agree with what the triage steps actually reference -- not
+// just exist, but match exactly. Derive the "true" map from the steps,
+// then compare it against what's stored on each record.
+const derivedProblems = {};
+problems.forEach(function (p) {
+  (p.steps || []).forEach(function (s) {
+    (s.interventions || []).forEach(function (id) {
+      derivedProblems[id] = derivedProblems[id] || [];
+      if (derivedProblems[id].indexOf(p.id) === -1) derivedProblems[id].push(p.id);
+    });
+  });
+});
+
+interventions.forEach(function (iv) {
+  const derived = (derivedProblems[iv.id] || []).slice().sort();
+  const stored = (iv.problems || []).slice().sort();
+  check(JSON.stringify(derived) === JSON.stringify(stored),
+    'interventions (' + iv.id + '): problems array disagrees with the triage steps.\n' +
+    '    derived from steps: ' + (derived.join(', ') || '(none)') + '\n' +
+    '    stored on record  : ' + (stored.join(', ') || '(none)'));
+});
+
 if (failures.length) {
   console.error('\nFAIL - ' + failures.length + ' problem(s):\n');
   failures.forEach(function (f) { console.error('  - ' + f); });

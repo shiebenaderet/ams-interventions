@@ -124,12 +124,18 @@ data file instead:
 3. Fill in the page content, following the template's structure (What It
    Is, Quality Implementation, Implementation Approaches, Step-by-Step
    Instructions, Common Pitfalls, Adaptations, Monitoring Success).
-4. Run `node tools/check-data.js` to confirm the record is valid and the
-   page exists.
+4. If this intervention should show up in Find a Strategy, add its id to
+   the relevant problem's `steps` in the `problems` array at the bottom of
+   `data/interventions.js`, then regenerate every record's `problems`
+   array using the node snippet documented in that file's header comment.
+   An intervention's own `problems` field is derived output, not something
+   Find a Strategy reads directly — editing only the record does nothing.
+5. Run `node tools/check-data.js` to confirm the record is valid, the page
+   exists, and (if you touched `problems`) both directions agree.
 
 The intervention then appears automatically on its tier page, in the
-Library, in search, and — if you listed any `problems` — in Find a
-Strategy. No other file needs to change.
+Library, in search, and, once step 4 is done, in Find a Strategy. No other
+file needs to change.
 
 ## 🎨 Customization
 
@@ -245,9 +251,9 @@ needed only to run these — never to build or serve the site itself.
 
 - `node tools/check-data.js` — validates `data/interventions.js`: every
   intervention has a real detail page, tiers and `order` values are
-  consistent, ids are unique, and (if you ran the regeneration snippet
-  described in the data file) each intervention's `problems` list agrees
-  with the triage steps that reference it.
+  consistent, ids are unique, and each intervention's `problems` list
+  agrees with the triage steps that reference it (run the regeneration
+  snippet described in the data file's header comment if it doesn't).
 - `node tools/test-core.js` — runs the 32 unit tests for the filtering,
   sorting, and search logic in `js/ams-core.js`.
 

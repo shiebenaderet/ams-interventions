@@ -71,9 +71,12 @@ Strategy. Go through the data file instead.
 2. Copy `TEMPLATE.html` to the matching tier folder, named to match the
    record's `id` (e.g., `interventions/tier1/graphic-organizers.html`)
 3. Fill in all the sections (replace all `[BRACKETS]`)
-4. Run `node tools/check-data.js` to confirm everything lines up
-5. Test locally
-6. Upload to GitHub
+4. If it should appear in Find a Strategy, add its id to a problem's
+   `steps` in the `problems` array and regenerate `problems` arrays (see
+   step 3 below)
+5. Run `node tools/check-data.js` to confirm everything lines up
+6. Test locally
+7. Upload to GitHub
 
 ### Detailed Instructions:
 
@@ -95,23 +98,33 @@ Open the new file and replace:
 - `[1/2/3]` - The tier number
 - All other bracketed sections with real content
 
-#### 3. Validate
+#### 3. Add It to Find a Strategy (optional)
+The intervention appears on its tier page, in the Library, and in search
+automatically — but Find a Strategy reads from the `problems` array at
+the bottom of `data/interventions.js`, not from the intervention's own
+record. To make it show up there:
+1. Add its id to the relevant problem's `steps` in the `problems` array.
+2. Regenerate every record's `problems` field with the node snippet
+   documented in `data/interventions.js`'s header comment (an
+   intervention's `problems` list is derived output — hand-editing it
+   directly will not match what Find a Strategy actually reads).
+
+#### 4. Validate
 ```bash
 node tools/check-data.js
 ```
-This confirms the record is well-formed and a matching detail page
-exists. If it passes, the intervention will automatically appear on its
-tier page, in the Library, in search, and — if you gave it any
-`problems` — in Find a Strategy. Nothing else needs to change.
+This confirms the record is well-formed, a matching detail page exists,
+and (if you touched `problems`) both directions agree. If it passes,
+nothing else needs to change.
 
-#### 4. Test Locally
+#### 5. Test Locally
 Open the tier page in your browser and click your new intervention link. Make sure:
 - All links work
 - Images display (if any)
 - Print button works
 - Back button returns to tier page
 
-#### 5. Upload to GitHub
+#### 6. Upload to GitHub
 ```bash
 git add .
 git commit -m "Add new intervention: [name]"
@@ -150,7 +163,9 @@ Replace with your preferred font.
 
 ### Add School Logo
 
-1. Add your logo image to `assets/images/logo.png`
+The `assets/` folder doesn't exist in this repo yet — create it first.
+
+1. Create the folder and add your logo image at `assets/images/logo.png`
 2. In `index.html`, add inside the `<header>`:
 ```html
 <img src="assets/images/logo.png" alt="AMS Logo" style="height: 60px;">
@@ -186,6 +201,18 @@ Replace with your preferred font.
   `js/ams-library.js`, `js/ams-search.js`, and `js/ams-triage.js`. If any of
   those are missing, the page loads but stays empty.
 - Check browser console for errors (F12 > Console)
+
+### Issue: Pages Load But Show No Interventions
+**Cause:** A typo (a missing comma, an unclosed bracket, etc.) in
+`data/interventions.js`. The nav, headings, and page text still render
+fine because they're plain HTML — only the tier cards, Library rows,
+Find a Strategy options, and search palette depend on that file parsing
+correctly, so they silently render nothing instead of erroring visibly.
+
+**Solution:**
+- Run `node tools/check-data.js` — if `data/interventions.js` has a
+  syntax error, this reports the exact line number to fix.
+- Fix the reported line, save, and reload the page.
 
 ---
 

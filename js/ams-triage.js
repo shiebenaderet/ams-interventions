@@ -3,12 +3,16 @@
   var data = window.AMS, Core = window.AMSCore;
   var list = document.getElementById('triageList');
   var out = document.getElementById('triageResult');
-  if (!data || !Core || !list || !out) return;
+  if (!list || !out) return;
+  if (!data || !Core) {
+    list.textContent = "Intervention data didn't load. data/interventions.js probably has a typo — run: node tools/check-data.js";
+    return;
+  }
 
   var root = document.body.getAttribute('data-root') || '';
 
   list.innerHTML = data.problems.map(function (p) {
-    return '<button type="button" class="triage-opt" role="listitem" ' +
+    return '<button type="button" class="triage-opt" ' +
            'data-problem="' + Core.escapeHtml(p.id) + '" aria-pressed="false">' + Core.escapeHtml(p.label) + '</button>';
   }).join('');
 
