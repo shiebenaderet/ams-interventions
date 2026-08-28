@@ -59,7 +59,6 @@ window.AMS = {
     {
       id: 'choice-in-learning',
       name: 'Choice in Demonstration of Learning',
-      icon: '🎨',
       tier: 1,
       order: 9,
       url: 'interventions/tier1/choice-in-learning.html',
@@ -76,7 +75,6 @@ window.AMS = {
     {
       id: 'graphic-organizers',
       name: 'Graphic Organizers',
-      icon: '🗂️',
       tier: 1,
       order: 4,
       url: 'interventions/tier1/graphic-organizers.html',
@@ -95,7 +93,6 @@ window.AMS = {
     {
       id: 'greeting-students',
       name: 'Greeting Students at the Door',
-      icon: '👋',
       tier: 1,
       order: 8,
       url: 'interventions/tier1/greeting-students.html',
@@ -112,7 +109,6 @@ window.AMS = {
     {
       id: 'modeling',
       name: 'Modeling: I Do, We Do, You Do',
-      icon: '👨‍🏫',
       tier: 1,
       order: 6,
       url: 'interventions/tier1/modeling.html',
@@ -129,7 +125,6 @@ window.AMS = {
     {
       id: 'organizational-systems',
       name: 'Organizational Systems',
-      icon: '📋',
       tier: 1,
       order: 1,
       url: 'interventions/tier1/organizational-systems.html',
@@ -147,7 +142,6 @@ window.AMS = {
     {
       id: 'progress-monitoring',
       name: 'Progress Monitoring',
-      icon: '📊',
       tier: 1,
       order: 7,
       url: 'interventions/tier1/progress-monitoring.html',
@@ -165,7 +159,6 @@ window.AMS = {
     {
       id: 'retakes-corrections',
       name: 'Retakes and Corrections',
-      icon: '🔄',
       tier: 1,
       order: 10,
       url: 'interventions/tier1/retakes-corrections.html',
@@ -183,7 +176,6 @@ window.AMS = {
     {
       id: 'text-to-speech',
       name: 'Text-to-Speech & Speech-to-Text',
-      icon: '🔊',
       tier: 1,
       order: 2,
       url: 'interventions/tier1/text-to-speech.html',
@@ -203,7 +195,6 @@ window.AMS = {
     {
       id: 'turn-and-talk',
       name: 'Turn and Talk / Think-Pair-Share',
-      icon: '💬',
       tier: 1,
       order: 5,
       url: 'interventions/tier1/turn-and-talk.html',
@@ -220,7 +211,6 @@ window.AMS = {
     {
       id: 'vocabulary-support',
       name: 'Vocabulary Support',
-      icon: '📝',
       tier: 1,
       order: 3,
       url: 'interventions/tier1/vocabulary-support.html',
@@ -241,7 +231,6 @@ window.AMS = {
     {
       id: 'behavior-check-ins',
       name: 'Behavior Check-Ins',
-      icon: '📋',
       tier: 2,
       order: 8,
       url: 'interventions/tier2/behavior-check-ins.html',
@@ -260,7 +249,6 @@ window.AMS = {
     {
       id: 'chunking',
       name: 'Chunking',
-      icon: '🧩',
       tier: 2,
       order: 4,
       url: 'interventions/tier2/chunking.html',
@@ -279,7 +267,6 @@ window.AMS = {
     {
       id: 'differentiated-materials',
       name: 'Differentiated Materials',
-      icon: '📚',
       tier: 2,
       order: 5,
       url: 'interventions/tier2/differentiated-materials.html',
@@ -298,7 +285,6 @@ window.AMS = {
     {
       id: 'frequent-check-ins',
       name: 'Frequent Check-Ins',
-      icon: '✅',
       tier: 2,
       order: 2,
       url: 'interventions/tier2/frequent-check-ins.html',
@@ -318,7 +304,6 @@ window.AMS = {
     {
       id: 'parent-communication',
       name: 'Individualized Parent Communication',
-      icon: '📞',
       tier: 2,
       order: 7,
       url: 'interventions/tier2/parent-communication.html',
@@ -336,7 +321,6 @@ window.AMS = {
     {
       id: 'modified-rubrics',
       name: 'Modified Rubrics',
-      icon: '📝',
       tier: 2,
       order: 3,
       url: 'interventions/tier2/modified-rubrics.html',
@@ -353,7 +337,6 @@ window.AMS = {
     {
       id: 'preferential-seating',
       name: 'Preferential Seating',
-      icon: '💺',
       tier: 2,
       order: 6,
       url: 'interventions/tier2/preferential-seating.html',
@@ -371,7 +354,6 @@ window.AMS = {
     {
       id: 'small-group-instruction',
       name: 'Small Group Instruction',
-      icon: '👥',
       tier: 2,
       order: 1,
       url: 'interventions/tier2/small-group-instruction.html',
@@ -391,7 +373,6 @@ window.AMS = {
     {
       id: 'behavior-intervention-plan',
       name: 'Behavior Intervention Plan (BIP)',
-      icon: '📊',
       tier: 3,
       order: 6,
       url: 'interventions/tier3/behavior-intervention-plan.html',
@@ -409,7 +390,6 @@ window.AMS = {
     {
       id: 'student-collaboration',
       name: 'Collaboration About Specific Students',
-      icon: '🤝',
       tier: 3,
       order: 2,
       url: 'interventions/tier3/student-collaboration.html',
@@ -428,7 +408,6 @@ window.AMS = {
     {
       id: 'crisis-intervention',
       name: 'Crisis Intervention',
-      icon: '🚨',
       tier: 3,
       order: 7,
       url: 'interventions/tier3/crisis-intervention.html',
@@ -446,7 +425,6 @@ window.AMS = {
     {
       id: 'iep-504-accommodations',
       name: 'IEP & 504 Accommodations',
-      icon: '📋',
       tier: 3,
       order: 1,
       url: 'interventions/tier3/iep-504-accommodations.html',
@@ -464,7 +442,6 @@ window.AMS = {
     {
       id: 'modified-curriculum',
       name: 'Modified Curriculum/Assessment',
-      icon: '📖',
       tier: 3,
       order: 3,
       url: 'interventions/tier3/modified-curriculum.html',
@@ -482,7 +459,6 @@ window.AMS = {
     {
       id: 'one-on-one-intensive',
       name: 'One-on-One Intensive Intervention',
-      icon: '👤',
       tier: 3,
       order: 4,
       url: 'interventions/tier3/one-on-one-intensive.html',
@@ -502,7 +478,6 @@ window.AMS = {
     {
       id: 'paraprofessional-support',
       name: 'Paraprofessional Support',
-      icon: '🧑‍🏫',
       tier: 3,
       order: 5,
       url: 'interventions/tier3/paraprofessional-support.html',
@@ -520,7 +495,6 @@ window.AMS = {
     {
       id: 'wraparound-services',
       name: 'Wraparound Services',
-      icon: '🌐',
       tier: 3,
       order: 8,
       url: 'interventions/tier3/wraparound-services.html',
