@@ -16,6 +16,42 @@
  * rating      integer 1-5 (stars are rendered from this)
  * ratingNote  optional string shown after the stars, e.g. "(Legally Required)"
  * status      "must-have" | "using" | "exploring"
+ * problems    array of problem ids (see below) that list this intervention in
+ *              one of their steps. Derived, not hand-designed — after editing
+ *              `problems` below, regenerate each intervention's list with:
+ *                node -e '
+ *                const { loadBrowserGlobal } = require("./tools/load");
+ *                const AMS = loadBrowserGlobal("data/interventions.js", "AMS");
+ *                const map = {};
+ *                AMS.problems.forEach(function (p) {
+ *                  p.steps.forEach(function (s) {
+ *                    (s.interventions || []).forEach(function (id) {
+ *                      (map[id] = map[id] || []);
+ *                      if (map[id].indexOf(p.id) === -1) map[id].push(p.id);
+ *                    });
+ *                  });
+ *                });
+ *                AMS.interventions.forEach(function (iv) {
+ *                  console.log(iv.id + ": " + JSON.stringify(map[iv.id] || []));
+ *                });'
+ *              then run `node tools/check-data.js` to confirm both directions agree.
+ *
+ * `problems` (bottom of this file) is the triage taxonomy a teacher walks
+ * through to go from "what am I seeing" to "what do I try." Each problem has:
+ *   id          short, stable, used only internally (URLs, cross-references)
+ *   label       full sentence shown as the problem's heading
+ *   shortLabel  compact form for narrow UI (e.g. a breadcrumb or chip)
+ *   steps       ordered list, normally one per tier, each shaped as either:
+ *     - a strategy step:
+ *         { tier, framing, interventions: [id, id, ...] }
+ *       `framing` is the short instruction shown above the intervention
+ *       list (e.g. "Start here — try for 4–6 weeks").
+ *     - a referral step (used when the right move is a person, not a
+ *       classroom strategy — safety concerns, attendance):
+ *         { tier, framing, referral: { who, detail } }
+ *       `who` is the person/role to contact; `detail` is a short sentence
+ *       of context (when they're available, what they own).
+ *       A step has exactly one of `interventions` or `referral`, never both.
  */
 window.AMS = {
   interventions: [
@@ -35,7 +71,7 @@ window.AMS = {
         { name: 'ELA', status: 'using' },
         { name: 'Social Studies', status: 'using' }
       ],
-      problems: []
+      problems: ['cant-show-it', 'disengaged']
     },
     {
       id: 'graphic-organizers',
@@ -54,7 +90,7 @@ window.AMS = {
         { name: 'Social Studies', status: 'using' },
         { name: 'Electives', status: 'using' }
       ],
-      problems: []
+      problems: ['cant-access-text']
     },
     {
       id: 'greeting-students',
@@ -71,7 +107,7 @@ window.AMS = {
         { name: 'PE', status: 'using' },
         { name: 'Electives', status: 'must-have' }
       ],
-      problems: []
+      problems: ['disengaged', 'behavior']
     },
     {
       id: 'modeling',
@@ -88,7 +124,7 @@ window.AMS = {
         { name: 'Math', status: 'must-have' },
         { name: 'Electives', status: 'using' }
       ],
-      problems: []
+      problems: ['wont-start']
     },
     {
       id: 'organizational-systems',
@@ -106,7 +142,7 @@ window.AMS = {
         { name: 'Social Studies', status: 'using' },
         { name: 'Electives', status: 'using' }
       ],
-      problems: []
+      problems: ['wont-start', 'cant-focus']
     },
     {
       id: 'progress-monitoring',
@@ -124,7 +160,7 @@ window.AMS = {
         { name: 'Math', status: 'using' },
         { name: 'Social Studies', status: 'using' }
       ],
-      problems: []
+      problems: ['behind-grade-level']
     },
     {
       id: 'retakes-corrections',
@@ -142,7 +178,7 @@ window.AMS = {
         { name: 'Social Studies', status: 'must-have' },
         { name: 'Electives', status: 'using' }
       ],
-      problems: []
+      problems: ['cant-show-it']
     },
     {
       id: 'text-to-speech',
@@ -162,7 +198,7 @@ window.AMS = {
         { name: 'Social Studies', status: 'using' },
         { name: 'PE', status: 'using' }
       ],
-      problems: []
+      problems: ['cant-access-text', 'academic-language']
     },
     {
       id: 'turn-and-talk',
@@ -179,7 +215,7 @@ window.AMS = {
         { name: 'Math', status: 'using' },
         { name: 'Science', status: 'using' }
       ],
-      problems: []
+      problems: ['academic-language', 'disengaged']
     },
     {
       id: 'vocabulary-support',
@@ -198,7 +234,7 @@ window.AMS = {
         { name: 'Science', status: 'using' },
         { name: 'Social Studies', status: 'using' }
       ],
-      problems: []
+      problems: ['academic-language']
     },
 
     // ---- Tier 2 ----
@@ -219,7 +255,7 @@ window.AMS = {
         { name: 'PE', status: 'using' },
         { name: 'Science', status: 'exploring' }
       ],
-      problems: []
+      problems: ['cant-focus', 'behavior']
     },
     {
       id: 'chunking',
@@ -238,7 +274,7 @@ window.AMS = {
         { name: 'Science', status: 'using' },
         { name: 'Social Studies', status: 'using' }
       ],
-      problems: []
+      problems: ['wont-start', 'cant-focus']
     },
     {
       id: 'differentiated-materials',
@@ -257,7 +293,7 @@ window.AMS = {
         { name: 'Science', status: 'using' },
         { name: 'Social Studies', status: 'must-have' }
       ],
-      problems: []
+      problems: ['cant-access-text', 'academic-language']
     },
     {
       id: 'frequent-check-ins',
@@ -277,7 +313,7 @@ window.AMS = {
         { name: 'PE', status: 'must-have' },
         { name: 'Electives', status: 'using' }
       ],
-      problems: []
+      problems: ['wont-start', 'disengaged']
     },
     {
       id: 'parent-communication',
@@ -295,7 +331,7 @@ window.AMS = {
         { name: 'PE', status: 'using' },
         { name: 'Electives', status: 'must-have' }
       ],
-      problems: []
+      problems: ['wont-start', 'behavior']
     },
     {
       id: 'modified-rubrics',
@@ -312,7 +348,7 @@ window.AMS = {
         { name: 'ELA', status: 'using' },
         { name: 'Social Studies', status: 'using' }
       ],
-      problems: []
+      problems: ['cant-show-it', 'behind-grade-level']
     },
     {
       id: 'preferential-seating',
@@ -330,7 +366,7 @@ window.AMS = {
         { name: 'Social Studies', status: 'must-have' },
         { name: 'PE', status: 'using' }
       ],
-      problems: []
+      problems: ['disengaged', 'cant-focus']
     },
     {
       id: 'small-group-instruction',
@@ -348,7 +384,7 @@ window.AMS = {
         { name: 'Social Studies', status: 'using' },
         { name: 'PE', status: 'using' }
       ],
-      problems: []
+      problems: ['cant-access-text', 'academic-language', 'behind-grade-level']
     },
 
     // ---- Tier 3 ----
@@ -368,7 +404,7 @@ window.AMS = {
         { name: 'PE', status: 'using', note: 'ABC tracking' },
         { name: 'Counseling & Psych', status: 'using', note: 'lead' }
       ],
-      problems: []
+      problems: ['cant-focus', 'behavior']
     },
     {
       id: 'student-collaboration',
@@ -387,7 +423,7 @@ window.AMS = {
         { name: 'Social Studies', status: 'must-have' },
         { name: 'Counseling', status: 'using', note: 'leads' }
       ],
-      problems: []
+      problems: ['wont-start', 'disengaged', 'behavior', 'safety']
     },
     {
       id: 'crisis-intervention',
@@ -405,7 +441,7 @@ window.AMS = {
         { name: 'PE', status: 'using', note: 'safety plans' },
         { name: 'Admin + Psych', status: 'using' }
       ],
-      problems: []
+      problems: ['safety']
     },
     {
       id: 'iep-504-accommodations',
@@ -423,7 +459,7 @@ window.AMS = {
         { name: 'All core subjects', status: 'using' },
         { name: 'Electives', status: 'using' }
       ],
-      problems: []
+      problems: ['cant-show-it', 'behind-grade-level']
     },
     {
       id: 'modified-curriculum',
@@ -441,7 +477,7 @@ window.AMS = {
         { name: 'Math', status: 'must-have' },
         { name: 'Social Studies', status: 'must-have' }
       ],
-      problems: []
+      problems: ['cant-access-text', 'behind-grade-level']
     },
     {
       id: 'one-on-one-intensive',
@@ -461,7 +497,7 @@ window.AMS = {
         { name: 'PE', status: 'using' },
         { name: 'Electives', status: 'using' }
       ],
-      problems: []
+      problems: ['cant-access-text', 'academic-language', 'behind-grade-level']
     },
     {
       id: 'paraprofessional-support',
@@ -479,7 +515,7 @@ window.AMS = {
         { name: 'Science', status: 'using' },
         { name: 'PE', status: 'using' }
       ],
-      problems: []
+      problems: ['wont-start', 'cant-focus']
     },
     {
       id: 'wraparound-services',
@@ -496,9 +532,136 @@ window.AMS = {
         { name: 'Counseling', status: 'using', note: 'leads' },
         { name: 'FRA', status: 'using' }
       ],
-      problems: []
+      problems: ['safety']
     }
   ],
 
-  problems: []
+  problems: [
+    {
+      id: 'wont-start',
+      label: "Won't start tasks / doesn't turn work in",
+      shortLabel: "Won't start work",
+      steps: [
+        { tier: 1, framing: 'Start here — try for 4–6 weeks',
+          interventions: ['organizational-systems', 'modeling'] },
+        { tier: 2, framing: "If no change — add, don't replace",
+          interventions: ['chunking', 'frequent-check-ins', 'parent-communication'] },
+        { tier: 3, framing: 'Still stuck — bring to SST',
+          interventions: ['student-collaboration', 'paraprofessional-support'] }
+      ]
+    },
+    {
+      id: 'cant-access-text',
+      label: "Can't access the reading or materials",
+      shortLabel: "Can't access text",
+      steps: [
+        { tier: 1, framing: 'Start here — try for 4–6 weeks',
+          interventions: ['text-to-speech', 'graphic-organizers'] },
+        { tier: 2, framing: "If no change — add, don't replace",
+          interventions: ['differentiated-materials', 'small-group-instruction'] },
+        { tier: 3, framing: 'Still stuck — bring to SST',
+          interventions: ['one-on-one-intensive', 'modified-curriculum'] }
+      ]
+    },
+    {
+      id: 'academic-language',
+      label: 'Struggling with academic language',
+      shortLabel: 'Academic language',
+      steps: [
+        { tier: 1, framing: 'Start here — try for 4–6 weeks',
+          interventions: ['vocabulary-support', 'turn-and-talk', 'text-to-speech'] },
+        { tier: 2, framing: "If no change — add, don't replace",
+          interventions: ['small-group-instruction', 'differentiated-materials'] },
+        { tier: 3, framing: 'Still stuck — bring to SST',
+          interventions: ['one-on-one-intensive'] }
+      ]
+    },
+    {
+      id: 'cant-show-it',
+      label: "Understands it but can't show it",
+      shortLabel: "Can't show learning",
+      steps: [
+        { tier: 1, framing: 'Start here — try for 4–6 weeks',
+          interventions: ['choice-in-learning', 'retakes-corrections'] },
+        { tier: 2, framing: "If no change — add, don't replace",
+          interventions: ['modified-rubrics'] },
+        { tier: 3, framing: 'Still stuck — bring to SST',
+          interventions: ['iep-504-accommodations'] }
+      ]
+    },
+    {
+      id: 'disengaged',
+      label: 'Disengaged, not participating',
+      shortLabel: 'Disengaged',
+      steps: [
+        { tier: 1, framing: 'Start here — try for 4–6 weeks',
+          interventions: ['greeting-students', 'turn-and-talk', 'choice-in-learning'] },
+        { tier: 2, framing: "If no change — add, don't replace",
+          interventions: ['frequent-check-ins', 'preferential-seating'] },
+        { tier: 3, framing: 'Still stuck — bring to SST',
+          interventions: ['student-collaboration'] }
+      ]
+    },
+    {
+      id: 'cant-focus',
+      label: "Can't focus or stay on task",
+      shortLabel: "Can't focus",
+      steps: [
+        { tier: 1, framing: 'Start here — try for 4–6 weeks',
+          interventions: ['organizational-systems'] },
+        { tier: 2, framing: "If no change — add, don't replace",
+          interventions: ['preferential-seating', 'chunking', 'behavior-check-ins'] },
+        { tier: 3, framing: 'Still stuck — bring to SST',
+          interventions: ['paraprofessional-support', 'behavior-intervention-plan'] }
+      ]
+    },
+    {
+      id: 'behavior',
+      label: 'Behavior is disrupting learning',
+      shortLabel: 'Disruptive behavior',
+      steps: [
+        { tier: 1, framing: 'Start here — try for 4–6 weeks',
+          interventions: ['greeting-students'] },
+        { tier: 2, framing: "If no change — add, don't replace",
+          interventions: ['behavior-check-ins', 'parent-communication'] },
+        { tier: 3, framing: 'Still stuck — bring to SST',
+          interventions: ['behavior-intervention-plan', 'student-collaboration'] }
+      ]
+    },
+    {
+      id: 'safety',
+      label: 'Safety or mental health concern',
+      shortLabel: 'Safety concern',
+      steps: [
+        { tier: 3, framing: 'Go now — do not wait',
+          referral: { who: 'School counselor or SST',
+                      detail: 'Counselors are the point of contact for each student. SST meets Wednesdays at 10:00 AM.' } },
+        { tier: 3, framing: 'Formal supports',
+          interventions: ['crisis-intervention', 'wraparound-services', 'student-collaboration'] }
+      ]
+    },
+    {
+      id: 'behind-grade-level',
+      label: 'Falling well behind grade level',
+      shortLabel: 'Behind grade level',
+      steps: [
+        { tier: 1, framing: 'Start here — try for 4–6 weeks',
+          interventions: ['progress-monitoring'] },
+        { tier: 2, framing: "If no change — add, don't replace",
+          interventions: ['small-group-instruction', 'modified-rubrics'] },
+        { tier: 3, framing: 'Still stuck — bring to SST',
+          interventions: ['one-on-one-intensive', 'modified-curriculum', 'iep-504-accommodations'] }
+      ]
+    },
+    {
+      id: 'attendance',
+      label: 'Missing a lot of school',
+      shortLabel: 'Attendance',
+      steps: [
+        { tier: 1, framing: 'This is already tracked — talk to the people who own it',
+          referral: { who: 'Family Resource Advocate or attendance secretary',
+                      detail: 'Attendance is monitored for all students. Bring persistent concerns to SST, Wednesdays at 10:00 AM.' } }
+      ]
+    }
+  ]
 };
