@@ -49,10 +49,20 @@
     return new Array(n + 1).join('★') + new Array(5 - n + 1).join('☆');
   }
 
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   window.AMSCore = {
     matchesQuery: matchesQuery,
     filterInterventions: filterInterventions,
     sortInterventions: sortInterventions,
-    starString: starString
+    starString: starString,
+    escapeHtml: escapeHtml
   };
 })();

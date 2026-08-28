@@ -109,4 +109,21 @@ test('starString renders filled and empty stars', function () {
   assert.strictEqual(Core.starString(5), '★★★★★');
 });
 
+test('escapeHtml escapes &, <, >, ", \'', function () {
+  assert.strictEqual(Core.escapeHtml('&<>"\''), '&amp;&lt;&gt;&quot;&#39;');
+});
+
+test('escapeHtml replaces & first so < does not become &amp;lt;', function () {
+  assert.strictEqual(Core.escapeHtml('<'), '&lt;');
+});
+
+test('escapeHtml returns empty string for null and undefined', function () {
+  assert.strictEqual(Core.escapeHtml(null), '');
+  assert.strictEqual(Core.escapeHtml(undefined), '');
+});
+
+test('escapeHtml leaves an ordinary string untouched', function () {
+  assert.strictEqual(Core.escapeHtml('Chunking'), 'Chunking');
+});
+
 console.log('OK - ' + passed + ' core tests passed.');

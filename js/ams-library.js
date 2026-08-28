@@ -21,14 +21,38 @@
     return out.sort();
   }
 
+  function categories() {
+    var seen = {}, out = [];
+    data.interventions.forEach(function (iv) {
+      (iv.categories || []).forEach(function (c) {
+        if (!seen[c]) { seen[c] = true; out.push(c); }
+      });
+    });
+    return out.sort();
+  }
+
   function buildDeptFilters() {
     var host = document.getElementById('deptFilters');
     if (!host) return;
     var html = '<button type="button" class="tag active" aria-pressed="true" ' +
                'data-filter="department" data-value="">All departments</button>';
     departments().forEach(function (name) {
+      var esc = Core.escapeHtml(name);
       html += '<button type="button" class="tag" aria-pressed="false" ' +
-              'data-filter="department" data-value="' + name + '">' + name + '</button>';
+              'data-filter="department" data-value="' + esc + '">' + esc + '</button>';
+    });
+    host.innerHTML = html;
+  }
+
+  function buildCatFilters() {
+    var host = document.getElementById('catFilters');
+    if (!host) return;
+    var html = '<button type="button" class="tag active" aria-pressed="true" ' +
+               'data-filter="category" data-value="">All categories</button>';
+    categories().forEach(function (name) {
+      var esc = Core.escapeHtml(name);
+      html += '<button type="button" class="tag" aria-pressed="false" ' +
+              'data-filter="category" data-value="' + esc + '">' + esc + '</button>';
     });
     host.innerHTML = html;
   }
@@ -40,16 +64,17 @@
     body.innerHTML = rows.map(function (iv) {
       var depts = (iv.departments || []).map(function (d) {
         var cls = d.status === 'must-have' ? 'dept-tag dept-tag--must' : 'dept-tag';
-        var label = d.name;
-        if (d.note) label += ' (' + d.note + ')';
+        var label = Core.escapeHtml(d.name);
+        if (d.note) label += ' (' + Core.escapeHtml(d.note) + ')';
         if (d.status === 'must-have') label += ' ★';
-        return '<span class="' + cls + '" title="' + d.status + '">' + label + '</span>';
+        return '<span class="' + cls + '" title="' + Core.escapeHtml(d.status) + '">' + label + '</span>';
       }).join('');
+      var cats = (iv.categories || []).map(function (c) { return Core.escapeHtml(c); }).join(', ');
       return '<tr>' +
         '<td class="lib-name"><a href="' + iv.url + '">' +
-          (iv.icon ? iv.icon + ' ' : '') + iv.name + '</a></td>' +
+          (iv.icon ? Core.escapeHtml(iv.icon) + ' ' : '') + Core.escapeHtml(iv.name) + '</a></td>' +
         '<td><span class="tier-chip t' + iv.tier + '">Tier ' + iv.tier + '</span></td>' +
-        '<td>' + (iv.categories || []).join(', ') + '</td>' +
+        '<td>' + cats + '</td>' +
         '<td><span class="depts">' + depts + '</span></td>' +
         '<td class="lib-stars">' + Core.starString(iv.rating) + '</td>' +
       '</tr>';
@@ -91,5 +116,6 @@
   }
 
   buildDeptFilters();
+  buildCatFilters();
   render();
 })();

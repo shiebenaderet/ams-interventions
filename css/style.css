@@ -7,6 +7,12 @@
     --tier1-color: #4A90E2;
     --tier2-color: #F5A623;
     --tier3-color: #7ED321;
+    --tier1-rgb: 74, 144, 226;
+    --tier2-rgb: 245, 166, 35;
+    --tier3-rgb: 126, 211, 33;
+    --t1-ink: #1F5B99;
+    --t2-ink: #92610A;
+    --t3-ink: #4A7D0E;
     /* --tier-accent is the per-page themed color; defaults to Tier 1.
        Set via body.tier-1 / tier-2 / tier-3 below. */
     --tier-accent: #4A90E2;
@@ -1075,7 +1081,7 @@ html {
     font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem;
     border-radius: 10px; white-space: nowrap;
 }
-.tier-chip.t1 { background: rgba(74,144,226,0.15); color: #1F5B99; }
-.tier-chip.t2 { background: rgba(245,166,35,0.18); color: #92610A; }
-.tier-chip.t3 { background: rgba(126,211,33,0.18); color: #4A7D0E; }
+.tier-chip.t1 { background: rgba(var(--tier1-rgb), 0.15); color: var(--t1-ink); }
+.tier-chip.t2 { background: rgba(var(--tier2-rgb), 0.18); color: var(--t2-ink); }
+.tier-chip.t3 { background: rgba(var(--tier3-rgb), 0.18); color: var(--t3-ink); }
 .dept-tag--must { background: #FFF3CD; color: #7A5600; font-weight: 600; }
