@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tier 1 Interventions - AMS MTSS Toolkit</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23667eea%22/%3E%3Ctext x=%2250%22 y=%2266%22 font-family=%22-apple-system,Segoe UI,Roboto,sans-serif%22 font-size=%2244%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22white%22%3EAMS%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="tier-1">
+    <a class="skip-link" href="#main">Skip to main content</a>
     <header>
         <div class="container">
             <h1>🎓 AMS Interventions</h1>
@@ -22,17 +24,29 @@
                 <li><a href="tier1.html" class="active">Tier 1</a></li>
                 <li><a href="tier2.html">Tier 2</a></li>
                 <li><a href="tier3.html">Tier 3</a></li>
+                <li><a href="departments.html">Departments</a></li>
             </ul>
         </div>
     </nav>
 
-    <main class="container">
+    <main id="main" class="container" tabindex="-1">
         <section>
             <h2>About Tier 1 Interventions</h2>
-            <p>Tier 1 is the foundation of MTSS and includes universal supports provided to all students in the general education classroom. These interventions should be implemented consistently across all classrooms and are designed to meet the needs of approximately 80% of students.</p>
-            
+            <p>Tier 1 is the foundation of MTSS: high-quality, evidence-based core instruction and support provided to all students in the general education setting. The goal is to meet the needs of approximately 80% of our students.</p>
+
             <div class="highlight">
                 <strong>Key Principle:</strong> Tier 1 interventions are for EVERYONE, not just struggling students. When implemented with fidelity, they prevent many students from needing more intensive support.
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📚 Academic Tier 1</h3>
+                    <p>Each academic department is mapping out its core curriculum, instruction, and classroom support practices to detail the universal learning program.</p>
+                </div>
+                <div class="card">
+                    <h3>💛 Whole-Child Tier 1</h3>
+                    <p>School counselors have universal practices identified in the district's Comprehensive School Counseling Plan (CSCP). The school nurse coordinates health screenings. The FRA and attendance secretary monitor attendance for all students.</p>
+                </div>
             </div>
 
             <h3>Characteristics of Quality Tier 1</h3>
@@ -52,13 +66,13 @@
                 <input type="text" id="searchBox" class="search-box" placeholder="Search interventions..." onkeyup="filterInterventions()">
             </div>
             
-            <div class="filter-tags">
-                <span class="tag active" onclick="filterByTag('all')">All</span>
-                <span class="tag" onclick="filterByTag('instruction')">Instruction</span>
-                <span class="tag" onclick="filterByTag('assessment')">Assessment</span>
-                <span class="tag" onclick="filterByTag('organization')">Organization</span>
-                <span class="tag" onclick="filterByTag('relationship')">Relationships</span>
-                <span class="tag" onclick="filterByTag('technology')">Technology</span>
+            <div class="filter-tags" role="group" aria-label="Filter interventions by category">
+                <button type="button" class="tag active" aria-pressed="true" onclick="filterByTag(event, 'all')">All</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'instruction')">Instruction</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'assessment')">Assessment</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'organization')">Organization</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'relationship')">Relationships</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'technology')">Technology</button>
             </div>
         </section>
 
@@ -73,6 +87,7 @@
                     <div class="rating">★★★★☆</div>
                     <p class="description">Consistent structures that help all students track assignments, materials, and deadlines.</p>
                     <p><strong>Best for:</strong> Executive functioning, time management</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Social Studies</span><span class="dept-tag">Electives</span></div>
                 </a>
 
                 <!-- Text-to-Speech -->
@@ -81,6 +96,7 @@
                     <div class="rating">★★★★★</div>
                     <p class="description">Technology tools that read text aloud or convert spoken words to written text.</p>
                     <p><strong>Best for:</strong> Reading support, writing support, ELL</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies</span><span class="dept-tag">PE</span></div>
                 </a>
 
                 <!-- Vocabulary Support -->
@@ -89,6 +105,7 @@
                     <div class="rating">★★★★☆</div>
                     <p class="description">Systematic teaching of academic vocabulary through cards, word walls, and games.</p>
                     <p><strong>Best for:</strong> Academic language, content comprehension</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies</span></div>
                 </a>
 
                 <!-- Graphic Organizers -->
@@ -97,15 +114,16 @@
                     <div class="rating">★★★★★</div>
                     <p class="description">Visual frameworks that help students organize information and see relationships.</p>
                     <p><strong>Best for:</strong> Note-taking, planning, comprehension</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies</span><span class="dept-tag">Electives</span></div>
                 </a>
 
                 <!-- Turn and Talk -->
-                <a href="wip.html" class="intervention-card" data-tags="instruction">
+                <a href="interventions/tier1/turn-and-talk.html" class="intervention-card" data-tags="instruction">
                     <h3>💬 Turn and Talk / Think-Pair-Share</h3>
                     <div class="rating">★★★★☆</div>
                     <p class="description">Structured partner discussion for processing thinking and practicing academic language.</p>
                     <p><strong>Best for:</strong> Engagement, language development, comprehension</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">Math</span><span class="dept-tag">Science</span></div>
                 </a>
 
                 <!-- Modeling -->
@@ -114,6 +132,7 @@
                     <div class="rating">★★★★★</div>
                     <p class="description">Gradual release of responsibility from teacher demonstration to independent practice.</p>
                     <p><strong>Best for:</strong> Skill development, building independence</p>
+                    <div class="dept-tags"><span class="dept-tag">Math (must-have)</span><span class="dept-tag">Electives</span></div>
                 </a>
 
                 <!-- Progress Monitoring -->
@@ -122,6 +141,7 @@
                     <div class="rating">★★★★★</div>
                     <p class="description">Regular, systematic checking of student understanding to guide instruction.</p>
                     <p><strong>Best for:</strong> Data-driven instruction, tracking growth</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math</span><span class="dept-tag">Social Studies</span></div>
                 </a>
 
                 <!-- Greeting Students -->
@@ -130,6 +150,7 @@
                     <div class="rating">★★★★☆</div>
                     <p class="description">Personal greetings as students enter to build relationships and set positive tone.</p>
                     <p><strong>Best for:</strong> Relationships, classroom climate, behavior</p>
+                    <div class="dept-tags"><span class="dept-tag">PE</span><span class="dept-tag">Electives (must-have)</span></div>
                 </a>
 
                 <!-- Choice in Learning -->
@@ -138,6 +159,7 @@
                     <div class="rating">★★★★☆</div>
                     <p class="description">Students show understanding through different formats while meeting the same standard.</p>
                     <p><strong>Best for:</strong> Student agency, differentiation, engagement</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Social Studies</span></div>
                 </a>
 
                 <!-- Retakes and Corrections -->
@@ -146,6 +168,7 @@
                     <div class="rating">★★★★☆</div>
                     <p class="description">Opportunities to demonstrate improved mastery after initial assessment.</p>
                     <p><strong>Best for:</strong> Growth mindset, mastery learning, reducing anxiety</p>
+                    <div class="dept-tags"><span class="dept-tag">Math</span><span class="dept-tag">Social Studies (must-have)</span><span class="dept-tag">Electives</span></div>
                 </a>
             </div>
         </section>
@@ -182,7 +205,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Alderwood Middle School | MTSS Intervention Toolkit</p>
+            <p>&copy; 2025–2026 Alderwood Middle School | MTSS Intervention Toolkit</p>
             <p>Developed collaboratively by AMS educators</p>
         </div>
     </footer>

@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tier 3 Interventions - AMS MTSS Toolkit</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23667eea%22/%3E%3Ctext x=%2250%22 y=%2266%22 font-family=%22-apple-system,Segoe UI,Roboto,sans-serif%22 font-size=%2244%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22white%22%3EAMS%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="tier-3">
+    <a class="skip-link" href="#main">Skip to main content</a>
     <header>
         <div class="container">
             <h1>🎓 AMS Interventions</h1>
@@ -22,17 +24,33 @@
                 <li><a href="tier1.html">Tier 1</a></li>
                 <li><a href="tier2.html">Tier 2</a></li>
                 <li><a href="tier3.html" class="active">Tier 3</a></li>
+                <li><a href="departments.html">Departments</a></li>
             </ul>
         </div>
     </nav>
 
-    <main class="container">
+    <main id="main" class="container" tabindex="-1">
         <section>
             <h2>About Tier 3 Interventions</h2>
-            <p>Tier 3 interventions are the most intensive supports in the MTSS framework. They are highly individualized, data-driven, and delivered to students whose needs are not being met through Tier 1 and Tier 2 alone. These interventions often involve multiple adults working collaboratively to support the student.</p>
+            <p>Tier 3 interventions are the most intensive and individualized supports in our MTSS framework, for students with significant or persistent needs. Support is often provided one-on-one or in very small groups, with greater frequency and duration.</p>
 
             <div class="highlight">
                 <strong>Critical Principle:</strong> Tier 3 is IN ADDITION TO Tiers 1 and 2. Students at Tier 3 still receive high-quality core instruction (Tier 1) and may receive targeted small group support (Tier 2) PLUS intensive individualized intervention.
+            </div>
+
+            <div class="note">
+                <strong>Important clarification:</strong> Students with IEPs do receive Tier 3 services. However, <strong>students do not have to have IEPs to receive Tier 3 interventions</strong> from general education and school staff.
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📚 Academic Tier 3</h3>
+                    <p>Each department defines its intensive Tier 3 interventions, which may involve highly individualized plans and a deeper analysis of the student's needs.</p>
+                </div>
+                <div class="card">
+                    <h3>💛 Whole-Child Tier 3</h3>
+                    <p>Individual check-ins, attendance meetings/filings, collaboration with mental health providers, highly personalized support plans, individualized health plans, and more.</p>
+                </div>
             </div>
 
             <h3>Characteristics of Quality Tier 3</h3>
@@ -67,12 +85,12 @@
                 <input type="text" id="searchBox" class="search-box" placeholder="Search interventions..." onkeyup="filterInterventions()">
             </div>
 
-            <div class="filter-tags">
-                <span class="tag active" onclick="filterByTag('all')">All</span>
-                <span class="tag" onclick="filterByTag('legal')">Legal/Required</span>
-                <span class="tag" onclick="filterByTag('team')">Team Collaboration</span>
-                <span class="tag" onclick="filterByTag('behavior')">Behavior</span>
-                <span class="tag" onclick="filterByTag('academic')">Academic</span>
+            <div class="filter-tags" role="group" aria-label="Filter interventions by category">
+                <button type="button" class="tag active" aria-pressed="true" onclick="filterByTag(event, 'all')">All</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'legal')">Legal/Required</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'team')">Team Collaboration</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'behavior')">Behavior</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'academic')">Academic</button>
             </div>
         </section>
 
@@ -87,69 +105,70 @@
                     <div class="rating">★★★★★ (Legally Required)</div>
                     <p class="description">Mandated supports for students with documented disabilities.</p>
                     <p><strong>Best for:</strong> Students with IEPs or 504 plans</p>
+                    <div class="dept-tags"><span class="dept-tag">All core subjects</span><span class="dept-tag">Electives</span></div>
                 </a>
 
                 <!-- Student-Specific Collaboration -->
-                <a href="wip.html" class="intervention-card" data-tags="team">
+                <a href="interventions/tier3/student-collaboration.html" class="intervention-card" data-tags="team">
                     <h3>🤝 Collaboration About Specific Students</h3>
                     <div class="rating">★★★★★</div>
                     <p class="description">Structured team meetings to coordinate intensive support.</p>
                     <p><strong>Best for:</strong> Complex needs, wraparound support, problem-solving</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math (must-have)</span><span class="dept-tag">Social Studies (must-have)</span><span class="dept-tag">Counseling (leads)</span></div>
                 </a>
 
                 <!-- Modified Curriculum -->
-                <a href="wip.html" class="intervention-card" data-tags="academic legal">
+                <a href="interventions/tier3/modified-curriculum.html" class="intervention-card" data-tags="academic legal">
                     <h3>📖 Modified Curriculum/Assessment</h3>
                     <div class="rating">★★★★☆</div>
                     <p class="description">Changes to WHAT student learns, not just HOW (IEP-specified).</p>
                     <p><strong>Best for:</strong> Significant cognitive disabilities</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math (must-have)</span><span class="dept-tag">Social Studies (must-have)</span></div>
                 </a>
 
                 <!-- One-on-One Intensive -->
-                <a href="wip.html" class="intervention-card" data-tags="academic">
+                <a href="interventions/tier3/one-on-one-intensive.html" class="intervention-card" data-tags="academic">
                     <h3>👤 One-on-One Intensive Intervention</h3>
                     <div class="rating">★★★★★</div>
                     <p class="description">Daily individual instruction by specialist (20-40 min).</p>
                     <p><strong>Best for:</strong> Severe skill deficits (dyslexia, dyscalculia)</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math</span><span class="dept-tag">Science</span><span class="dept-tag">PE</span><span class="dept-tag">Electives</span></div>
                 </a>
 
                 <!-- Paraprofessional Support -->
-                <a href="wip.html" class="intervention-card" data-tags="legal">
+                <a href="interventions/tier3/paraprofessional-support.html" class="intervention-card" data-tags="legal">
                     <h3>🧑‍🏫 Paraprofessional Support</h3>
                     <div class="rating">★★★★☆</div>
                     <p class="description">Dedicated aide for student (IEP-specified).</p>
                     <p><strong>Best for:</strong> Significant support needs across settings</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">Math</span><span class="dept-tag">Science</span><span class="dept-tag">PE</span></div>
                 </a>
 
                 <!-- Behavior Intervention Plan -->
-                <a href="wip.html" class="intervention-card" data-tags="behavior legal">
+                <a href="interventions/tier3/behavior-intervention-plan.html" class="intervention-card" data-tags="behavior legal">
                     <h3>📊 Behavior Intervention Plan (BIP)</h3>
                     <div class="rating">★★★★★</div>
                     <p class="description">Formal plan based on functional assessment (legally required if behavior impedes learning).</p>
                     <p><strong>Best for:</strong> Persistent, significant behavior challenges</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">Social Studies</span><span class="dept-tag">PE (ABC tracking)</span><span class="dept-tag">Counseling &amp; Psych (lead)</span></div>
                 </a>
 
                 <!-- Crisis Intervention -->
-                <a href="wip.html" class="intervention-card" data-tags="behavior">
+                <a href="interventions/tier3/crisis-intervention.html" class="intervention-card" data-tags="behavior">
                     <h3>🚨 Crisis Intervention</h3>
                     <div class="rating">★★★★★</div>
                     <p class="description">Safety plan for students with self-harm, aggression, or severe dysregulation.</p>
                     <p><strong>Best for:</strong> Safety concerns, mental health crises</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">Counseling (leads)</span><span class="dept-tag">PE (safety plans)</span><span class="dept-tag">Admin + Psych</span></div>
                 </a>
 
                 <!-- Wraparound Services -->
-                <a href="wip.html" class="intervention-card" data-tags="team">
+                <a href="interventions/tier3/wraparound-services.html" class="intervention-card" data-tags="team">
                     <h3>🌐 Wraparound Services</h3>
                     <div class="rating">★★★★★</div>
                     <p class="description">Coordination with outside agencies (mental health, medical, social services).</p>
                     <p><strong>Best for:</strong> Complex needs requiring multiple service providers</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">Counseling (leads)</span><span class="dept-tag">FRA</span></div>
                 </a>
             </div>
         </section>
@@ -232,7 +251,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Alderwood Middle School | MTSS Intervention Toolkit</p>
+            <p>&copy; 2025–2026 Alderwood Middle School | MTSS Intervention Toolkit</p>
             <p>Developed collaboratively by AMS educators</p>
         </div>
     </footer>

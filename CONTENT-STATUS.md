@@ -1,137 +1,81 @@
-# AMS Interventions - Content Status
+# AMS Interventions — Content Status
 
-**Last Updated:** 2025-12-05
-**Overall Progress:** 13 of 26 interventions completed (50%)
+**Last updated:** 2026-08-28
+**Coverage:** 26 of 26 intervention pages written (100%)
 
----
-
-## Tier 1: Universal Interventions
-**Status:** 9 of 10 completed (90%)
-
-### ✅ Complete (9)
-1. ✅ Organizational Systems (`organizational-systems.html`)
-2. ✅ Text-to-Speech & Speech-to-Text (`text-to-speech.html`)
-3. ✅ Vocabulary Support (`vocabulary-support.html`)
-4. ✅ Graphic Organizers (`graphic-organizers.html`)
-5. ✅ Modeling: I Do, We Do, You Do (`modeling.html`)
-6. ✅ Progress Monitoring (`progress-monitoring.html`)
-7. ✅ Greeting Students at the Door (`greeting-students.html`)
-8. ✅ Choice in Demonstration of Learning (`choice-in-learning.html`)
-9. ✅ Retakes and Corrections (`retakes-corrections.html`)
-
-### ❌ Missing Content (1)
-1. ❌ **Turn and Talk / Think-Pair-Share** (`turn-and-talk.html`)
-   - Link exists in tier1.html (line 103)
-   - Rating: ★★★★☆
-   - Needed for: Engagement, language development, comprehension
+Every intervention linked from a tier page has a real detail page behind
+it. There are no broken links and no placeholder pages.
 
 ---
 
-## Tier 2: Targeted Interventions
-**Status:** 3 of 8 completed (38%)
+## Coverage by tier
 
-### ✅ Complete (3)
-1. ✅ Small Group Instruction (`small-group-instruction.html`)
-2. ✅ Frequent Check-Ins (`frequent-check-ins.html`)
-3. ✅ Modified Rubrics (`modified-rubrics.html`)
+| Tier | Interventions | Status |
+|------|---------------|--------|
+| Tier 1 — Universal | 10 | ✅ Complete |
+| Tier 2 — Targeted | 8 | ✅ Complete |
+| Tier 3 — Intensive | 8 | ✅ Complete |
 
-### ❌ Missing Content (5)
-1. ❌ **Chunking** (`chunking.html`)
-   - Link exists in tier2.html (line 103)
-   - Rating: ★★★★☆
-   - Needed for: Executive functioning, task completion
+### Tier 1 — Universal (all students)
+Organizational Systems · Text-to-Speech & Speech-to-Text · Vocabulary
+Support · Graphic Organizers · Turn and Talk / Think-Pair-Share ·
+Modeling (I Do, We Do, You Do) · Progress Monitoring · Greeting Students
+at the Door · Choice in Demonstration of Learning · Retakes and
+Corrections
 
-2. ❌ **Differentiated Materials** (`differentiated-materials.html`)
-   - Link exists in tier2.html (line 111)
-   - Rating: ★★★★☆
-   - Needed for: Reading comprehension, content access
+### Tier 2 — Targeted (some students)
+Small Group Instruction · Frequent Check-Ins · Modified Rubrics ·
+Chunking · Differentiated Materials · Preferential Seating ·
+Individualized Parent Communication · Behavior Check-Ins
 
-3. ❌ **Preferential Seating** (`preferential-seating.html`)
-   - Link exists in tier2.html (line 119)
-   - Rating: ★★★☆☆
-   - Needed for: Attention, behavior, engagement
-
-4. ❌ **Individualized Parent Communication** (`parent-communication.html`)
-   - Link exists in tier2.html (line 127)
-   - Rating: ★★★★☆
-   - Needed for: Building partnerships, monitoring progress
-
-5. ❌ **Behavior Check-Ins** (`behavior-check-ins.html`)
-   - Link exists in tier2.html (line 135)
-   - Rating: ★★★★☆
-   - Needed for: Behavior goals, self-monitoring
+### Tier 3 — Intensive (few students)
+IEP & 504 Accommodations · Collaboration About Specific Students ·
+Modified Curriculum/Assessment · One-on-One Intensive Intervention ·
+Paraprofessional Support · Behavior Intervention Plan (BIP) · Crisis
+Intervention · Wraparound Services
 
 ---
 
-## Tier 3: Intensive Interventions
-**Status:** 1 of 8 completed (13%)
+## The real remaining work: depth, not coverage
 
-### ✅ Complete (1)
-1. ✅ IEP & 504 Accommodations (`iep-504-accommodations.html`)
+Coverage is done. Depth is uneven. Pages range from ~350 to ~2,600 words,
+and the shorter ones cover the core sections but lack the worked
+examples, scripts, and pitfall tables that make the strongest pages
+genuinely usable during a prep period.
 
-### ❌ Missing Content (7)
-1. ❌ **Collaboration About Specific Students** (`student-collaboration.html`)
-   - Link exists in tier3.html (line 93)
-   - Rating: ★★★★★
-   - Needed for: Complex needs, wraparound support, problem-solving
-   - **Note:** User mentioned having content for this
+**Deepest pages** (use these as the quality bar):
+IEP & 504 Accommodations (2,614w) · Frequent Check-Ins (2,180w) ·
+Modified Rubrics (2,089w) · Small Group Instruction (1,803w) ·
+Modeling (1,509w) · Progress Monitoring (1,446w)
 
-2. ❌ **Modified Curriculum/Assessment** (`modified-curriculum.html`)
-   - Link exists in tier3.html (line 101)
-   - Rating: ★★★★☆
-   - Needed for: Significant cognitive disabilities
+**Thinnest pages** (best candidates for the next content pass):
 
-3. ❌ **One-on-One Intensive Intervention** (`one-on-one-intensive.html`)
-   - Link exists in tier3.html (line 109)
-   - Rating: ★★★★★
-   - Needed for: Severe skill deficits (dyslexia, dyscalculia)
+| Page | Words | Tier |
+|------|-------|------|
+| Preferential Seating | 358 | 2 |
+| One-on-One Intensive | 386 | 3 |
+| Differentiated Materials | 406 | 2 |
+| Modified Curriculum | 411 | 3 |
+| Student Collaboration | 447 | 3 |
+| Text-to-Speech | 462 | 1 |
+| Chunking | 463 | 2 |
+| Wraparound Services | 465 | 3 |
+| Paraprofessional Support | 478 | 3 |
+| Parent Communication | 481 | 2 |
 
-4. ❌ **Paraprofessional Support** (`paraprofessional-support.html`)
-   - Link exists in tier3.html (line 117)
-   - Rating: ★★★★☆
-   - Needed for: Significant support needs across settings
-
-5. ❌ **Behavior Intervention Plan (BIP)** (`behavior-intervention-plan.html`)
-   - Link exists in tier3.html (line 125)
-   - Rating: ★★★★★
-   - Needed for: Persistent, significant behavior challenges
-
-6. ❌ **Crisis Intervention** (`crisis-intervention.html`)
-   - Link exists in tier3.html (line 133)
-   - Rating: ★★★★★
-   - Needed for: Safety concerns, mental health crises
-
-7. ❌ **Wraparound Services** (`wraparound-services.html`)
-   - Link exists in tier3.html (line 141)
-   - Rating: ★★★★★
-   - Needed for: Complex needs requiring multiple service providers
+Prioritize by how often a page gets used, not by how short it is —
+Text-to-Speech and Chunking are high-traffic, everyday strategies;
+Wraparound Services is consulted rarely but matters when it is.
 
 ---
 
-## Summary by Priority
+## Suggested next steps
 
-### High Priority (★★★★★ rated or most requested)
-- ❌ Turn and Talk (Tier 1)
-- ❌ Behavior Check-Ins (Tier 2)
-- ❌ Student-Specific Collaboration (Tier 3) - *content mentioned by user*
-- ❌ One-on-One Intensive (Tier 3)
-- ❌ Behavior Intervention Plan (Tier 3)
-- ❌ Crisis Intervention (Tier 3)
-- ❌ Wraparound Services (Tier 3)
-
-### Medium Priority (★★★★☆ or ★★★☆☆ rated)
-- ❌ Chunking (Tier 2)
-- ❌ Differentiated Materials (Tier 2)
-- ❌ Parent Communication (Tier 2)
-- ❌ Preferential Seating (Tier 2)
-- ❌ Modified Curriculum (Tier 3)
-- ❌ Paraprofessional Support (Tier 3)
-
----
-
-## Recommended Next Steps
-
-1. **Complete Tier 1** - Only 1 intervention remaining (Turn and Talk)
-2. **Priority Tier 2** - Focus on most-requested: Chunking, Behavior Check-Ins, Parent Communication
-3. **Priority Tier 3** - Complete Student-Specific Collaboration (user has content), then BIP and Crisis Intervention
-4. **Consider phased rollout** - Release completed tiers while continuing to build content
+1. **Deepen the high-traffic thin pages** — Text-to-Speech, Chunking,
+   Differentiated Materials, Preferential Seating.
+2. **Get teacher feedback before writing more.** Coverage is complete;
+   the next round of content should be driven by what colleagues
+   actually reach for and find missing.
+3. **Design pass.** The stylesheet has accumulated duplicate rules and
+   the information architecture was built for an orientation audience
+   rather than for quick lookup by staff.

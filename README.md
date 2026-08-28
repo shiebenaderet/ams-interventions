@@ -19,28 +19,33 @@ This toolkit provides evidence-based interventions organized by tier (1, 2, and 
   - Printable pages
 - **Responsive Design**: Works on desktop, tablet, and mobile devices
 - **Search & Filter**: Quickly find interventions by keyword or category
+- **Department Attribution**: Intervention cards show which AMS teams use them
+- **Accessible**: Skip-to-content links, keyboard-operable filters, visible focus states
 - **Printable**: Each intervention page can be printed for reference
+- **No build step**: Plain HTML, CSS, and JavaScript — open `index.html` and it works
 
 ## 📁 Project Structure
 
 ```
 ams-interventions/
-├── index.html              # Homepage
-├── tier1.html             # Tier 1 interventions list
-├── tier2.html             # Tier 2 interventions list
-├── tier3.html             # Tier 3 interventions list
+├── index.html             # Homepage — MTSS framework overview
+├── tier1.html             # Tier 1 intervention menu (10 interventions)
+├── tier2.html             # Tier 2 intervention menu (8 interventions)
+├── tier3.html             # Tier 3 intervention menu (8 interventions)
+├── departments.html       # What each AMS department committed to
 ├── css/
-│   └── style.css         # Main stylesheet
+│   └── style.css          # Main stylesheet (per-tier theming)
 ├── js/
-│   └── main.js           # JavaScript for interactivity
+│   └── main.js            # Search, tag filtering, print, back-to-top
 ├── interventions/
-│   ├── tier1/            # Tier 1 intervention detail pages
-│   ├── tier2/            # Tier 2 intervention detail pages
-│   └── tier3/            # Tier 3 intervention detail pages
-├── assets/
-│   └── images/           # Images and graphics
-├── README.md             # This file
-└── LICENSE              # License information
+│   ├── tier1/             # 10 Tier 1 detail pages
+│   ├── tier2/             # 8 Tier 2 detail pages
+│   └── tier3/             # 8 Tier 3 detail pages
+├── TEMPLATE.html          # Starting point for a new intervention page
+├── CONTENT-STATUS.md      # Coverage and content-depth tracking
+├── QUICKSTART.md          # Setup and contribution walkthrough
+├── README.md              # This file
+└── LICENSE                # License information
 ```
 
 ## 🚀 Getting Started
@@ -49,7 +54,7 @@ ams-interventions/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/ams-interventions.git
+   git clone https://github.com/shiebenaderet/ams-interventions.git
    cd ams-interventions
    ```
 
@@ -63,7 +68,7 @@ ams-interventions/
    - Go to your repository settings
    - Navigate to "Pages" section
    - Select "main" branch as source
-   - Your site will be available at: `https://yourusername.github.io/ams-interventions/`
+   - Your site will be available at: `https://shiebenaderet.github.io/ams-interventions/`
 
 ## 📝 Adding New Interventions
 
@@ -151,7 +156,11 @@ We welcome contributions from all AMS educators!
 
 ## 📚 Current Interventions
 
-### Tier 1 (Universal - All Students)
+All 26 intervention pages are written — every link in the tier menus
+leads to a real implementation guide. See [CONTENT-STATUS.md](CONTENT-STATUS.md)
+for content-depth tracking and where the next writing pass should go.
+
+### Tier 1 (Universal — All Students)
 - Organizational Systems
 - Text-to-Speech & Speech-to-Text
 - Vocabulary Support
@@ -163,19 +172,31 @@ We welcome contributions from all AMS educators!
 - Choice in Demonstration of Learning
 - Retakes and Corrections
 
-### Tier 2 (Targeted - Some Students)
+### Tier 2 (Targeted — Some Students)
 - Small Group Instruction
-- Frequent Check-ins
-- Differentiated Materials
+- Frequent Check-Ins
 - Modified Rubrics
-- [More to be added]
+- Chunking
+- Differentiated Materials
+- Preferential Seating
+- Individualized Parent Communication
+- Behavior Check-Ins
 
-### Tier 3 (Intensive - Few Students)
-- IEP Accommodations
-- 504 Accommodations
-- Modified Curriculum
-- One-on-One Support
-- [More to be added]
+### Tier 3 (Intensive — Few Students)
+- IEP & 504 Accommodations
+- Collaboration About Specific Students
+- Modified Curriculum/Assessment
+- One-on-One Intensive Intervention
+- Paraprofessional Support
+- Behavior Intervention Plan (BIP)
+- Crisis Intervention
+- Wraparound Services
+
+### By Department
+The [Departments page](departments.html) records what each AMS team
+inventoried, chose as must-haves, and flagged as still needing support
+during the 10/3 "Building an Intervention Menu" session — in their own
+words, not a generic list.
 
 ## 🔧 Technical Requirements
 
@@ -223,9 +244,12 @@ Questions or suggestions? Contact:
 
 ## 🔄 Version History
 
-- **v1.0** (December 2024) - Initial release with Tier 1 interventions
+- **v1.0** (December 2025) — Initial release with Tier 1 interventions
+- **v1.1** (2025–2026 school year) — Added Tier 2 and Tier 3 overviews, detail pages, and counselor-aligned MTSS framework language; incorporated department-level planning from the 10/3 "Building an Intervention Menu" session
+- **v1.2** (2025–2026 school year) — **Full coverage.** All 26 intervention pages written across all three tiers. Added the Departments page. Accessibility pass: skip-to-content links, keyboard-operable filter buttons with `aria-pressed` state, focusable main landmark, and per-tier color theming driven by a single body class.
 - Future updates will add:
-  - Complete Tier 2 and Tier 3 intervention pages
+  - Deeper content on the thinner intervention pages (see [CONTENT-STATUS.md](CONTENT-STATUS.md))
+  - A UI/UX pass focused on fast lookup for staff
   - Video demonstrations
   - Downloadable templates
   - Student data tracking tools

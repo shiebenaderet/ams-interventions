@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tier 2 Interventions - AMS MTSS Toolkit</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23667eea%22/%3E%3Ctext x=%2250%22 y=%2266%22 font-family=%22-apple-system,Segoe UI,Roboto,sans-serif%22 font-size=%2244%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22white%22%3EAMS%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="tier-2">
+    <a class="skip-link" href="#main">Skip to main content</a>
     <header>
         <div class="container">
             <h1>🎓 AMS Interventions</h1>
@@ -22,17 +24,29 @@
                 <li><a href="tier1.html">Tier 1</a></li>
                 <li><a href="tier2.html" class="active">Tier 2</a></li>
                 <li><a href="tier3.html">Tier 3</a></li>
+                <li><a href="departments.html">Departments</a></li>
             </ul>
         </div>
     </nav>
 
-    <main class="container">
+    <main id="main" class="container" tabindex="-1">
         <section>
             <h2>About Tier 2 Interventions</h2>
-            <p>Tier 2 interventions are targeted supports provided to students who need additional help beyond universal Tier 1 instruction. These interventions are typically delivered to small groups of students (3-6) who share similar needs, or individually when appropriate.</p>
+            <p>Tier 2 interventions are supplemental, targeted supports for students who are not successful with the universal (Tier 1) learning program. They are typically delivered in small groups (3–6 students) who share similar needs, or individually when appropriate.</p>
 
             <div class="highlight">
                 <strong>Key Principle:</strong> Tier 2 is IN ADDITION TO Tier 1, not instead of. Students receive high-quality core instruction PLUS targeted support.
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📚 Academic Tier 2</h3>
+                    <p>Each academic department identifies a set of evidence-based Tier 2 interventions ready to deploy for students who are slightly behind grade-level and/or those for whom the universal program is not effective.</p>
+                </div>
+                <div class="card">
+                    <h3>💛 Whole-Child Tier 2</h3>
+                    <p>School counselors provide small, targeted groups addressing identified needs (e.g., executive functioning, conflict management, social skills, coping skills, future planning). The support para facilitates peer mediations.</p>
+                </div>
             </div>
 
             <h3>Characteristics of Quality Tier 2</h3>
@@ -61,12 +75,12 @@
                 <input type="text" id="searchBox" class="search-box" placeholder="Search interventions..." onkeyup="filterInterventions()">
             </div>
 
-            <div class="filter-tags">
-                <span class="tag active" onclick="filterByTag('all')">All</span>
-                <span class="tag" onclick="filterByTag('instruction')">Instruction</span>
-                <span class="tag" onclick="filterByTag('assessment')">Assessment</span>
-                <span class="tag" onclick="filterByTag('relationship')">Relationships</span>
-                <span class="tag" onclick="filterByTag('behavior')">Behavior</span>
+            <div class="filter-tags" role="group" aria-label="Filter interventions by category">
+                <button type="button" class="tag active" aria-pressed="true" onclick="filterByTag(event, 'all')">All</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'instruction')">Instruction</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'assessment')">Assessment</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'relationship')">Relationships</button>
+                <button type="button" class="tag" aria-pressed="false" onclick="filterByTag(event, 'behavior')">Behavior</button>
             </div>
         </section>
 
@@ -81,6 +95,7 @@
                     <div class="rating">★★★★★</div>
                     <p class="description">Targeted teaching for 3-6 students with the same skill need.</p>
                     <p><strong>Best for:</strong> Specific skill gaps, reading, math, writing</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Social Studies</span><span class="dept-tag">PE</span></div>
                 </a>
 
                 <!-- Frequent Check-Ins -->
@@ -89,6 +104,7 @@
                     <div class="rating">★★★★★</div>
                     <p class="description">Brief, structured conversations to monitor progress and build relationships.</p>
                     <p><strong>Best for:</strong> Accountability, goal-setting, academic/behavioral progress</p>
+                    <div class="dept-tags"><span class="dept-tag">Math (must-have)</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies</span><span class="dept-tag">PE (must-have)</span><span class="dept-tag">Electives</span></div>
                 </a>
 
                 <!-- Modified Rubrics -->
@@ -97,51 +113,52 @@
                     <div class="rating">★★★★☆</div>
                     <p class="description">Scaffolded assessments that fade support over time.</p>
                     <p><strong>Best for:</strong> Students who understand content but struggle with format</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Social Studies</span></div>
                 </a>
 
                 <!-- Chunking -->
-                <a href="wip.html" class="intervention-card" data-tags="instruction">
+                <a href="interventions/tier2/chunking.html" class="intervention-card" data-tags="instruction">
                     <h3>🧩 Chunking</h3>
                     <div class="rating">★★★★☆</div>
                     <p class="description">Break complex tasks into smaller, manageable steps.</p>
                     <p><strong>Best for:</strong> Executive functioning, task completion</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies</span></div>
                 </a>
 
                 <!-- Differentiated Reading Levels -->
-                <a href="wip.html" class="intervention-card" data-tags="instruction">
+                <a href="interventions/tier2/differentiated-materials.html" class="intervention-card" data-tags="instruction">
                     <h3>📚 Differentiated Materials</h3>
                     <div class="rating">★★★★☆</div>
                     <p class="description">Same content at different complexity/reading levels.</p>
                     <p><strong>Best for:</strong> Reading comprehension, content access</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Math</span><span class="dept-tag">Science</span><span class="dept-tag">Social Studies (must-have)</span></div>
                 </a>
 
                 <!-- Preferential Seating -->
-                <a href="wip.html" class="intervention-card" data-tags="behavior">
+                <a href="interventions/tier2/preferential-seating.html" class="intervention-card" data-tags="behavior">
                     <h3>💺 Preferential Seating</h3>
                     <div class="rating">★★★☆☆</div>
                     <p class="description">Strategic seat placement based on student needs.</p>
                     <p><strong>Best for:</strong> Attention, behavior, engagement</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">Science</span><span class="dept-tag">Social Studies (must-have)</span><span class="dept-tag">PE</span></div>
                 </a>
 
                 <!-- Parent Communication -->
-                <a href="wip.html" class="intervention-card" data-tags="relationship">
+                <a href="interventions/tier2/parent-communication.html" class="intervention-card" data-tags="relationship">
                     <h3>📞 Individualized Parent Communication</h3>
                     <div class="rating">★★★★☆</div>
                     <p class="description">Regular, targeted updates beyond whole-class communication.</p>
                     <p><strong>Best for:</strong> Building partnerships, monitoring progress</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">Social Studies</span><span class="dept-tag">PE</span><span class="dept-tag">Electives (must-have)</span></div>
                 </a>
 
                 <!-- Behavior Check-Ins -->
-                <a href="wip.html" class="intervention-card" data-tags="behavior">
+                <a href="interventions/tier2/behavior-check-ins.html" class="intervention-card" data-tags="behavior">
                     <h3>📋 Behavior Check-Ins</h3>
                     <div class="rating">★★★★☆</div>
                     <p class="description">Structured monitoring with point sheets or daily reports.</p>
                     <p><strong>Best for:</strong> Behavior goals, self-monitoring</p>
-                    <p style="color: var(--tier2-color); font-weight: bold; margin-top: 0.5rem;">⏳ Coming Soon</p>
+                    <div class="dept-tags"><span class="dept-tag">ELA</span><span class="dept-tag">Social Studies</span><span class="dept-tag">PE</span><span class="dept-tag">Science (exploring)</span></div>
                 </a>
             </div>
         </section>
@@ -183,7 +200,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Alderwood Middle School | MTSS Intervention Toolkit</p>
+            <p>&copy; 2025–2026 Alderwood Middle School | MTSS Intervention Toolkit</p>
             <p>Developed collaboratively by AMS educators</p>
         </div>
     </footer>
