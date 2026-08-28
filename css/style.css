@@ -1057,3 +1057,25 @@ html {
     background: var(--tier-accent);
     color: var(--white);
 }
+
+/* ===== Library ===== */
+.lib-scroll { overflow-x: auto; }
+.lib-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.lib-table th { text-align: left; }
+.lib-name a { color: var(--text-dark); font-weight: 600; text-decoration: none; }
+.lib-name a:hover { color: var(--tier-accent); text-decoration: underline; }
+.lib-stars { color: #B86E00; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lib-count { font-size: 0.9rem; color: var(--text-light); margin: 0.5rem 0 1rem; }
+.lib-sort {
+    background: none; border: 0; padding: 0; font: inherit;
+    color: inherit; cursor: pointer; text-transform: inherit; letter-spacing: inherit;
+}
+.lib-sort::after { content: " ↕"; opacity: 0.5; }
+.tier-chip {
+    font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem;
+    border-radius: 10px; white-space: nowrap;
+}
+.tier-chip.t1 { background: rgba(74,144,226,0.15); color: #1F5B99; }
+.tier-chip.t2 { background: rgba(245,166,35,0.18); color: #92610A; }
+.tier-chip.t3 { background: rgba(126,211,33,0.18); color: #4A7D0E; }
+.dept-tag--must { background: #FFF3CD; color: #7A5600; font-weight: 600; }
