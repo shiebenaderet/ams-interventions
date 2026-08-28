@@ -8,6 +8,19 @@ it. There are no broken links and no placeholder pages.
 
 ---
 
+## Where the metadata lives
+
+Each intervention's name, tier, rating, description, "best for" summary,
+department attribution, and detail-page URL live as one record in
+[`data/interventions.js`](data/interventions.js) — not in the tier pages
+themselves, which render their cards from that file. Run
+`node tools/check-data.js` any time you add or edit a record; it confirms
+every intervention has a real detail page, ids are unique, and tier/order
+values are consistent. This file tracks the writing on the detail pages
+themselves, which `check-data.js` does not check.
+
+---
+
 ## Coverage by tier
 
 | Tier | Interventions | Status |

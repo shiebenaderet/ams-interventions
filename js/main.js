@@ -45,8 +45,13 @@ function printIntervention() {
 // Smooth scroll to sections
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        var href = this.getAttribute('href');
+        // "#" alone (and anything without an id after it) is not a valid selector;
+        // querySelector('#') throws. Links like the search trigger use href="#"
+        // purely as a focusable affordance and are handled elsewhere.
+        if (!href || href === '#' || href.length < 2) { return; }
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        var target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
