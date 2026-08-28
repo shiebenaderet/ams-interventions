@@ -126,4 +126,51 @@ test('escapeHtml leaves an ordinary string untouched', function () {
   assert.strictEqual(Core.escapeHtml('Chunking'), 'Chunking');
 });
 
+const searchData = {
+  interventions: sample,
+  problems: []
+};
+
+test('searchAll returns matching interventions', function () {
+  const r = Core.searchAll(searchData, 'chunk');
+  assert.strictEqual(r.interventions.length, 1);
+  assert.strictEqual(r.interventions[0].id, 'chunking');
+});
+
+test('searchAll returns matching department names', function () {
+  const r = Core.searchAll(searchData, 'elect');
+  assert.deepStrictEqual(r.departments, ['Electives']);
+});
+
+test('searchAll returns empty for a blank query', function () {
+  const r = Core.searchAll(searchData, '   ');
+  assert.strictEqual(r.interventions.length, 0);
+  assert.strictEqual(r.departments.length, 0);
+});
+
+test('searchAll returns empty arrays when nothing matches', function () {
+  const r = Core.searchAll(searchData, 'zzzzz');
+  assert.strictEqual(r.interventions.length, 0);
+  assert.strictEqual(r.departments.length, 0);
+});
+
+test('searchAll caps interventions at 8', function () {
+  const many = [];
+  for (let i = 0; i < 20; i++) {
+    many.push({ id: 'x' + i, name: 'Match ' + i, tier: 1, rating: 3,
+                categories: ['instruction'], description: 'd', bestFor: 'b', departments: [] });
+  }
+  assert.strictEqual(Core.searchAll({ interventions: many, problems: [] }, 'match').interventions.length, 8);
+});
+
+test('searchAll does not duplicate department names', function () {
+  const r = Core.searchAll({ interventions: [
+    { id: 'a', name: 'A', tier: 1, rating: 3, categories: [], description: '', bestFor: '',
+      departments: [{ name: 'Math', status: 'using' }] },
+    { id: 'b', name: 'B', tier: 1, rating: 3, categories: [], description: '', bestFor: '',
+      departments: [{ name: 'Math', status: 'must-have' }] }
+  ], problems: [] }, 'math');
+  assert.deepStrictEqual(r.departments, ['Math']);
+});
+
 console.log('OK - ' + passed + ' core tests passed.');

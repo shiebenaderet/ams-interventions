@@ -58,11 +58,35 @@
       .replace(/'/g, '&#39;');
   }
 
+  var MAX_RESULTS = 8;
+
+  function searchAll(data, query) {
+    var q = (query || '').trim().toLowerCase();
+    if (!q) return { interventions: [], departments: [] };
+
+    var ivs = (data.interventions || []).filter(function (iv) {
+      return matchesQuery(iv, q);
+    }).slice(0, MAX_RESULTS);
+
+    var seen = {}, depts = (data.interventions || []).slice(0, 0);
+    (data.interventions || []).forEach(function (iv) {
+      (iv.departments || []).forEach(function (d) {
+        if (d.name.toLowerCase().indexOf(q) !== -1 && !seen[d.name]) {
+          seen[d.name] = true;
+          depts.push(d.name);
+        }
+      });
+    });
+
+    return { interventions: ivs, departments: depts.sort() };
+  }
+
   window.AMSCore = {
     matchesQuery: matchesQuery,
     filterInterventions: filterInterventions,
     sortInterventions: sortInterventions,
     starString: starString,
-    escapeHtml: escapeHtml
+    escapeHtml: escapeHtml,
+    searchAll: searchAll
   };
 })();
