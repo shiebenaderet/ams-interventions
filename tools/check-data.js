@@ -33,6 +33,8 @@ interventions.forEach(function (iv, i) {
   check(typeof iv.description === 'string' && iv.description.length > 0, at + ': missing description');
   check(typeof iv.bestFor === 'string' && iv.bestFor.length > 0, at + ': missing bestFor');
   check(TIERS.indexOf(iv.tier) !== -1, at + ': tier must be 1, 2 or 3 (got ' + iv.tier + ')');
+  check(Number.isInteger(iv.order) && iv.order >= 1,
+    at + ': order must be an integer >= 1 (got ' + iv.order + ')');
   check(Number.isInteger(iv.rating) && iv.rating >= 1 && iv.rating <= 5,
     at + ': rating must be an integer 1-5 (got ' + iv.rating + ')');
   check(iv.ratingNote === undefined || (typeof iv.ratingNote === 'string' && iv.ratingNote.length > 0),
@@ -65,6 +67,19 @@ interventions.forEach(function (iv) { if (counts[iv.tier] !== undefined) counts[
 check(counts[1] === 10, 'Expected 10 Tier 1 interventions, found ' + counts[1]);
 check(counts[2] === 8, 'Expected 8 Tier 2 interventions, found ' + counts[2]);
 check(counts[3] === 8, 'Expected 8 Tier 3 interventions, found ' + counts[3]);
+
+// Within each tier, `order` must be exactly 1..N with no gaps or duplicates
+// (N = how many interventions share that tier) -- this is what stops a
+// future hand-edit from silently producing two cards numbered 3.
+TIERS.forEach(function (t) {
+  const orders = interventions.filter(function (iv) { return iv.tier === t; })
+    .map(function (iv) { return iv.order; }).sort(function (a, b) { return a - b; });
+  const n = counts[t];
+  const expected = [];
+  for (let i = 1; i <= n; i++) { expected.push(i); }
+  check(JSON.stringify(orders) === JSON.stringify(expected),
+    'Tier ' + t + ': order values must be exactly 1..' + n + ' with no gaps or duplicates, got [' + orders.join(', ') + ']');
+});
 
 // Problems
 const problemIds = {};

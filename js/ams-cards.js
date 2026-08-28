@@ -7,8 +7,8 @@
   var tier = parseInt(host.getAttribute('data-tier'), 10);
   var root = document.body.getAttribute('data-root') || '';
 
-  var list = Core.sortInterventions(
-    Core.filterInterventions(data.interventions, { tier: tier }), 'name', 'asc');
+  var list = Core.filterInterventions(data.interventions, { tier: tier }).slice();
+  list.sort(function (a, b) { return a.order - b.order; });
 
   host.innerHTML = list.map(function (iv) {
     var depts = (iv.departments || []).map(function (d) {
