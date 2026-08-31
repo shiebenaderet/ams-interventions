@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chart primitive preview</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="tier-1" data-root="../">
+<main id="main" class="container">
+  <section>
+    <h2>Chart primitives</h2>
+    <p>Scratch page for checking primitives against the house rules. Not linked from the site.</p>
+    <div id="preview"></div>
+  </section>
+</main>
+<script src="../js/ams-core.js"></script>
+<script src="../js/ams-scales.js"></script>
+<script src="../js/ams-charts.js"></script>
+<script>
+(function () {
+  var host = document.getElementById('preview');
+  var C = window.AMSCharts;
+
+  function show(title, node) {
+    var h = document.createElement('div');
+    h.className = 'chart-title';
+    h.textContent = title;
+    host.appendChild(h);
+    host.appendChild(node);
+  }
+
+  show('hbars with a group header and reference line', C.hbars([
+    { header: 'Race / ethnicity' },
+    { g: 'Asian', v: 83.9 },
+    { g: 'Black/African American', v: 84.9 },
+    { g: 'Hispanic/Latino', v: 65.4 },
+    { g: 'American Indian/Alaskan Native', v: null },
+    { g: 'All Students', v: 72.1, total: true }
+  ], { max: 100, ref: 72.1, fmt: function (v) { return v.toFixed(1) + '%'; } }));
+
+  show('gbars, three series', C.gbars([
+    { g: 'Asian', ela: 61.9, math: 55.2, sci: 47.3 },
+    { g: 'Hispanic/Latino', ela: 31.2, math: 17.6, sci: 25.7 },
+    { g: 'American Indian/Alaskan Native', ela: null, math: null, sci: null }
+  ], [
+    { key: 'ela', name: 'ELA', color: 'var(--navy)' },
+    { key: 'math', name: 'Math', color: 'var(--warm)' },
+    { key: 'sci', name: 'Science', color: 'var(--sage)' }
+  ], { max: 80 }));
+
+  show('divbars centred on zero', C.divbars([
+    { g: 'Two or More Races', v: -30.0 },
+    { g: 'Asian', v: -6.7 },
+    { g: 'Homeless', v: 5.0 }
+  ], { max: 35, fmt: function (v) { return (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1) + ' pts'; } }));
+})();
+</script>
+</body>
+</html>
