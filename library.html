@@ -33,7 +33,7 @@
     <main id="main" class="container" tabindex="-1">
         <section>
             <h2>All Interventions</h2>
-            <p>Every intervention in the toolkit. Filter by tier, category, or department, or sort by name or rating.</p>
+            <p>Every intervention in the toolkit. Filter by tier, category, department, or whether a team is already doing it, and sort by name or rating.</p>
 
             <div class="search-container">
                 <input type="text" id="libSearch" class="search-box"
@@ -50,6 +50,18 @@
             <div class="filter-tags" role="group" aria-label="Filter by category" id="catFilters"></div>
 
             <div class="filter-tags" role="group" aria-label="Filter by department" id="deptFilters"></div>
+
+            <div class="filter-tags" role="group" aria-label="Filter by whether we already do this">
+                <button type="button" class="tag active" aria-pressed="true" data-filter="practice" data-value="">Any status</button>
+                <button type="button" class="tag" aria-pressed="false" data-filter="practice" data-value="in-practice">Already in practice</button>
+                <button type="button" class="tag" aria-pressed="false" data-filter="practice" data-value="exploring">Still exploring</button>
+            </div>
+
+            <dl class="status-key">
+                <div><dt class="dept-tag dept-tag--must">Dept&nbsp;★</dt><dd>must-have — the team committed to it</dd></div>
+                <div><dt class="dept-tag dept-tag--using">Dept</dt><dd>already in practice</dd></div>
+                <div><dt class="dept-tag dept-tag--exploring">Dept&nbsp;(exploring)</dt><dd>not yet in practice</dd></div>
+            </dl>
 
             <p class="lib-count" id="libCount" role="status" aria-live="polite"></p>
 

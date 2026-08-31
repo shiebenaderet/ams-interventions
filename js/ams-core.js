@@ -16,6 +16,35 @@
     return haystack(iv).indexOf(q) !== -1;
   }
 
+  /* How a department's stake in an intervention should read.
+   *
+   * `inPractice` is the answer to "are we already doing this?" — must-have and
+   * using both mean yes, exploring means not yet. `suffix` carries that same
+   * distinction as text so the tags never rely on colour alone.
+   *
+   * An unrecognised status is shown verbatim and counted as not-in-practice:
+   * better to under-claim than to tell a team they run something they don't.
+   */
+  var DEPT_MARKS = {
+    'must-have': { cls: 'dept-tag dept-tag--must',      suffix: ' ★',
+                   title: 'Must-have — this team committed to it', inPractice: true },
+    'using':     { cls: 'dept-tag dept-tag--using',     suffix: '',
+                   title: 'Already in practice', inPractice: true },
+    'exploring': { cls: 'dept-tag dept-tag--exploring', suffix: ' (exploring)',
+                   title: 'Exploring — not yet in practice', inPractice: false }
+  };
+
+  function deptMark(d) {
+    var status = (d && d.status) || 'using';
+    var known = DEPT_MARKS[status];
+    if (known) {
+      return { status: status, cls: known.cls, suffix: known.suffix,
+               title: known.title, inPractice: known.inPractice };
+    }
+    return { status: status, cls: 'dept-tag', suffix: ' (' + status + ')',
+             title: status, inPractice: false };
+  }
+
   function filterInterventions(list, filters) {
     var f = filters || {};
     return list.filter(function (iv) {
@@ -25,9 +54,54 @@
         var hit = (iv.departments || []).some(function (d) { return d.name === f.department; });
         if (!hit) return false;
       }
+      if (f.practice) {
+        // Scoped to the chosen department when there is one: a strategy can be
+        // routine in Math and still only an idea in Science.
+        var scope = (iv.departments || []).filter(function (d) {
+          return !f.department || d.name === f.department;
+        });
+        var want = f.practice === 'in-practice';
+        var match = scope.some(function (d) { return deptMark(d).inPractice === want; });
+        if (!match) return false;
+      }
       if (f.query && !matchesQuery(iv, f.query)) return false;
       return true;
     });
+  }
+
+  /* Everything one department already runs, grouped for display.
+   *
+   * `names` is a list because a department goes by several names in the data —
+   * School Counseling covers "Counseling", "Counseling & Psych", "Admin + Psych"
+   * and "FRA". Each group is sorted by name; `inPracticeCount` is what a
+   * heading should show.
+   */
+  function departmentPractice(list, names) {
+    var wanted = names || [];
+    var out = { mustHave: [], using: [], exploring: [], inPracticeCount: 0 };
+
+    (list || []).forEach(function (iv) {
+      var mine = (iv.departments || []).filter(function (d) {
+        return wanted.indexOf(d.name) !== -1;
+      });
+      if (!mine.length) return;
+      // A department listed twice on one intervention takes its strongest claim.
+      var status = 'exploring';
+      mine.forEach(function (d) {
+        var s = deptMark(d).status;
+        if (s === 'must-have') status = 'must-have';
+        else if (s === 'using' && status !== 'must-have') status = 'using';
+      });
+      if (status === 'must-have') out.mustHave.push(iv);
+      else if (status === 'using') out.using.push(iv);
+      else out.exploring.push(iv);
+    });
+
+    ['mustHave', 'using', 'exploring'].forEach(function (k) {
+      out[k] = sortInterventions(out[k], 'name', 'asc');
+    });
+    out.inPracticeCount = out.mustHave.length + out.using.length;
+    return out;
   }
 
   function sortInterventions(list, key, dir) {
@@ -99,7 +173,9 @@
 
   window.AMSCore = {
     matchesQuery: matchesQuery,
+    deptMark: deptMark,
     filterInterventions: filterInterventions,
+    departmentPractice: departmentPractice,
     sortInterventions: sortInterventions,
     starString: starString,
     escapeHtml: escapeHtml,

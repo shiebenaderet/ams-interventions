@@ -86,6 +86,117 @@ test('filterInterventions ignores unknown keys so a view can pass its state', fu
   assert.strictEqual(r.length, 1);
 });
 
+// A department can sit at a different status on each intervention, so the
+// practice tests need their own fixture rather than reusing `sample`.
+const mixed = [
+  { id: 'a', name: 'Alpha', tier: 1, rating: 3, categories: [], description: '', bestFor: '',
+    departments: [{ name: 'Math', status: 'using' }, { name: 'Science', status: 'exploring' }] },
+  { id: 'b', name: 'Bravo', tier: 1, rating: 3, categories: [], description: '', bestFor: '',
+    departments: [{ name: 'Math', status: 'must-have' }] },
+  { id: 'c', name: 'Charlie', tier: 1, rating: 3, categories: [], description: '', bestFor: '',
+    departments: [{ name: 'Science', status: 'exploring' }] }
+];
+
+test('deptMark treats using as in practice with no suffix', function () {
+  const m = Core.deptMark({ name: 'Math', status: 'using' });
+  assert.strictEqual(m.inPractice, true);
+  assert.strictEqual(m.suffix, '');
+});
+
+test('deptMark treats must-have as in practice and stars it', function () {
+  const m = Core.deptMark({ name: 'Math', status: 'must-have' });
+  assert.strictEqual(m.inPractice, true);
+  assert.strictEqual(m.suffix, ' ★');
+});
+
+test('deptMark treats exploring as not yet in practice and says so in text', function () {
+  const m = Core.deptMark({ name: 'Science', status: 'exploring' });
+  assert.strictEqual(m.inPractice, false);
+  assert.strictEqual(m.suffix, ' (exploring)');
+});
+
+test('deptMark gives each status its own class so colour is not the only signal', function () {
+  const seen = ['using', 'must-have', 'exploring'].map(function (s) {
+    return Core.deptMark({ name: 'D', status: s }).cls;
+  });
+  assert.strictEqual(new Set(seen).size, 3);
+  seen.forEach(function (c) { assert.ok(/(^| )dept-tag( |$)/.test(c), c + ' keeps the base class'); });
+});
+
+test('deptMark falls back for an unrecognised status without claiming practice', function () {
+  const m = Core.deptMark({ name: 'D', status: 'piloting' });
+  assert.strictEqual(m.inPractice, false);
+  assert.strictEqual(m.suffix, ' (piloting)');
+  assert.strictEqual(m.cls, 'dept-tag');
+});
+
+test('deptMark treats a missing status as in practice, matching the data default', function () {
+  const m = Core.deptMark({ name: 'D' });
+  assert.strictEqual(m.inPractice, true);
+  assert.strictEqual(m.status, 'using');
+});
+
+test('filterInterventions by practice in-practice keeps using and must-have', function () {
+  const r = Core.filterInterventions(mixed, { practice: 'in-practice' });
+  assert.deepStrictEqual(r.map(function (i) { return i.id; }), ['a', 'b']);
+});
+
+test('filterInterventions by practice exploring keeps only what nobody has adopted yet', function () {
+  const r = Core.filterInterventions(mixed, { practice: 'exploring' });
+  assert.deepStrictEqual(r.map(function (i) { return i.id; }), ['a', 'c']);
+});
+
+test('filterInterventions scopes practice to the selected department', function () {
+  // Alpha is `using` in Math but `exploring` in Science — the pair of filters
+  // must read Science's own status, not "some department somewhere".
+  const r = Core.filterInterventions(mixed, { department: 'Science', practice: 'in-practice' });
+  assert.strictEqual(r.length, 0);
+});
+
+test('filterInterventions returns a department its own in-practice rows', function () {
+  const r = Core.filterInterventions(mixed, { department: 'Math', practice: 'in-practice' });
+  assert.deepStrictEqual(r.map(function (i) { return i.id; }), ['a', 'b']);
+});
+
+test('departmentPractice groups a department by status', function () {
+  const r = Core.departmentPractice(mixed, ['Math']);
+  assert.deepStrictEqual(r.mustHave.map(function (i) { return i.id; }), ['b']);
+  assert.deepStrictEqual(r.using.map(function (i) { return i.id; }), ['a']);
+  assert.deepStrictEqual(r.exploring, []);
+});
+
+test('departmentPractice merges the aliases a department goes by', function () {
+  const r = Core.departmentPractice(mixed, ['Math', 'Science']);
+  const all = [].concat(r.mustHave, r.using, r.exploring).map(function (i) { return i.id; });
+  assert.deepStrictEqual(all.sort(), ['a', 'b', 'c']);
+});
+
+test('departmentPractice takes the strongest claim when aliases disagree', function () {
+  // Alpha is `using` under Math and `exploring` under Science. A team that
+  // already runs something is running it — the weaker record must not demote it.
+  const r = Core.departmentPractice(mixed, ['Math', 'Science']);
+  assert.deepStrictEqual(r.using.map(function (i) { return i.id; }), ['a']);
+  assert.deepStrictEqual(r.exploring.map(function (i) { return i.id; }), ['c']);
+});
+
+test('departmentPractice counts every intervention the team already runs', function () {
+  const r = Core.departmentPractice(mixed, ['Math']);
+  assert.strictEqual(r.inPracticeCount, 2);
+});
+
+test('departmentPractice sorts each group by name', function () {
+  const r = Core.departmentPractice([mixed[2], mixed[0]], ['Science']);
+  assert.deepStrictEqual(r.exploring.map(function (i) { return i.name; }), ['Alpha', 'Charlie']);
+});
+
+test('departmentPractice returns empty groups for a department with no interventions', function () {
+  const r = Core.departmentPractice(mixed, ['Woodshop']);
+  assert.deepStrictEqual(r.mustHave, []);
+  assert.deepStrictEqual(r.using, []);
+  assert.deepStrictEqual(r.exploring, []);
+  assert.strictEqual(r.inPracticeCount, 0);
+});
+
 test('sortInterventions by name ascending', function () {
   const r = Core.sortInterventions(sample, 'name', 'asc');
   assert.deepStrictEqual(r.map(function (i) { return i.name; }),

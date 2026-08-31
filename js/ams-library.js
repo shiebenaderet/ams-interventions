@@ -13,8 +13,8 @@
 
   var root = document.body.getAttribute('data-root') || '';
 
-  var state = { tier: null, category: null, department: null, query: '',
-                sortKey: 'name', sortDir: 'asc' };
+  var state = { tier: null, category: null, department: null, practice: null,
+                query: '', sortKey: 'name', sortDir: 'asc' };
 
   function departments() {
     var seen = {}, out = [];
@@ -68,11 +68,11 @@
 
     body.innerHTML = rows.map(function (iv) {
       var depts = (iv.departments || []).map(function (d) {
-        var cls = d.status === 'must-have' ? 'dept-tag dept-tag--must' : 'dept-tag';
+        var mark = Core.deptMark(d);
         var label = Core.escapeHtml(d.name);
         if (d.note) label += ' (' + Core.escapeHtml(d.note) + ')';
-        if (d.status === 'must-have') label += ' ★';
-        return '<span class="' + cls + '" title="' + Core.escapeHtml(d.status) + '">' + label + '</span>';
+        return '<span class="' + mark.cls + '" title="' + Core.escapeHtml(mark.title) + '">' +
+               label + mark.suffix + '</span>';
       }).join('');
       var cats = (iv.categories || []).map(function (c) { return Core.escapeHtml(c); }).join(', ');
       return '<tr>' +
@@ -86,9 +86,16 @@
     }).join('');
 
     if (count) {
-      count.textContent = rows.length === data.interventions.length
+      var text = rows.length === data.interventions.length
         ? 'Showing all ' + rows.length + ' interventions'
         : 'Showing ' + rows.length + ' of ' + data.interventions.length + ' interventions';
+      // Every intervention is in practice in at least one department, so this
+      // filter only narrows anything once a department is chosen. Say so
+      // rather than let the unchanged count look like a broken button.
+      if (state.practice && !state.department) {
+        text += ' — pick a department to see what that team already does';
+      }
+      count.textContent = text;
     }
   }
 

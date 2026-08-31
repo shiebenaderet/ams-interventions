@@ -16,14 +16,13 @@
 
   host.innerHTML = list.map(function (iv) {
     var depts = (iv.departments || []).map(function (d) {
+      var mark = Core.deptMark(d);
       var label = Core.escapeHtml(d.name);
       if (d.note) {
         label += ' (' + Core.escapeHtml(d.note) + ')';
       }
-      if (d.status !== 'using') {
-        label += ' (' + Core.escapeHtml(d.status) + ')';
-      }
-      return '<span class="dept-tag">' + label + '</span>';
+      return '<span class="' + mark.cls + '" title="' + Core.escapeHtml(mark.title) + '">' +
+             label + mark.suffix + '</span>';
     }).join('');
     var categories = (iv.categories || []).map(function (c) { return Core.escapeHtml(c); });
     var rating = '<div class="rating">' + Core.starString(iv.rating);
