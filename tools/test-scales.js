@@ -99,4 +99,17 @@ test('delta treats a move inside the tolerance as flat', function () {
   assert.strictEqual(S.delta(1.83, 1.82, 0).direction, 'down');
 });
 
+test('placement returns null for a suppressed row rather than zero sums', function () {
+  assert.strictEqual(S.placement(null), null);
+  assert.strictEqual(S.placement(undefined), null);
+  assert.strictEqual(S.placement([]), null, 'empty array is not a valid 5-step row');
+  assert.strictEqual(S.placement([1, 2, 3, 4]), null, 'short array is not a valid 5-step row');
+});
+
+test('delta returns null for a suppressed comparison rather than reporting no change', function () {
+  assert.strictEqual(S.delta(null, 1.5), null);
+  assert.strictEqual(S.delta(1.5, null), null);
+  assert.strictEqual(S.delta(null, null), null);
+});
+
 console.log('OK - ' + passed + ' scale tests passed.');

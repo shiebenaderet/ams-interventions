@@ -29,9 +29,9 @@
 
   // i-Ready reports five ordered steps; the first two are on grade level.
   function placement(v) {
-    var a = v || [];
-    var on = (a[0] || 0) + (a[1] || 0);
-    var below = (a[2] || 0) + (a[3] || 0) + (a[4] || 0);
+    if (v == null || !Array.isArray(v) || v.length !== 5) return null;
+    var on = (v[0] || 0) + (v[1] || 0);
+    var below = (v[2] || 0) + (v[3] || 0) + (v[4] || 0);
     return { onGrade: on, below: below, total: on + below };
   }
 
@@ -57,6 +57,7 @@
   }
 
   function delta(a, b, tol) {
+    if (a == null || b == null) return null;
     var value = Math.round((b - a) * 100) / 100;
     var t = tol || 0;
     var direction = Math.abs(value) <= t ? 'flat' : (value > 0 ? 'up' : (value < 0 ? 'down' : 'flat'));
