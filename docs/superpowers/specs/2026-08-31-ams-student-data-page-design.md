@@ -115,17 +115,28 @@ must say so on the chart, not only in a footnote.
 
 ## Palette
 
-Five new tokens in `:root`, beside the existing tier colours:
+The i-Ready scale is not a true divergence. It has **two** on-grade categories
+and **three** below-grade ones, so a symmetric five-step ramp around a neutral
+midpoint misrepresents its shape. The ramp is asymmetric instead, splitting at
+the on-grade/below-grade boundary, with depth carrying severity in both
+directions:
 
 ```css
-/* Data page — ordered scales. Navy is on-track, terracotta is behind, with
-   a neutral midpoint. Never green/red: see house rule 3. */
---scale-pos-2: #14223A;  /* mid or above grade · high growth  */
---scale-pos-1: #4A6B8F;  /* early on grade                    */
---scale-mid:   #C9C2B4;  /* one grade below                   */
---scale-neg-1: #C75B2A;  /* two grades below                  */
---scale-neg-2: #7E2E14;  /* three or more below · low growth  */
+/* Data page — ordered scales. Navy is on grade, terracotta is below, and the
+   split between them is the boundary. Never green/red: see house rule 3. */
+--scale-on-2:  #14223A;  /* mid or above grade · high growth  */
+--scale-on-1:  #4A6B8F;  /* early on grade                    */
+--scale-bel-1: #C75B2A;  /* one grade below                   */
+--scale-bel-2: #A4462C;  /* two grades below                  */
+--scale-bel-3: #7E2E14;  /* three or more below · low growth  */
 ```
+
+**Contrast requirement, verified.** Every step clears 3:1 against the cream
+ground (14.03, 4.88, 3.73, 5.30, 8.09) — the WCAG floor for non-text. An
+earlier draft used a neutral stone `#C9C2B4` at the midpoint; it measured
+1.56:1 and was replaced. Adjacent steps sit at 1.31–1.53:1, which is low on
+its own, so stacked segments keep the 2px cream gap between them: the ground
+does the separating, not the hue.
 
 Categorical series (ELA / Math / Science) use `--navy`, `--warm` and `--sage` —
 hues the palette already has. Verdict blocks in section 1 lose their coloured
@@ -169,6 +180,7 @@ Nothing gains a radius, a shadow, or a full border.
 - `pctToCount(pct, assessed)` → rounded headcount
 - `parseAssessed('104/107')` → `{assessed: 104, total: 107}`
 - `scaleStep(i)` → the CSS custom-property name for step `i` of the ramp
+  (`0`–`1` on grade, `2`–`4` below)
 - `delta(a, b)` → `{value, direction}`
 
 ## Accessibility
