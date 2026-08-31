@@ -284,11 +284,152 @@
     return box;
   }
 
+  /* ---- small multiples on one shared scale ----------------------------- */
+  function sparkgrid(rows, opts) {
+    var o = opts || {};
+    var S = window.AMSScales;
+    var lo = o.lo == null ? 0 : o.lo;
+    var hi = o.hi == null ? 10 : o.hi;
+    var labels = o.labels || [];
+    var W = 100, H = 52;
+    var grid = el('div', 'spark-grid');
+
+    rows.forEach(function (r) {
+      var panel = el('div', 'spark');
+      panel.appendChild(el('h4', null, Core.escapeHtml(r.g)));
+
+      // A row whose v array is missing or contains a null is a suppressed
+      // group (N<10). It must render as words, never as a partial or
+      // zero-length line — and it must never crash the rest of the grid.
+      var vOk = Array.isArray(r.v) && r.v.length > 1 &&
+        r.v.every(function (v) { return v != null; });
+      if (!vOk) {
+        panel.appendChild(notReported());
+        grid.appendChild(panel);
+        return;
+      }
+
+      var d = S.delta(r.v[0], r.v[r.v.length - 1], o.tolerance || 0);
+      var mark = d.direction === 'flat' ? '→' : (d.direction === 'up' ? '▲' : '▼');
+      panel.appendChild(el('div', 'spark-delta is-' + d.direction,
+        mark + ' ' + (d.value > 0 ? '+' : '') + d.value.toFixed(2) + ' since ' +
+        Core.escapeHtml(labels[0] || 'start')));
+
+      var sx = function (i) { return 6 + i * (W - 12) / (r.v.length - 1); };
+      var sy = function (v) { return H - 6 - (v - lo) / (hi - lo) * (H - 12); };
+
+      var g = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true">';
+      (o.gridlines || []).forEach(function (v) {
+        g += '<line x1="0" x2="' + W + '" y1="' + sy(v) + '" y2="' + sy(v) +
+             '" stroke="var(--line-2)" stroke-width=".8" vector-effect="non-scaling-stroke"/>';
+      });
+      g += '<polyline points="' + r.v.map(function (v, i) { return sx(i) + ',' + sy(v); }).join(' ') +
+           '" fill="none" stroke="var(--navy)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>';
+      r.v.forEach(function (v, i) {
+        var last = i === r.v.length - 1;
+        g += '<circle cx="' + sx(i) + '" cy="' + sy(v) + '" r="' + (last ? 3.2 : 2.2) +
+             '" fill="' + (last ? 'var(--navy)' : 'var(--faint)') +
+             '" stroke="var(--cream)" stroke-width="1.2" vector-effect="non-scaling-stroke"/>';
+      });
+      g += '</svg>';
+
+      var svg = el('div', null, g);
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', r.g + ': ' +
+        labels.map(function (l, i) { return l + ' ' + r.v[i].toFixed(2); }).join(', '));
+      panel.appendChild(svg);
+
+      var xs = el('div', 'spark-x');
+      labels.forEach(function (l) { xs.appendChild(el('span', null, Core.escapeHtml(l))); });
+      panel.appendChild(xs);
+      panel.appendChild(el('div', 'spark-now', r.v[r.v.length - 1].toFixed(2)));
+      grid.appendChild(panel);
+    });
+    return grid;
+  }
+
+  /* ---- labelled scatter ------------------------------------------------ */
+  function scatter(o) {
+    var W = o.w || 720, H = o.h || 420;
+    var mL = 58, mR = 26, mT = 18, mB = 52;
+    var px = function (v) { return mL + (v - o.x0) / (o.x1 - o.x0) * (W - mL - mR); };
+    var py = function (v) { return H - mB - (v - o.y0) / (o.y1 - o.y0) * (H - mT - mB); };
+
+    var g = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' +
+            Core.escapeHtml(o.aria || '') + '">';
+
+    (o.yTicks || []).forEach(function (v) {
+      g += '<line x1="' + mL + '" x2="' + (W - mR) + '" y1="' + py(v) + '" y2="' + py(v) + '" stroke="var(--line-2)"/>';
+      g += '<text x="' + (mL - 9) + '" y="' + (py(v) + 4) + '" text-anchor="end" font-size="10.5" fill="var(--faint)" font-variant-numeric="tabular-nums">' + Core.escapeHtml(v + (o.ySuffix || '')) + '</text>';
+    });
+    (o.xTicks || []).forEach(function (v) {
+      g += '<line y1="' + mT + '" y2="' + (H - mB) + '" x1="' + px(v) + '" x2="' + px(v) + '" stroke="var(--line-2)"/>';
+      g += '<text y="' + (H - mB + 16) + '" x="' + px(v) + '" text-anchor="middle" font-size="10.5" fill="var(--faint)" font-variant-numeric="tabular-nums">' + Core.escapeHtml(v + (o.xSuffix || '')) + '</text>';
+    });
+
+    if (o.refX != null) g += '<line x1="' + px(o.refX) + '" x2="' + px(o.refX) + '" y1="' + mT + '" y2="' + (H - mB) + '" stroke="var(--faint)" stroke-dasharray="4 4"/>';
+    if (o.refY != null) g += '<line y1="' + py(o.refY) + '" y2="' + py(o.refY) + '" x1="' + mL + '" x2="' + (W - mR) + '" stroke="var(--faint)" stroke-dasharray="4 4"/>';
+
+    (o.quadrants || []).forEach(function (q) {
+      var east = q.at === 'ne' || q.at === 'se';
+      var top = q.at === 'ne' || q.at === 'nw';
+      g += '<text class="sc-quad" x="' + (east ? W - mR - 6 : mL + 6) + '" y="' + (top ? mT + 14 : H - mB - 8) +
+           '" text-anchor="' + (east ? 'end' : 'start') + '">' + Core.escapeHtml(q.text) + '</text>';
+    });
+
+    g += '<text class="sc-axis" x="' + ((mL + W - mR) / 2) + '" y="' + (H - 10) + '" text-anchor="middle">' + Core.escapeHtml(o.xLabel) + '</text>';
+    g += '<text class="sc-axis" transform="translate(14,' + ((mT + H - mB) / 2) + ') rotate(-90)" text-anchor="middle">' + Core.escapeHtml(o.yLabel) + '</text>';
+
+    o.points.forEach(function (p) {
+      var X = px(p.x), Y = py(p.y);
+      g += '<circle cx="' + X + '" cy="' + Y + '" r="6.5" fill="' + (p.color || 'var(--navy)') +
+           '" stroke="var(--cream)" stroke-width="2"/>';
+      var lx = X + 12, ly = Y + 4, anchor = 'start';
+      if (p.lp === 'l') { lx = X - 12; anchor = 'end'; }
+      else if (p.lp === 't') { lx = X; ly = Y - 13; anchor = 'middle'; }
+      else if (p.lp === 'b') { lx = X; ly = Y + 21; anchor = 'middle'; }
+      g += '<text class="sc-point-label' + (p.ref ? ' is-ref' : '') + '" x="' + lx + '" y="' + ly +
+           '" text-anchor="' + anchor + '">' + Core.escapeHtml(p.g) + '</text>';
+    });
+
+    g += '</svg>';
+    return el('div', 'scatter-wrap', g);
+  }
+
+  /* ---- data table: the charts' text alternative ------------------------ */
+  function table(cols, rows, caption) {
+    var d = el('details', 'data-table');
+    d.appendChild(el('summary', null, 'Data table — ' + Core.escapeHtml(caption)));
+
+    var html = '<table><caption class="sr-only">' + Core.escapeHtml(caption) +
+               '</caption><thead><tr>';
+    cols.forEach(function (c) { html += '<th scope="col">' + Core.escapeHtml(c) + '</th>'; });
+    html += '</tr></thead><tbody>';
+    rows.forEach(function (r) {
+      html += '<tr>';
+      r.forEach(function (v, i) {
+        var cell = v == null
+          ? '<span class="bar-nd">not reported</span>'
+          : Core.escapeHtml(String(v));
+        html += i === 0 ? '<th scope="row">' + cell + '</th>' : '<td>' + cell + '</td>';
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+
+    var scroll = el('div', 'data-table-scroll', html);
+    d.appendChild(scroll);
+    return d;
+  }
+
   window.AMSCharts = {
     hbars: hbars,
     gbars: gbars,
     divbars: divbars,
     divstack: divstack,
-    dumbbell: dumbbell
+    dumbbell: dumbbell,
+    sparkgrid: sparkgrid,
+    scatter: scatter,
+    table: table
   };
 })();
