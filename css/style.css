@@ -709,16 +709,28 @@ button { font-family: var(--sans); font-size: 1rem; cursor: pointer; border: non
 }
 
 /* ---------- callouts: leading rule, no fill box ---------- */
-.highlight, .note, .warning {
+.highlight, .note, .warning, .takeaway {
     padding: .1rem 0 .1rem 1.1rem;
     margin: 1.15rem 0;
     border-left: 3px solid var(--gold);
 }
 
-.note    { border-left-color: var(--navy); }
-.warning { border-left-color: var(--warm); }
+.note     { border-left-color: var(--navy); }
+.warning  { border-left-color: var(--warm); }
+.takeaway { border-left-color: var(--sage); }
 
-.highlight p:last-child, .note p:last-child, .warning p:last-child { margin-bottom: 0; }
+.highlight p:last-child, .note p:last-child, .warning p:last-child, .takeaway p:last-child { margin-bottom: 0; }
+
+.takeaway > b:first-child {
+    display: block;
+    font-family: var(--sans);
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: .5rem;
+}
 
 .example-block {
     border-left: 3px solid var(--line);
