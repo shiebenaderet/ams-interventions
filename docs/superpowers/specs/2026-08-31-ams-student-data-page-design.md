@@ -217,8 +217,10 @@ chart types:
   own conversation.
 - Dark mode.
 - Indexing the data page in ⌘K search.
-- Any change to existing pages beyond the new nav item on all six and one link
-  in the `index.html` "Also here" list.
+- Any change to existing pages beyond the new nav item and one link in the
+  `index.html` "Also here" list. The nav appears in 34 files — seven top-level
+  pages, `TEMPLATE.html`, and 26 intervention detail pages, which path their nav
+  links with a `../../` prefix.
 
 ## Open item for the user
 
