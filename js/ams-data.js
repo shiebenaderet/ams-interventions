@@ -187,7 +187,7 @@
     m.appendChild(C.divbars(rows, {
       max: 18, labelw: '215px',
       posColor: 'var(--sage)', negColor: 'var(--warm)',
-      fmt: function (v) { return (v > 0 ? '+' : '') + v.toFixed(1) + ' pts'; }
+      fmt: function (v) { return (v < 0 ? '−' : (v > 0 ? '+' : '')) + Math.abs(v).toFixed(1) + ' pts'; }
     }));
   };
 
@@ -254,7 +254,13 @@
   };
 
   render['attendance-all'] = function (m) {
-    var rows = [{ header: 'All students' }].concat(data.att.all,
+    // data/school-data.js flags the school-wide row with `all: 1`; hbars'
+    // contract reads `total` (or `hi`) for its emphasis class and colour.
+    // Normalise the name here at the call site rather than changing hbars.
+    var allRows = data.att.all.map(function (r) {
+      return { g: r.g, v: r.v, total: r.all };
+    });
+    var rows = [{ header: 'All students' }].concat(allRows,
       [{ header: 'Gender' }], data.att.gender,
       [{ header: 'Race / ethnicity' }], data.att.race,
       [{ header: 'Program and characteristic' }], data.att.prog);
@@ -387,7 +393,7 @@
     m.appendChild(C.divbars(rows, {
       max: 13, labelw: '230px',
       posColor: 'var(--navy)', negColor: 'var(--warm)',
-      fmt: function (v) { return (v > 0 ? '+' : '') + v.toFixed(1); }
+      fmt: function (v) { return (v < 0 ? '−' : (v > 0 ? '+' : '')) + Math.abs(v).toFixed(1); }
     }));
     var l = document.createElement('div');
     l.className = 'chart-legend';
@@ -419,8 +425,11 @@
     m.appendChild(C.table(['Group'].concat(data.wsifYears, ['Change']),
       data.wsif.map(function (r) {
         var d = window.AMSScales.delta(r.v[0], r.v[2]);
-        return [r.g, r.v[0].toFixed(2), r.v[1].toFixed(2), r.v[2].toFixed(2),
-                (d.value > 0 ? '+' : '') + d.value.toFixed(2)];
+        return [r.g,
+                r.v[0] == null ? null : r.v[0].toFixed(2),
+                r.v[1] == null ? null : r.v[1].toFixed(2),
+                r.v[2] == null ? null : r.v[2].toFixed(2),
+                d == null ? null : (d.value > 0 ? '+' : '') + d.value.toFixed(2)];
       }), 'WSIF final score'));
 
     m.appendChild(C.table(['Group', 'Regular attendance'],
@@ -432,7 +441,7 @@
       m.appendChild(C.table(
         ['Group', 'Assessed'].concat(data.iLabels),
         data.iready[subject].map(function (r) {
-          return [r.g, r.n].concat(r.v.map(function (v) { return v + '%'; }));
+          return [r.g, r.n].concat(r.v.map(function (v) { return v == null ? null : v + '%'; }));
         }),
         'i-Ready ' + (subject === 'ela' ? 'reading' : 'math') + ', Spring 2026'));
     });

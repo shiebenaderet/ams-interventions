@@ -271,6 +271,12 @@
       track.appendChild(d1);
       track.appendChild(d2);
 
+      // o.fmt's return value goes straight into innerHTML, unescaped: by
+      // contract it returns trusted HTML (callers use it for intentional
+      // tags like <b>), not plain text. Any caller-supplied data that isn't
+      // already known-safe (i.e. not one of this page's own numbers) must be
+      // escaped by the caller with Core.escapeHtml before interpolating it
+      // into the string it returns.
       var val = el('div', 'db-val', o.fmt
         ? o.fmt(r.a, r.b)
         : Core.escapeHtml(r.a + (o.unit || '') + ' → ') + '<b>' +

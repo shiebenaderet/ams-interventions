@@ -106,6 +106,15 @@ test('placement returns null for a suppressed row rather than zero sums', functi
   assert.strictEqual(S.placement([1, 2, 3, 4]), null, 'short array is not a valid 5-step row');
 });
 
+test('placement returns null when a correctly-sized array has a null inside it', function () {
+  // A wrong-length array is caught above; this is the other shape of bad
+  // input: five slots, but one of them is a suppressed cell. The old `|| 0`
+  // guard would silently treat that as zero and hand back numbers instead
+  // of null, which is exactly the kind of suppressed-group-as-zero bug this
+  // page's own rule forbids.
+  assert.strictEqual(S.placement([35, 21, null, 8, 23]), null);
+});
+
 test('delta returns null for a suppressed comparison rather than reporting no change', function () {
   assert.strictEqual(S.delta(null, 1.5), null);
   assert.strictEqual(S.delta(1.5, null), null);

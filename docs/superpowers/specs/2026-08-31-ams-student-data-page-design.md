@@ -198,6 +198,21 @@ chart types:
 - Suppressed groups render the words "not reported (N<10)", never a zero-length
   bar that could read as zero.
 
+**Deviation from the rule above.** Only the two SVG-based primitives —
+`scatter` and `sparkgrid` — carry `role="img"` with a descriptive
+`aria-label`. The 15 DOM-based charts built from `hbars`, `gbars`, `divbars`,
+`divstack` and `dumbbell` deliberately do not. `role="img"` flattens an
+element's subtree into a single accessible object and replaces its readable
+content with the one label string — appropriate for an SVG, which has no
+readable text nodes to lose, but wrong for these primitives, whose whole
+point is that every value is printed as real text (`bar-val`, `gb-val`,
+`div-val`, `stack-end`, `db-val`). Applying `role="img"` to one of them would
+hide every one of those numbers from assistive tech behind a single summary
+string — the opposite of this page's central rule that a value must always
+be legible, never collapsed into a single opaque label. These charts get
+their accessible text for free, as their own markup, and are left as plain
+`<div>` structure so that text stays exposed.
+
 ## Testing
 
 1. `tools/test-scales.js` — TDD, tests before implementation, in the style of
