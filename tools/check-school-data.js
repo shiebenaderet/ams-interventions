@@ -1,4 +1,24 @@
 'use strict';
+/* Integrity checker for data/school-data.js.
+ *
+ * What this catches: values outside their valid range (percentages, growth
+ * percentiles, WSIF scores), wrong shapes (wrong array length, non-array
+ * where an array is expected), i-Ready rows whose five steps don't total
+ * 100 within rounding, unparseable assessed counts, a group named twice in
+ * one list, one half of a paired measure (F/NC, survey) suppressed while
+ * its partner isn't, and a missing district caveat in meta.
+ *
+ * What this does NOT catch: a mistyped digit that stays in range. 55.0
+ * typed as 65.0 passes every check here except inside an i-Ready row,
+ * where the steps-total-100 constraint happens to also catch it. Outside
+ * that block, range/shape checks cannot tell a correct figure from a wrong
+ * one that's still plausible.
+ *
+ * What actually protects against that: every figure was checked page by
+ * page against the source PDF, and this file's transcription was
+ * programmatically compared key-by-key against the source block it was
+ * copied from.
+ */
 const { loadBrowserGlobal } = require('./load');
 
 const D = loadBrowserGlobal('data/school-data.js', 'AMSData');
@@ -55,8 +75,13 @@ check(D.wsifYears.length === 3, 'wsifYears must name exactly 3 cycles');
     (r.v || []).forEach(function (v, j) {
       check(typeof v === 'number', at + ': step ' + j + ' (' + v + ') is not a number');
     });
-    const total = S.placement(r.v).total;
-    check(Math.abs(total - 100) <= 1, at + ': steps total ' + total + '%, expected 100 (+/-1 for rounding)');
+    const placement = S.placement(r.v);
+    if (placement === null) {
+      check(false, at + ': placement steps are malformed, cannot total them');
+    } else {
+      check(Math.abs(placement.total - 100) <= 1,
+        at + ': steps total ' + placement.total + '%, expected 100 (+/-1 for rounding)');
+    }
     const n = S.parseAssessed(r.n);
     check(n !== null, at + ': assessed count "' + r.n + '" is not a valid n/total');
   });
