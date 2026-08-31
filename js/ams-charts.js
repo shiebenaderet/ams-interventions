@@ -85,12 +85,16 @@
       if (o.labelw) row.style.setProperty('--labelw', o.labelw);
       row.appendChild(el('div', 'gb-lab', Core.escapeHtml(r.g)));
 
+      var allNull = series.every(function (s) { return r[s.key] == null; });
+
       var set = el('div', 'gb-set');
       series.forEach(function (s, i) {
         var line = el('div', 'gb-line');
         if (r[s.key] == null) {
-          // Say it once per row, not once per series.
-          if (i === 0) line.appendChild(notReported());
+          // A row where every series is suppressed only needs to say so once.
+          // A row where only some series are suppressed must mark each one —
+          // otherwise a partially-suppressed measure reads as simply absent.
+          if (!allNull || i === 0) line.appendChild(notReported());
         } else {
           var w = Math.max(0, Math.min(100, r[s.key] / max * 100));
           var fill = el('div', 'gb-fill');
@@ -112,7 +116,19 @@
   /* ---- diverging bars centred on zero ---------------------------------- */
   function divbars(rows, opts) {
     var o = opts || {};
-    var max = o.max || Math.max.apply(null, rows.map(function (r) { return Math.abs(r.v); })) * 1.15;
+    var max = o.max;
+    if (max == null) {
+      // Nulls contribute 0, not NaN (Math.abs(null) is 0), so this can't come
+      // out NaN even for an all-suppressed rows array — but an all-null (or
+      // empty) array would compute a max of 0, and dividing by that would
+      // still be wrong if this value were ever used. It never is: every row
+      // that reaches the width math below has already passed the r.v == null
+      // guard. This fallback just keeps `max` a sane, finite number regardless.
+      var widest = Math.max.apply(null, rows.map(function (r) {
+        return r.v == null ? 0 : Math.abs(r.v);
+      }).concat([0]));
+      max = widest > 0 ? widest * 1.15 : 1;
+    }
     var box = el('div', 'bars');
 
     rows.forEach(function (r) {
@@ -123,18 +139,22 @@
       var track = el('div', 'div-track');
       track.appendChild(el('div', 'div-axis'));
 
-      var w = Math.abs(r.v) / max * 50;
-      var fill = el('div', 'div-fill');
-      fill.style.width = w + '%';
-      fill.style.background = r.v >= 0 ? (o.posColor || 'var(--navy)') : (o.negColor || 'var(--warm)');
-      if (r.v >= 0) fill.style.left = '50%'; else fill.style.right = '50%';
-      track.appendChild(fill);
+      if (r.v == null) {
+        track.appendChild(notReported());
+      } else {
+        var w = Math.abs(r.v) / max * 50;
+        var fill = el('div', 'div-fill');
+        fill.style.width = w + '%';
+        fill.style.background = r.v >= 0 ? (o.posColor || 'var(--navy)') : (o.negColor || 'var(--warm)');
+        if (r.v >= 0) fill.style.left = '50%'; else fill.style.right = '50%';
+        track.appendChild(fill);
 
-      var val = el('div', 'div-val', Core.escapeHtml(
-        o.fmt ? o.fmt(r.v) : ((r.v > 0 ? '+' : '') + r.v.toFixed(1))));
-      if (r.v >= 0) { val.style.left = (50 + w) + '%'; val.style.paddingLeft = '.5rem'; }
-      else { val.style.right = (50 + w) + '%'; val.style.paddingRight = '.5rem'; }
-      track.appendChild(val);
+        var val = el('div', 'div-val', Core.escapeHtml(
+          o.fmt ? o.fmt(r.v) : ((r.v > 0 ? '+' : '') + r.v.toFixed(1))));
+        if (r.v >= 0) { val.style.left = (50 + w) + '%'; val.style.paddingLeft = '.5rem'; }
+        else { val.style.right = (50 + w) + '%'; val.style.paddingRight = '.5rem'; }
+        track.appendChild(val);
+      }
 
       row.appendChild(track);
       box.appendChild(row);

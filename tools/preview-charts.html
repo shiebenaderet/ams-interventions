@@ -39,9 +39,10 @@
     { g: 'All Students', v: 72.1, total: true }
   ], { max: 100, ref: 72.1, fmt: function (v) { return v.toFixed(1) + '%'; } }));
 
-  show('gbars, three series', C.gbars([
+  show('gbars, three series (partial suppression: Two or More Races has Math withheld but ELA/Science reported)', C.gbars([
     { g: 'Asian', ela: 61.9, math: 55.2, sci: 47.3 },
     { g: 'Hispanic/Latino', ela: 31.2, math: 17.6, sci: 25.7 },
+    { g: 'Two or More Races', ela: 45.0, math: null, sci: 33.1 },
     { g: 'American Indian/Alaskan Native', ela: null, math: null, sci: null }
   ], [
     { key: 'ela', name: 'ELA', color: 'var(--navy)' },
@@ -49,11 +50,18 @@
     { key: 'sci', name: 'Science', color: 'var(--sage)' }
   ], { max: 80 }));
 
-  show('divbars centred on zero', C.divbars([
+  show('divbars centred on zero, including a suppressed row', C.divbars([
     { g: 'Two or More Races', v: -30.0 },
     { g: 'Asian', v: -6.7 },
+    { g: 'Native Hawaiian/Pacific Islander', v: null },
     { g: 'Homeless', v: 5.0 }
   ], { max: 35, fmt: function (v) { return (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1) + ' pts'; } }));
+
+  show('divbars with no fmt option (default formatting; would have thrown on the null row before the fix)', C.divbars([
+    { g: 'English Learners', v: 12.4 },
+    { g: 'Foster Youth', v: null },
+    { g: 'Students with Disabilities', v: -8.2 }
+  ]));
 })();
 </script>
 </body>
