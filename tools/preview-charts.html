@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chart primitive preview</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="tier-1" data-root="../">
+<main id="main" class="container">
+  <section>
+    <h2>Chart primitives</h2>
+    <p>Scratch page for checking primitives against the house rules. Not linked from the site.</p>
+    <div id="preview"></div>
+  </section>
+</main>
+<script src="../js/ams-core.js"></script>
+<script src="../js/ams-scales.js"></script>
+<script src="../js/ams-charts.js"></script>
+<script>
+(function () {
+  var host = document.getElementById('preview');
+  var C = window.AMSCharts;
+
+  function show(title, node) {
+    var h = document.createElement('div');
+    h.className = 'chart-title';
+    h.textContent = title;
+    host.appendChild(h);
+    host.appendChild(node);
+  }
+
+  show('hbars with a group header and reference line', C.hbars([
+    { header: 'Race / ethnicity' },
+    { g: 'Asian', v: 83.9 },
+    { g: 'Black/African American', v: 84.9 },
+    { g: 'Hispanic/Latino', v: 65.4 },
+    { g: 'American Indian/Alaskan Native', v: null },
+    { g: 'All Students', v: 72.1, total: true }
+  ], { max: 100, ref: 72.1, fmt: function (v) { return v.toFixed(1) + '%'; } }));
+
+  show('gbars, three series (partial suppression: Two or More Races has Math withheld but ELA/Science reported)', C.gbars([
+    { g: 'Asian', ela: 61.9, math: 55.2, sci: 47.3 },
+    { g: 'Hispanic/Latino', ela: 31.2, math: 17.6, sci: 25.7 },
+    { g: 'Two or More Races', ela: 45.0, math: null, sci: 33.1 },
+    { g: 'American Indian/Alaskan Native', ela: null, math: null, sci: null }
+  ], [
+    { key: 'ela', name: 'ELA', color: 'var(--navy)' },
+    { key: 'math', name: 'Math', color: 'var(--warm)' },
+    { key: 'sci', name: 'Science', color: 'var(--sage)' }
+  ], { max: 80 }));
+
+  show('divbars centred on zero, including a suppressed row', C.divbars([
+    { g: 'Two or More Races', v: -30.0 },
+    { g: 'Asian', v: -6.7 },
+    { g: 'Native Hawaiian/Pacific Islander', v: null },
+    { g: 'Homeless', v: 5.0 }
+  ], { max: 35, fmt: function (v) { return (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1) + ' pts'; } }));
+
+  show('divbars with no fmt option (default formatting; would have thrown on the null row before the fix)', C.divbars([
+    { g: 'English Learners', v: 12.4 },
+    { g: 'Foster Youth', v: null },
+    { g: 'Students with Disabilities', v: -8.2 }
+  ]));
+
+  var iLabels = ['Mid or above grade', 'Early on grade',
+    'One grade below', 'Two grades below', 'Three+ grades below'];
+
+  show('divstack, split at the on-grade boundary (including a malformed row that must not abort or widen the axis)', C.divstack([
+    { g: 'Asian', v: [35, 21, 13, 8, 23], n: '104/107' },
+    { g: 'White', v: [24, 24, 18, 6, 28], n: '215/218' },
+    { g: 'Special Education', v: [8, 6, 10, 6, 70], n: '114/119' },
+    { g: 'English Learner', v: [6, 8, 13, 9, 64], n: '173/177' },
+    { g: 'Pacific Islander (N<10)', v: null, n: '4/107' }
+  ], { labels: iLabels }));
+
+  show('dumbbell, before and after', C.dumbbell([
+    { g: 'All Students', a: 8, b: 9 },
+    { g: 'Students experiencing homelessness', a: 15, b: 22 },
+    { g: 'Hispanic/Latino', a: 13, b: 12 },
+    { g: 'Multilingual Learners', a: 15, b: 15 },
+    { g: 'American Indian or Alaska Native', a: null, b: null }
+  ], { max: 34, unit: '%', aColor: 'var(--line)', bColor: 'var(--navy)' }));
+
+  show('sparkgrid, nine panels on one scale', C.sparkgrid([
+    { g: 'All Students', v: [5.45, 4.25, 4.95] },
+    { g: 'Students with Disabilities', v: [2.20, 1.83, 1.82] },
+    { g: 'White', v: [6.43, 6.45, 6.80] }
+  ], { lo: 1, hi: 8.5, gridlines: [2, 4, 6, 8],
+       labels: ['2023', '2024', '2025'], tolerance: 0.15 }));
+
+  show('sparkgrid, suppressed row (must render "not reported", not crash)', C.sparkgrid([
+    { g: 'American Indian/Alaskan Native', v: null }
+  ], { lo: 1, hi: 8.5, gridlines: [2, 4, 6, 8], labels: ['2023', '2024', '2025'] }));
+
+  show('scatter with quadrants', C.scatter({
+    x0: 42, x1: 72, y0: 8, y1: 72,
+    xTicks: [45, 50, 55, 60, 65, 70], yTicks: [10, 30, 50, 70],
+    ySuffix: '%', xLabel: 'Median growth percentile →', yLabel: '% at Level 3 or 4 →',
+    refX: 55, refY: 46.7,
+    quadrants: [{ text: 'Ahead and pulling away', at: 'ne' },
+                { text: 'Behind and falling further', at: 'sw' }],
+    aria: 'ELA growth against proficiency by student group',
+    points: [
+      { g: 'Asian', x: 55, y: 61.9, lp: 't' },
+      { g: 'Hispanic/Latino', x: 47, y: 31.2, lp: 'r' },
+      { g: 'All Students', x: 55, y: 46.7, lp: 'b', ref: true, color: 'var(--faint)' }
+    ]
+  }));
+
+  show('scatter with suppressed points (null y and null x must be skipped, not plotted at 0)', C.scatter({
+    x0: 42, x1: 72, y0: 8, y1: 72,
+    xTicks: [45, 50, 55, 60, 65, 70], yTicks: [10, 30, 50, 70],
+    ySuffix: '%', xLabel: 'Median growth percentile →', yLabel: '% at Level 3 or 4 →',
+    refX: 55, refY: 46.7,
+    quadrants: [{ text: 'Ahead and pulling away', at: 'ne' },
+                { text: 'Behind and falling further', at: 'sw' }],
+    aria: 'ELA growth against proficiency by student group',
+    points: [
+      { g: 'Asian', x: 55, y: 61.9, lp: 't' },
+      { g: 'Hispanic/Latino', x: 47, y: 31.2, lp: 'r' },
+      { g: 'All Students', x: 55, y: 46.7, lp: 'b', ref: true, color: 'var(--faint)' },
+      { g: 'American Indian/Alaskan Native', x: 50, y: null, lp: 'r' },
+      { g: 'Native Hawaiian/Pacific Islander', x: null, y: 40, lp: 'l' }
+    ]
+  }));
+
+  show('data table', C.table(['Group', 'ELA SGP', 'Math SGP'], [
+    ['All Students', '55', '56'],
+    ['American Indian/Alaskan Native', null, null]
+  ], 'student growth, Alderwood 2024-25'));
+})();
+</script>
+</body>
+</html>
