@@ -415,6 +415,7 @@
 
   /* ---- data table: the charts' text alternative ------------------------ */
   function table(cols, rows, caption) {
+    var id = 'table-' + caption.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     var d = el('details', 'data-table');
     d.appendChild(el('summary', null, 'Data table — ' + Core.escapeHtml(caption)));
 
@@ -435,6 +436,14 @@
     html += '</tbody></table>';
 
     var scroll = el('div', 'data-table-scroll', html);
+    // The id lives on this inner wrapper, not on <details> itself: a fragment
+    // link that targets the <details> element directly does not trigger the
+    // browser's native "open the closed ancestor <details>" behaviour, because
+    // that algorithm only acts on ancestors of the target — and the <details>
+    // is never itself hidden, so it's never an ancestor that needs revealing.
+    // Targeting a descendant (this wrapper) makes <details> an ancestor of the
+    // target, so it gets force-opened, which is the whole point of the link.
+    scroll.id = id;
     d.appendChild(scroll);
     return d;
   }
