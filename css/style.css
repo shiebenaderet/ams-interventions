@@ -436,10 +436,19 @@ button { font-family: var(--sans); font-size: 1rem; cursor: pointer; border: non
     letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--faint);
+    margin-bottom: .3rem;
+}
+
+/* Wrapper for a .chart-title plus its .chart-scope: carries the hairline
+   that used to live on .chart-title alone, so a title with no scope line
+   can still stand on its own without dragging in a border. */
+.chart-head {
     padding-bottom: .45rem;
     border-bottom: 1px solid var(--line);
     margin-bottom: .9rem;
 }
+
+.chart-scope { font-size: .8rem; color: var(--faint); margin: 0; }
 
 .chart-source { font-size: .78rem; color: var(--faint); margin: .5rem 0 0; }
 
