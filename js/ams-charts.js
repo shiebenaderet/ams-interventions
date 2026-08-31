@@ -162,9 +162,133 @@
     return box;
   }
 
+  /* ---- diverging stack, split at the on-grade boundary ----------------- */
+  function divstack(rows, opts) {
+    var o = opts || {};
+    var S = window.AMSScales;
+
+    // Every row shares one axis position, so the widest on-grade share and the
+    // widest below-grade share together define the drawing width. A row whose
+    // placement() comes back null (malformed v) is suppressed and must not
+    // widen or narrow that shared axis.
+    var maxOn = 0, maxBelow = 0;
+    rows.forEach(function (r) {
+      var p = S.placement(r.v);
+      if (!p) return;
+      if (p.onGrade > maxOn) maxOn = p.onGrade;
+      if (p.below > maxBelow) maxBelow = p.below;
+    });
+    var span = maxOn + maxBelow;
+    var box = el('div', 'bars');
+
+    rows.forEach(function (r) {
+      var p = S.placement(r.v);
+      var row = el('div', 'stack-row');
+      row.style.setProperty('--labelw', o.labelw || '250px');
+      row.appendChild(el('div', 'stack-lab', Core.escapeHtml(r.g)));
+
+      if (!p) {
+        var ndOuter = el('div', 'stack-outer');
+        ndOuter.appendChild(notReported());
+        row.appendChild(ndOuter);
+        box.appendChild(row);
+        return;
+      }
+
+      var outer = el('div', 'stack-outer');
+      var stack = el('div', 'stack');
+      stack.style.marginLeft = ((maxOn - p.onGrade) / span * 100) + '%';
+      stack.style.width = (p.total / span * 100) + '%';
+
+      r.v.forEach(function (value, i) {
+        if (!value) return;
+        var seg = el('div', 'stack-seg');
+        seg.style.flex = value + ' 0 0';
+        seg.style.background = S.scaleStep(i);
+        // opts.labels carries the caller's step labels (e.g. data.iLabels).
+        // A primitive never reaches for page-specific globals, so degrade
+        // gracefully — omit the title — when the caller doesn't pass them.
+        if (o.labels && o.labels[i] != null) {
+          seg.setAttribute('title', r.g + ' — ' + o.labels[i] + ': ' + value + '%');
+        }
+        stack.appendChild(seg);
+      });
+      outer.appendChild(stack);
+
+      var axis = el('div', 'stack-axis');
+      axis.style.left = (maxOn / span * 100) + '%';
+      outer.appendChild(axis);
+
+      // On-grade share to the left of the axis, worst-case share to the right.
+      var left = el('div', 'stack-end', p.onGrade + '%');
+      left.style.right = (100 - (maxOn - p.onGrade) / span * 100) + '%';
+      left.style.paddingRight = '.45rem';
+      outer.appendChild(left);
+
+      var right = el('div', 'stack-end stack-end--worst', r.v[4] + '%');
+      right.style.left = ((maxOn + p.below) / span * 100) + '%';
+      right.style.paddingLeft = '.45rem';
+      outer.appendChild(right);
+
+      row.appendChild(outer);
+      box.appendChild(row);
+    });
+    return box;
+  }
+
+  /* ---- dumbbell: two points on one track ------------------------------- */
+  function dumbbell(rows, opts) {
+    var o = opts || {};
+    var max = o.max || 100;
+    var box = el('div', 'bars');
+
+    rows.forEach(function (r) {
+      var row = el('div', 'db-row');
+      row.style.setProperty('--labelw', o.labelw || '210px');
+      row.appendChild(el('div', 'db-lab-text', Core.escapeHtml(r.g)));
+
+      var track = el('div', 'db-track');
+      if (r.a == null || r.b == null) {
+        track.appendChild(notReported());
+        row.appendChild(track);
+        box.appendChild(row);
+        return;
+      }
+
+      var xa = r.a / max * 100, xb = r.b / max * 100;
+      var moved = r.b > r.a ? ' is-worse' : (r.b < r.a ? ' is-better' : '');
+      var line = el('div', 'db-line' + (o.neutral ? '' : moved));
+      line.style.left = Math.min(xa, xb) + '%';
+      line.style.width = Math.abs(xb - xa) + '%';
+      track.appendChild(line);
+
+      var d1 = el('div', 'db-dot');
+      d1.style.left = xa + '%';
+      d1.style.background = o.aColor || 'var(--line)';
+      var d2 = el('div', 'db-dot');
+      d2.style.left = xb + '%';
+      d2.style.background = o.bColor || 'var(--navy)';
+      track.appendChild(d1);
+      track.appendChild(d2);
+
+      var val = el('div', 'db-val', o.fmt
+        ? o.fmt(r.a, r.b)
+        : Core.escapeHtml(r.a + (o.unit || '') + ' → ') + '<b>' +
+          Core.escapeHtml(r.b + (o.unit || '')) + '</b>');
+      val.style.left = Math.max(xa, xb) + '%';
+      track.appendChild(val);
+
+      row.appendChild(track);
+      box.appendChild(row);
+    });
+    return box;
+  }
+
   window.AMSCharts = {
     hbars: hbars,
     gbars: gbars,
-    divbars: divbars
+    divbars: divbars,
+    divstack: divstack,
+    dumbbell: dumbbell
   };
 })();
