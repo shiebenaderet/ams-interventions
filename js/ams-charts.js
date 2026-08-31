@@ -355,8 +355,25 @@
     var px = function (v) { return mL + (v - o.x0) / (o.x1 - o.x0) * (W - mL - mR); };
     var py = function (v) { return H - mB - (v - o.y0) / (o.y1 - o.y0) * (H - mT - mB); };
 
+    // A point with no x or y has nowhere on the plane that means "withheld" —
+    // (0,0) would be a lie about a student group, not a suppression marker.
+    // Refuse to plot it, but don't let it vanish silently: name it in the
+    // aria-label so the omission is discoverable. Visible prose is the
+    // caller's job.
+    var isNum = function (v) { return typeof v === 'number' && isFinite(v); };
+    var points = o.points || [];
+    var valid = [], skipped = [];
+    points.forEach(function (p) {
+      if (isNum(p.x) && isNum(p.y)) valid.push(p); else skipped.push(p.g);
+    });
+
+    var aria = o.aria || '';
+    if (skipped.length) {
+      aria += ' Not shown because figures were suppressed: ' + skipped.join(', ') + '.';
+    }
+
     var g = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' +
-            Core.escapeHtml(o.aria || '') + '">';
+            Core.escapeHtml(aria) + '">';
 
     (o.yTicks || []).forEach(function (v) {
       g += '<line x1="' + mL + '" x2="' + (W - mR) + '" y1="' + py(v) + '" y2="' + py(v) + '" stroke="var(--line-2)"/>';
@@ -380,9 +397,9 @@
     g += '<text class="sc-axis" x="' + ((mL + W - mR) / 2) + '" y="' + (H - 10) + '" text-anchor="middle">' + Core.escapeHtml(o.xLabel) + '</text>';
     g += '<text class="sc-axis" transform="translate(14,' + ((mT + H - mB) / 2) + ') rotate(-90)" text-anchor="middle">' + Core.escapeHtml(o.yLabel) + '</text>';
 
-    o.points.forEach(function (p) {
+    valid.forEach(function (p) {
       var X = px(p.x), Y = py(p.y);
-      g += '<circle cx="' + X + '" cy="' + Y + '" r="6.5" fill="' + (p.color || 'var(--navy)') +
+      g += '<circle cx="' + X + '" cy="' + Y + '" r="6.5" fill="' + Core.escapeHtml(p.color || 'var(--navy)') +
            '" stroke="var(--cream)" stroke-width="2"/>';
       var lx = X + 12, ly = Y + 4, anchor = 'start';
       if (p.lp === 'l') { lx = X - 12; anchor = 'end'; }

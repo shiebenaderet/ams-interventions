@@ -108,6 +108,23 @@
     ]
   }));
 
+  show('scatter with suppressed points (null y and null x must be skipped, not plotted at 0)', C.scatter({
+    x0: 42, x1: 72, y0: 8, y1: 72,
+    xTicks: [45, 50, 55, 60, 65, 70], yTicks: [10, 30, 50, 70],
+    ySuffix: '%', xLabel: 'Median growth percentile →', yLabel: '% at Level 3 or 4 →',
+    refX: 55, refY: 46.7,
+    quadrants: [{ text: 'Ahead and pulling away', at: 'ne' },
+                { text: 'Behind and falling further', at: 'sw' }],
+    aria: 'ELA growth against proficiency by student group',
+    points: [
+      { g: 'Asian', x: 55, y: 61.9, lp: 't' },
+      { g: 'Hispanic/Latino', x: 47, y: 31.2, lp: 'r' },
+      { g: 'All Students', x: 55, y: 46.7, lp: 'b', ref: true, color: 'var(--faint)' },
+      { g: 'American Indian/Alaskan Native', x: 50, y: null, lp: 'r' },
+      { g: 'Native Hawaiian/Pacific Islander', x: null, y: 40, lp: 'l' }
+    ]
+  }));
+
   show('data table', C.table(['Group', 'ELA SGP', 'Math SGP'], [
     ['All Students', '55', '56'],
     ['American Indian/Alaskan Native', null, null]
