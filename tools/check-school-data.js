@@ -156,13 +156,37 @@ function sourceBlock(startMarker, endMarker) {
   return jsDataSrc.slice(start, end);
 }
 
+// Some page-composition arrays now call REF.<measure>() instead of writing a
+// school-wide figure down, so this evaluator supplies the same lookups
+// ams-data.js uses. That is deliberate: evaluating with real values still
+// proves the array reaches the RIGHT field, so a crosshair wired to
+// profMath() where profEla() belongs is still caught. What it no longer has
+// to catch is drift, because a derived value cannot drift.
+function schoolWide(list, key) {
+  let hit = null;
+  (list || []).forEach(function (r) { if (r.g === 'All Students') hit = r; });
+  if (!hit || hit[key] == null) {
+    throw new Error('check-school-data: no All Students row for "' + key + '"');
+  }
+  return hit[key];
+}
+
+const REF = {
+  growthEla:  function () { return schoolWide(D.growthSchool, 'ela'); },
+  growthMath: function () { return schoolWide(D.growthSchool, 'math'); },
+  profEla:    function () { return schoolWide(D.prof.race, 'ela'); },
+  profMath:   function () { return schoolWide(D.prof.race, 'math'); },
+  attendance: function () { return schoolWide(D.att.all, 'v'); },
+  fncNow:     function () { return schoolWide(D.fnc.prog, 'b'); }
+};
+
 function literalArray(blockSrc, re) {
   const m = re.exec(blockSrc);
   if (!m) {
     throw new Error('check-school-data: could not locate the expected literal array in js/ams-data.js\n' +
       '  (the block being searched was: ' + blockSrc.slice(0, 80) + '...)');
   }
-  return new Function('return ' + m[1] + ';')();
+  return new Function('REF', 'return ' + m[1] + ';')(REF);
 }
 
 function findRow(rows, name) {

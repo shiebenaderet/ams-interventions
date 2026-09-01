@@ -25,6 +25,30 @@
     mount.innerHTML = html + '</div>';
   };
 
+  // Every reference line and crosshair on this page marks a school-wide
+  // figure. Look them up from AMSData rather than writing them down: a
+  // hardcoded 72.1 would quietly disagree with the tables the next time the
+  // handout is updated, and a crosshair in the wrong place misreads every
+  // quadrant on the chart it sits in.
+  function schoolWide(list, key) {
+    var hit = null;
+    (list || []).forEach(function (r) { if (r.g === 'All Students') hit = r; });
+    if (!hit || hit[key] == null) {
+      throw new Error('ams-data: no All Students row for "' + key + '" — ' +
+        'a reference line depends on it. Check data/school-data.js.');
+    }
+    return hit[key];
+  }
+
+  var REF = {
+    growthEla:  function () { return schoolWide(data.growthSchool, 'ela'); },
+    growthMath: function () { return schoolWide(data.growthSchool, 'math'); },
+    profEla:    function () { return schoolWide(data.prof.race, 'ela'); },
+    profMath:   function () { return schoolWide(data.prof.race, 'math'); },
+    attendance: function () { return schoolWide(data.att.all, 'v'); },
+    fncNow:     function () { return schoolWide(data.fnc.prog, 'b'); }
+  };
+
   // Growth against achievement. The crosshair is the school average, so each
   // quadrant reads relative to Alderwood rather than the state.
   function growthScatter(subject, key, avg) {
@@ -70,10 +94,10 @@
   }
 
   render['growth-scatter-ela'] = function (m) {
-    m.appendChild(growthScatter('English Language Arts', 'ela', { x: 55, y: 46.7 }));
+    m.appendChild(growthScatter('English Language Arts', 'ela', { x: REF.growthEla(), y: REF.profEla() }));
   };
   render['growth-scatter-math'] = function (m) {
-    m.appendChild(growthScatter('Math', 'math', { x: 56, y: 32.3 }));
+    m.appendChild(growthScatter('Math', 'math', { x: REF.growthMath(), y: REF.profMath() }));
   };
 
   render['wsif-sparkgrid'] = function (m) {
@@ -266,7 +290,7 @@
       [{ header: 'Program and characteristic' }], data.att.prog);
 
     m.appendChild(C.hbars(rows, {
-      max: 100, ref: 72.1, labelw: '215px',
+      max: 100, ref: REF.attendance(), labelw: '215px',
       fmt: function (v) { return v.toFixed(1) + '%'; },
       colorFn: function (r) {
         return r.total ? 'var(--navy-d)' : ATT_COLORS[window.AMSScales.attendanceBand(r.v)];
@@ -274,7 +298,7 @@
     }));
     var ref = document.createElement('div');
     ref.className = 'bar-ref-label';
-    ref.textContent = 'All Students · 72.1%';
+    ref.textContent = 'All Students · ' + REF.attendance().toFixed(1) + '%';
     m.appendChild(ref);
   };
 
@@ -284,7 +308,7 @@
       xTicks: [40, 50, 60, 70, 80, 90], yTicks: [10, 20, 30, 40, 50, 60],
       xSuffix: '%', ySuffix: '%',
       xLabel: 'Regular attendance →', yLabel: '% at ELA Level 3 or 4 →',
-      refX: 72.1, refY: 46.7, aria: aria,
+      refX: REF.attendance(), refY: REF.profEla(), aria: aria,
       points: points
     });
   }
@@ -298,7 +322,7 @@
       { g: 'White', x: 68.9, y: 54.8, lp: 'l' },
       { g: 'Female', x: 72.6, y: 49.7, lp: 'r' },
       { g: 'Male', x: 71.7, y: 43.5, lp: 'b' },
-      { g: 'All students', x: 72.1, y: 46.7, lp: 'l', ref: true, color: 'var(--faint)' }
+      { g: 'All students', x: REF.attendance(), y: REF.profEla(), lp: 'l', ref: true, color: 'var(--faint)' }
     ], 'Attendance against ELA proficiency by race, ethnicity and gender'));
   };
 
@@ -340,14 +364,14 @@
       xSuffix: '%', ySuffix: '%',
       xLabel: '% of grades that were F or No Credit →',
       yLabel: '% at ELA Level 3 or 4 →',
-      refX: 9, refY: 46.7,
+      refX: REF.fncNow(), refY: REF.profEla(),
       quadrants: [{ text: 'Passing the test, failing the class', at: 'ne' }],
       aria: 'Failing grade rate against ELA proficiency by group',
       points: [
         { g: 'Asian', x: 2, y: 61.9, lp: 'r' },
         { g: 'Two or more races', x: 13, y: 63.3, lp: 'l' },
         { g: 'White', x: 8, y: 54.8, lp: 'l' },
-        { g: 'All students', x: 9, y: 46.7, lp: 'b', ref: true, color: 'var(--faint)' },
+        { g: 'All students', x: REF.fncNow(), y: REF.profEla(), lp: 'b', ref: true, color: 'var(--faint)' },
         { g: 'Black/African Am.', x: 10, y: 42.5, lp: 'r' },
         { g: 'Free/reduced meals', x: 14, y: 35.4, lp: 'r', color: 'var(--warm)' },
         { g: 'Hispanic/Latino', x: 12, y: 31.2, lp: 'l' },
