@@ -690,6 +690,11 @@ button { font-family: var(--sans); font-size: 1rem; cursor: pointer; border: non
 
 /* ---- data tables ---- */
 .data-table { margin-top: .7rem; border-top: 1px solid var(--line-2); }
+/* Scoped rather than folded into the global focus rule: <summary> is not
+   covered there, and these nine tables are the text alternative for every
+   chart on the data page, so their focus ring is load-bearing. */
+.data-table summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
 .data-table summary {
     cursor: pointer;
     padding: .6rem 0;
@@ -1074,7 +1079,6 @@ main:focus { outline: none; }
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-summary:focus-visible,
 .intervention-card:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 2px;
